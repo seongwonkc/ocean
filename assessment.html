@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OCEAN Assessment</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .assessment-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      background: var(--white);
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    .progress-label {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-track {
+      height: 4px;
+      background: var(--celadon-pale);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--celadon);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 560px;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .screen.active { display: block; }
+
+    .screen-card {
+      background: var(--cream);
+      border-radius: 24px;
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .screen-card .screen-icon { font-size: 48px; margin-bottom: 24px; }
+
+    .screen-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .screen-card p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+
+    .screen-card .disclaimer {
+      font-size: 12px;
+      color: var(--stone);
+      margin-top: 16px;
+      font-style: italic;
+    }
+
+    /* No section labels that could hint at traits */
+    .question-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .question-prompt {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(20px, 3.5vw, 26px);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.4;
+      margin-bottom: 32px;
+    }
+
+    .question-counter {
+      font-size: 12px;
+      color: var(--stone);
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--cream);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1.5;
+    }
+
+    .option-btn:hover { border-color: var(--celadon); background: var(--celadon-pale); }
+    .option-btn.selected { border-color: var(--celadon); background: var(--celadon-pale); }
+
+    .calibration-wrap {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--celadon-light);
+      animation: fadeUp 0.3s ease forwards;
+    }
+
+    .calibration-label {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .calibration-options { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .cal-btn {
+      padding: 8px 16px;
+      background: var(--white);
+      border: 1px solid var(--celadon-light);
+      border-radius: 20px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 13px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cal-btn:hover, .cal-btn.selected { background: var(--celadon); color: var(--white); border-color: var(--celadon); }
+
+    .next-btn {
+      margin-top: 32px;
+      width: 100%;
+      padding: 16px;
+      background: var(--celadon);
+      color: var(--white);
+      border: none;
+      border-radius: 40px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: none;
+    }
+
+    .next-btn.visible { display: block; }
+    .next-btn:hover { background: var(--moss); }
+
+    /* ── RESULTS ── */
+    .results-wrap { width: 100%; max-width: 640px; padding-bottom: 80px; }
+
+    .results-header { text-align: center; margin-bottom: 48px; }
+
+    .results-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .results-header p { color: var(--ink-soft); font-size: 15px; }
+
+    .archetype-card {
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .archetype-character {
+      width: 120px; height: 150px;
+      margin: 0 auto 20px;
+      border-radius: 16px; overflow: hidden;
+      background: linear-gradient(135deg, var(--celadon-pale), var(--amber-light));
+    }
+
+    .archetype-character img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+    .archetype-name { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--white); margin-bottom: 4px; }
+    .archetype-tagline { font-size: 13px; color: var(--celadon-light); letter-spacing: 0.1em; margin-bottom: 16px; }
+    .archetype-desc { font-size: 15px; line-height: 1.7; color: rgba(253,252,249,0.7); }
+
+    .trait-bars { background: var(--cream); border-radius: 24px; padding: 32px; margin-bottom: 32px; }
+
+    .trait-bars h3 { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 24px; }
+
+    .trait-row { margin-bottom: 20px; }
+
+    .trait-row-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+
+    .trait-row-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .trait-row-plain { font-size: 12px; color: var(--stone); font-style: italic; }
+    .trait-row-band { font-size: 12px; color: var(--celadon); font-weight: 600; letter-spacing: 0.05em; }
+
+    .trait-track { height: 8px; background: var(--celadon-light); border-radius: 8px; overflow: hidden; }
+
+    .trait-fill { height: 100%; background: var(--celadon); border-radius: 8px; transition: width 1s ease; width: 0%; }
+
+    .trait-desc { font-size: 13px; color: var(--ink-soft); margin-top: 6px; line-height: 1.6; }
+
+    .insights-wrap { background: var(--celadon-pale); border-radius: 24px; padding: 32px; margin-bottom: 32px; }
+
+    .insights-wrap h3 { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 20px; }
+
+    .insight-item { display: flex; gap: 12px; margin-bottom: 12px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+    .insight-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--celadon); margin-top: 8px; flex-shrink: 0; }
+
+    .premium-cta { background: var(--amber); border-radius: 24px; padding: 40px; text-align: center; color: var(--white); }
+
+    .premium-cta h3 { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400; margin-bottom: 12px; }
+
+    .premium-cta p { font-size: 15px; line-height: 1.7; opacity: 0.85; margin-bottom: 24px; }
+
+    .premium-cta a {
+      display: inline-block; background: var(--white); color: var(--amber);
+      padding: 14px 32px; border-radius: 40px;
+      font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all 0.2s ease;
+    }
+
+    .premium-cta a:hover { background: var(--ink); color: var(--white); }
+
+    .results-disclaimer { text-align: center; font-size: 12px; color: var(--stone); font-style: italic; margin-top: 32px; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+<div class="assessment-wrap">
+
+  <div class="progress-bar-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label">
+      <span id="progressSection">About your child</span>
+      <span id="progressCount">1 / 20</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="screen active" id="screen-intro">
+    <div class="screen-card">
+      <div class="screen-icon">🌿</div>
+      <h2>A quick guided conversation</h2>
+      <p>Answer based on your child's usual behavior over the past 3–6 months. There are no right or wrong answers.</p>
+      <p>Takes about 15–20 minutes. You'll go first, then invite your child for a few questions.</p>
+      <button class="hero-cta" onclick="startAssessment()" style="border:none;cursor:pointer;width:100%">Let's begin</button>
+      <p class="disclaimer">This profile is a developmental guidance tool, not a diagnosis or a fixed label.</p>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-parent-intro">
+    <div class="screen-card">
+      <div class="screen-icon">👋</div>
+      <h2>First: just you</h2>
+      <p>Choose the option that sounds more like your child most of the time. Go with your first honest impression.</p>
+      <button class="hero-cta" onclick="showParentQuestions()" style="border:none;cursor:pointer;width:100%">Start</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-parent-q">
+    <span class="question-section-label">About your child</span>
+    <div class="question-counter" id="pQuestionCounter"></div>
+    <div class="question-prompt" id="pQuestionPrompt"></div>
+    <div class="options-list" id="pOptionsList"></div>
+    <button class="next-btn" id="pNextBtn" onclick="nextParentQuestion()">Next →</button>
+  </div>
+
+  <div class="screen" id="screen-transition">
+    <div class="screen-card">
+      <div class="screen-icon">🧒</div>
+      <h2>Now invite your child</h2>
+      <p>Read the next prompts aloud and let your child choose. After each one, you'll tell us whether that answer was typical for them.</p>
+      <button class="hero-cta" onclick="showChildQuestions()" style="border:none;cursor:pointer;width:100%">Continue</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-child-q">
+    <span class="question-section-label">Read aloud to your child</span>
+    <div class="question-counter" id="cQuestionCounter"></div>
+    <div class="question-prompt" id="cQuestionPrompt"></div>
+    <div class="options-list" id="cOptionsList"></div>
+    <div class="calibration-wrap" id="calibrationWrap" style="display:none">
+      <div class="calibration-label">How typical was that answer for your child?</div>
+      <div class="calibration-options">
+        <button class="cal-btn" onclick="selectCalibration('very_typical', this)">Very typical</button>
+        <button class="cal-btn" onclick="selectCalibration('somewhat_typical', this)">Somewhat typical</button>
+        <button class="cal-btn" onclick="selectCalibration('not_very_typical', this)">Not very typical</button>
+      </div>
+    </div>
+    <button class="next-btn" id="cNextBtn" onclick="nextChildQuestion()">Next →</button>
+  </div>
+
+  <div class="screen" id="screen-results">
+    <div class="results-wrap">
+      <div class="results-header">
+        <h2>Your child's profile</h2>
+        <p>Based on your answers and your child's.</p>
+      </div>
+      <div class="archetype-card" id="archetypeCard"></div>
+      <div class="trait-bars" id="traitBars">
+        <h3>The five dimensions</h3>
+        <div id="traitBarsContent"></div>
+      </div>
+      <div class="insights-wrap" id="insightsWrap">
+        <h3>A few things to keep in mind</h3>
+        <div id="insightsContent"></div>
+      </div>
+      <div class="premium-cta">
+        <h3>Want to go deeper?</h3>
+        <p>Book a session with a child psychology specialist who can walk through these results with you in detail.</p>
+        <a href="index.html#waitlist">Book a consultation</a>
+      </div>
+      <p class="results-disclaimer">This profile is a developmental guidance tool, not a clinical diagnosis or a fixed label. Children's behavior varies by age, setting, sleep, stress, and relationship context.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── UTILITY: Fisher-Yates shuffle ──
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── RAW DATA ──
+const rawParentItems = [
+  { id:"P1", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Likes doing familiar activities in familiar ways"},{id:"B",text:"Wants to try new activities even without knowing much about them"}] },
+  { id:"P2", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Uses toys and materials for their usual purpose"},{id:"B",text:"Uses toys and materials in unusual or made-up ways"}] },
+  { id:"P3", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Prefers stories they already understand"},{id:"B",text:"Likes stories with surprising or unusual ideas"}] },
+  { id:"P4", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Wants clear directions before starting"},{id:"B",text:"Starts exploring and figures things out while doing it"}] },
+  { id:"P5", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Starts a small task and usually sees it through"},{id:"B",text:"Starts a small task but often shifts to something else"}] },
+  { id:"P6", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Keeps track of their belongings without many reminders"},{id:"B",text:"Often needs reminders about their belongings"}] },
+  { id:"P7", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Likes finishing one thing before moving to the next"},{id:"B",text:"Moves between activities depending on interest"}] },
+  { id:"P8", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Notices when something was skipped or missed"},{id:"B",text:"Is satisfied once the main part is done"}] },
+  { id:"P9", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Usually starts talking or joining first"},{id:"B",text:"Usually watches first and joins later"}] },
+  { id:"P10", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Seems energized after being with other kids"},{id:"B",text:"Seems to need quiet time after being with other kids"}] },
+  { id:"P11", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Speaks up easily in groups"},{id:"B",text:"Speaks more once comfortable"}] },
+  { id:"P12", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Chooses group play when both options are available"},{id:"B",text:"Chooses solo play when both options are available"}] },
+  { id:"P13", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Adjusts to keep things smooth with others"},{id:"B",text:"Pushes back when they think something should be different"}] },
+  { id:"P14", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Quickly notices when someone feels left out"},{id:"B",text:"Stays focused on what they are doing unless someone points it out"}] },
+  { id:"P15", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Offers help on their own"},{id:"B",text:"Usually helps once asked"}] },
+  { id:"P16", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"During disagreements, tends to soften or step back"},{id:"B",text:"During disagreements, tends to hold their position"}] },
+  { id:"P17", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Settles fairly quickly after disappointment"},{id:"B",text:"Stays upset for a while after disappointment"}] },
+  { id:"P18", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Walks into new situations fairly easily"},{id:"B",text:"Hesitates in new situations"}] },
+  { id:"P19", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Handles correction without much visible upset"},{id:"B",text:"Reacts strongly to correction"}] },
+  { id:"P20", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Adjusts fairly easily when plans change"},{id:"B",text:"Gets unsettled when plans change"}] }
+];
+
+const rawChildItems = [
+  { id:"C1", construct:"openness", prompt:"You get a new box of art supplies. What sounds most fun?", options:[{id:"1",text:"Draw something I already know how to make"},{id:"2",text:"Try mixing things in a new way"},{id:"3",text:"Wait for someone to show me what to do first"}] },
+  { id:"C2", construct:"openness", prompt:"At playtime, you can choose one.", options:[{id:"1",text:"A favorite game I already know"},{id:"2",text:"A brand-new game I've never tried"},{id:"3",text:"Making up my own game"}] },
+  { id:"C3", construct:"conscientiousness", prompt:"You're building something and it gets tricky. What do you do first?", options:[{id:"1",text:"Keep going until I finish it"},{id:"2",text:"Take a break and maybe come back later"},{id:"3",text:"Start doing something else instead"}] },
+  { id:"C4", construct:"conscientiousness", prompt:"You're almost done cleaning up your toys.", options:[{id:"1",text:"Check if anything is still left out"},{id:"2",text:"Stop when most things are put away"},{id:"3",text:"Ask someone else if it looks done"}] },
+  { id:"C5", construct:"extraversion", prompt:"At a playground where you don't know anyone, what would you most likely do?", options:[{id:"1",text:"Go ask someone to play"},{id:"2",text:"Play by myself first"},{id:"3",text:"Stay near my parent for a while"}] },
+  { id:"C6", construct:"extraversion", prompt:"At a birthday party, what sounds best?", options:[{id:"1",text:"Running around with everyone"},{id:"2",text:"Talking to one or two people"},{id:"3",text:"Finding a quieter activity"}] },
+  { id:"C7", construct:"agreeableness", prompt:"Another child looks sad during a game. What would you probably do?", options:[{id:"1",text:"Go see if they want help or company"},{id:"2",text:"Keep playing unless an adult says something"},{id:"3",text:"Watch first to see what happens"}] },
+  { id:"C8", construct:"agreeableness", prompt:"You and another child both want the same toy.", options:[{id:"1",text:"Take turns"},{id:"2",text:"Explain why I should have it now"},{id:"3",text:"Walk away and choose something else"}] },
+  { id:"C9", construct:"negative_emotionality", prompt:"You worked hard on something and it breaks by accident.", options:[{id:"1",text:"I'd get upset right away"},{id:"2",text:"I'd try to fix it"},{id:"3",text:"I'd ask for help calmly"}] },
+  { id:"C10", construct:"negative_emotionality", prompt:"You hear that today's plan changed.", options:[{id:"1",text:"That's okay, I can do the new plan"},{id:"2",text:"I need a minute to get used to it"},{id:"3",text:"I really don't like that"}] }
+];
+
+const parentScoring = {
+  P1:{keyed:"B"},P2:{keyed:"B"},P3:{keyed:"B"},P4:{keyed:"B"},
+  P5:{keyed:"A"},P6:{keyed:"A"},P7:{keyed:"A"},P8:{keyed:"A"},
+  P9:{keyed:"A"},P10:{keyed:"A"},P11:{keyed:"A"},P12:{keyed:"A"},
+  P13:{keyed:"A"},P14:{keyed:"A"},P15:{keyed:"A"},P16:{keyed:"A"},
+  P17:{keyed:"B"},P18:{keyed:"B"},P19:{keyed:"B"},P20:{keyed:"B"}
+};
+
+const childScoring = {
+  C1:{1:0.0,2:1.0,3:0.5},C2:{1:0.0,2:1.0,3:1.0},
+  C3:{1:1.0,2:0.5,3:0.0},C4:{1:1.0,2:0.5,3:0.5},
+  C5:{1:1.0,2:0.5,3:0.0},C6:{1:1.0,2:0.5,3:0.0},
+  C7:{1:1.0,2:0.0,3:0.5},C8:{1:1.0,2:0.25,3:0.5},
+  C9:{1:1.0,2:0.25,3:0.0},C10:{1:0.0,2:0.5,3:1.0}
+};
+
+const calibrationMultipliers = { very_typical:1.0, somewhat_typical:0.7, not_very_typical:0.4 };
+
+const traitDescriptions = {
+  openness:{ name:"Openness to Experience", plain:"Explores first.", higher:"More likely to seek novelty, imagination, and experimentation.", balanced:"Comfortable with both familiar routines and new possibilities.", lower:"More likely to prefer clarity, routine, and familiar ways of doing things." },
+  conscientiousness:{ name:"Conscientiousness", plain:"Finishes and tracks.", higher:"More likely to finish, track, check, and follow through.", balanced:"Can be responsible and organized, but varies by interest or context.", lower:"More likely to shift attention quickly and benefit from external structure." },
+  extraversion:{ name:"Extraversion", plain:"Joins fast.", higher:"More likely to initiate, speak up, and seek social stimulation.", balanced:"Socially engaged, but may warm up before fully joining.", lower:"More likely to observe first, prefer quieter interaction, or recharge alone." },
+  agreeableness:{ name:"Agreeableness", plain:"Keeps things smooth.", higher:"More likely to smooth conflict, help, notice others, and cooperate.", balanced:"Can be warm and cooperative while still asserting personal needs.", lower:"More likely to hold position, focus on own goals, or engage directly in disagreement." },
+  negative_emotionality:{ name:"Sensitivity", plain:"Feels change strongly.", higher:"More likely to react strongly to change, frustration, correction, or uncertainty.", balanced:"Shows feelings clearly, but usually settles without much spillover.", lower:"More likely to stay steady and recover quickly after setbacks." }
+};
+
+const parentingInsights = {
+  openness_high:["Offer room for experimentation, but add light structure so curiosity doesn't turn into chaos.","Novelty is motivating — use it when introducing hard tasks."],
+  openness_low:["Preview new activities before starting them.","Familiarity helps this child engage; don't mistake caution for lack of ability."],
+  conscientiousness_high:["This child may respond well to routines, checklists, and visible progress.","Be careful not to overload them with perfectionistic expectations."],
+  conscientiousness_low:["Use smaller steps, clear cues, and short completion loops.","External structure will matter more than lectures about responsibility."],
+  extraversion_high:["Social interaction can be a motivator, not just a distraction.","They may think out loud; help them slow down without shutting them down."],
+  extraversion_low:["Warm-up time matters.","Quiet engagement is still engagement; don't force high-energy participation."],
+  agreeableness_high:["This child may cooperate easily, but still needs permission to say no.","Notice when harmony-seeking turns into self-silencing."],
+  agreeableness_low:["Directness is not automatically a problem.","Teach negotiation and perspective-taking without trying to flatten assertiveness."],
+  negative_emotionality_high:["Transitions, correction, and uncertainty may hit harder than they look.","Regulation support works better than pressure or surprise."],
+  negative_emotionality_low:["This child may recover quickly, but still needs emotional language and reflection.","Steadiness is a strength; make sure it doesn't get misread as not caring."]
+};
+
+const archetypes = [
+  { id:"curie_style_explorer", name:"Curie-style Explorer", tagline:"Curious and persistent.", desc:"Drawn to new ideas and also willing to stay with a challenge long enough to learn from it.", logic:{openness:"high",conscientiousness:"high"}, character:"osol" },
+  { id:"goodall_style_observer", name:"Goodall-style Observer", tagline:"Quiet curiosity.", desc:"Explores deeply, notices details, and may prefer discovery without a lot of social noise.", logic:{openness:"high",extraversion:"low"}, character:"osol" },
+  { id:"attenborough_style_wonderer", name:"Attenborough-style Wonderer", tagline:"Eager and engaged.", desc:"Drawn to novelty, stories, and shared excitement about the world.", logic:{openness:"high",extraversion:"high"}, character:"epa" },
+  { id:"rogers_style_harmonizer", name:"Rogers-style Harmonizer", tagline:"Warm and steady.", desc:"Tends to smooth tension, notice others, and bring calm to relationships.", logic:{agreeableness:"high",negative_emotionality:"low"}, character:"aru" },
+  { id:"serena_style_finisher", name:"Serena-style Finisher", tagline:"Driven and determined.", desc:"Stays on task, pushes through obstacles, and is less likely to back down quickly.", logic:{conscientiousness:"high"}, character:"chiu" },
+  { id:"earhart_style_bold_starter", name:"Earhart-style Bold Starter", tagline:"Jumps in.", desc:"Ready to enter new situations, try unfamiliar things, and move before overthinking.", logic:{extraversion:"high",openness:"high"}, character:"epa" },
+  { id:"frida_style_intense_creator", name:"Frida-style Intense Creator", tagline:"Imaginative and strong-feeling.", desc:"Imaginative, expressive, and likely to experience setbacks or changes with real intensity.", logic:{openness:"high",negative_emotionality:"high"}, character:"nuri" },
+  { id:"yoyoma_style_connector", name:"Yo-Yo Ma-style Connector", tagline:"Engaged and kind.", desc:"Enjoys people, joins readily, and tends to bring warmth into group settings.", logic:{agreeableness:"high",extraversion:"high"}, character:"aru" },
+  { id:"flexible_adapter", name:"Flexible Adapter", tagline:"Balanced across settings.", desc:"Shows situational flexibility rather than one dominant pattern.", logic:{all:"balanced"}, character:"chiu" }
+];
+
+const characterImages = { chiu:"images/chiu.png", osol:"images/osol.png", epa:"images/epa.png", aru:"images/aru.png", nuri:"images/nuri.png" };
+
+const interpretationBands = [
+  {min:0,max:24,label:"Lower"},{min:25,max:44,label:"Somewhat lower"},
+  {min:45,max:55,label:"Balanced"},{min:56,max:75,label:"Somewhat higher"},
+  {min:76,max:100,label:"Higher"}
+];
+
+// ── RANDOMIZED QUESTION SETS (built once per session) ──
+// Shuffle question order within each section
+// Shuffle option order within each question
+// Scoring keys are preserved by question id — order doesn't affect scoring
+let parentItems = shuffle(rawParentItems).map(q => ({
+  ...q,
+  options: shuffle(q.options)
+}));
+
+let childItems = shuffle(rawChildItems).map(q => ({
+  ...q,
+  options: shuffle(q.options)
+}));
+
+// ── STATE ──
+let pIndex = 0;
+let cIndex = 0;
+let pAnswers = {};
+let cAnswers = {};
+let cCalibrations = {};
+let selectedOption = null;
+let selectedCal = null;
+
+// ── NAVIGATION ──
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startAssessment() { showScreen('screen-parent-intro'); }
+
+function showParentQuestions() {
+  document.getElementById('progressWrap').style.display = 'block';
+  pIndex = 0;
+  renderParentQuestion();
+  showScreen('screen-parent-q');
+}
+
+function showChildQuestions() {
+  cIndex = 0;
+  renderChildQuestion();
+  showScreen('screen-child-q');
+}
+
+// ── PARENT QUESTIONS ──
+function renderParentQuestion() {
+  const q = parentItems[pIndex];
+  document.getElementById('pQuestionCounter').textContent = `Question ${pIndex + 1} of ${parentItems.length}`;
+  document.getElementById('pQuestionPrompt').textContent = q.prompt;
+
+  const list = document.getElementById('pOptionsList');
+  list.innerHTML = '';
+  // Options already shuffled — render as-is, no labels
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => selectParentOption(opt.id, btn);
+    list.appendChild(btn);
+  });
+
+  document.getElementById('pNextBtn').classList.remove('visible');
+  selectedOption = null;
+  updateProgress('parent', pIndex, parentItems.length);
+}
+
+function selectParentOption(optId, btn) {
+  document.querySelectorAll('#pOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedOption = optId;
+  document.getElementById('pNextBtn').classList.add('visible');
+}
+
+function nextParentQuestion() {
+  if (!selectedOption) return;
+  pAnswers[parentItems[pIndex].id] = selectedOption;
+  pIndex++;
+  if (pIndex < parentItems.length) {
+    renderParentQuestion();
+  } else {
+    showScreen('screen-transition');
+    document.getElementById('progressWrap').style.display = 'none';
+  }
+}
+
+// ── CHILD QUESTIONS ──
+function renderChildQuestion() {
+  const q = childItems[cIndex];
+  document.getElementById('cQuestionCounter').textContent = `Question ${cIndex + 1} of ${childItems.length}`;
+  document.getElementById('cQuestionPrompt').textContent = q.prompt;
+
+  const list = document.getElementById('cOptionsList');
+  list.innerHTML = '';
+  // Options already shuffled — render as-is, no labels
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => selectChildOption(opt.id, btn);
+    list.appendChild(btn);
+  });
+
+  document.getElementById('calibrationWrap').style.display = 'none';
+  document.getElementById('cNextBtn').classList.remove('visible');
+  selectedOption = null;
+  selectedCal = null;
+
+  document.getElementById('progressWrap').style.display = 'block';
+  updateProgress('child', cIndex, childItems.length);
+}
+
+function selectChildOption(optId, btn) {
+  document.querySelectorAll('#cOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedOption = optId;
+  document.getElementById('calibrationWrap').style.display = 'block';
+}
+
+function selectCalibration(calId, btn) {
+  document.querySelectorAll('.cal-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedCal = calId;
+  if (selectedOption) document.getElementById('cNextBtn').classList.add('visible');
+}
+
+function nextChildQuestion() {
+  if (!selectedOption || !selectedCal) return;
+  cAnswers[childItems[cIndex].id] = selectedOption;
+  cCalibrations[childItems[cIndex].id] = selectedCal;
+  cIndex++;
+  if (cIndex < childItems.length) {
+    renderChildQuestion();
+  } else {
+    document.getElementById('progressWrap').style.display = 'none';
+    calculateAndShowResults();
+  }
+}
+
+// ── PROGRESS ──
+function updateProgress(section, index, total) {
+  document.getElementById('progressSection').textContent = section === 'parent' ? 'About your child' : 'Your child answers';
+  document.getElementById('progressCount').textContent = `${index + 1} / ${total}`;
+  document.getElementById('progressFill').style.width = ((index / total) * 100) + '%';
+}
+
+// ── SCORING ──
+function calculateAndShowResults() {
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  const scores = {};
+
+  traits.forEach(trait => {
+    const pItems = rawParentItems.filter(q => q.construct === trait);
+    let pRaw = 0;
+    pItems.forEach(q => {
+      if (pAnswers[q.id] === parentScoring[q.id].keyed) pRaw++;
+    });
+    const pScore = (pRaw / pItems.length) * 100;
+
+    const cItems = rawChildItems.filter(q => q.construct === trait);
+    let cRaw = 0;
+    cItems.forEach(q => {
+      const answer = cAnswers[q.id];
+      const cal = cCalibrations[q.id];
+      const optScore = childScoring[q.id][parseInt(answer)] || 0;
+      const calMult = calibrationMultipliers[cal] || 1.0;
+      cRaw += optScore * calMult;
+    });
+    const cScore = (cRaw / cItems.length) * 100;
+
+    scores[trait] = (pScore * 0.7) + (cScore * 0.3);
+  });
+
+  renderResults(scores);
+}
+
+function getBand(score) {
+  for (const band of interpretationBands) {
+    if (score >= band.min && score <= band.max) return band.label;
+  }
+  return 'Balanced';
+}
+
+function isHigh(s) { return s >= 56; }
+function isLow(s) { return s <= 44; }
+
+function matchArchetype(scores) {
+  for (const arch of archetypes) {
+    if (arch.logic.all === 'balanced') continue;
+    let matches = true;
+    for (const [trait, level] of Object.entries(arch.logic)) {
+      const s = scores[trait];
+      if (level === 'high' && !isHigh(s)) { matches = false; break; }
+      if (level === 'low' && !isLow(s)) { matches = false; break; }
+      if (level === 'low_to_balanced' && isHigh(s)) { matches = false; break; }
+      if (level === 'balanced_to_high' && isLow(s)) { matches = false; break; }
+    }
+    if (matches) return arch;
+  }
+  return archetypes.find(a => a.id === 'flexible_adapter');
+}
+
+// ── RENDER RESULTS ──
+function renderResults(scores) {
+  showScreen('screen-results');
+  const archetype = matchArchetype(scores);
+
+  document.getElementById('archetypeCard').innerHTML = `
+    <div class="archetype-character">
+      <img src="${characterImages[archetype.character]}" alt="${archetype.character}" onerror="this.style.display='none'" />
+    </div>
+    <div class="archetype-name">${archetype.name}</div>
+    <div class="archetype-tagline">${archetype.tagline}</div>
+    <div class="archetype-desc">${archetype.desc}</div>
+  `;
+
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  let barsHTML = '';
+  traits.forEach(trait => {
+    const score = Math.round(scores[trait]);
+    const band = getBand(score);
+    const desc = traitDescriptions[trait];
+    const descText = desc[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
+    barsHTML += `
+      <div class="trait-row">
+        <div class="trait-row-header">
+          <div>
+            <span class="trait-row-name">${desc.name}</span>
+            <span class="trait-row-plain"> — ${desc.plain}</span>
+          </div>
+          <span class="trait-row-band">${band}</span>
+        </div>
+        <div class="trait-track">
+          <div class="trait-fill" data-score="${score}" style="width:0%"></div>
+        </div>
+        <div class="trait-desc">${descText}</div>
+      </div>`;
+  });
+  document.getElementById('traitBarsContent').innerHTML = barsHTML;
+
+  setTimeout(() => {
+    document.querySelectorAll('.trait-fill').forEach(el => {
+      el.style.width = el.dataset.score + '%';
+    });
+  }, 300);
+
+  let insightsHTML = '';
+  traits.forEach(trait => {
+    const score = scores[trait];
+    const key = isHigh(score) ? `${trait}_high` : isLow(score) ? `${trait}_low` : null;
+    if (key && parentingInsights[key]) {
+      parentingInsights[key].forEach(insight => {
+        insightsHTML += `<div class="insight-item"><div class="insight-dot"></div><div>${insight}</div></div>`;
+      });
+    }
+  });
+  document.getElementById('insightsContent').innerHTML = insightsHTML ||
+    '<div class="insight-item"><div class="insight-dot"></div><div>Your child shows a well-balanced profile across all five dimensions.</div></div>';
+}
+</script>
+</body>
+</html>
