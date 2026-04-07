@@ -1,347 +1,834 @@
-const detailedReportData = [
-  {
-    trait: "openness",
-    band: "lower",
-    title: "Builds on what they know",
-    summary: "Your child tends to work best when expectations are clear and the situation is familiar. In developmental research, this pattern is described as lower novelty-seeking, which reflects a preference for depth over breadth. They often take longer to engage with something new, and once they do, their engagement is steady and grounded. Many children who prefer familiarity perform strongly when expectations are clear — the key is not to force novelty, but to build comfort with it gradually.",
-    strengths: [
-      "Develops genuine mastery — real skill in what they practice, not just exposure",
-      "Performs consistently in structured environments without needing variety to stay engaged",
-      "Careful and deliberate before committing to something new — reads instructions, asks questions, wants to understand first",
-      "Less likely to abandon a task because something more interesting appeared"
-    ],
-    watch_outs: [
-      "New environments or open-ended tasks can produce real hesitation. Address this before the task begins, not during it",
-      "In classrooms that reward spontaneous participation or creative risk-taking, this child may underperform relative to their actual ability",
-      "Their curiosity is directed toward depth. It can look like a lack of curiosity to adults expecting visible enthusiasm for new things"
-    ],
-    what_to_do: [
-      "Before anything new, give a brief preview: what it is, what they'll need to do, what it will feel like. This removes friction before it becomes resistance",
-      "Connect new tasks to what they already know well. 'This is like X, but with one difference' works far better than 'let's try something completely different'",
-      "Measure progress by depth of understanding. This child often knows one thing very well rather than five things superficially — that is a strength worth naming"
-    ],
-    context: "Korean academic environments heavily reward structured mastery, and this profile often fits those expectations well. The temptation is to push for more visible curiosity or faster engagement with new material. What looks like hesitation is often careful entry. Their kind of curiosity — careful, deep, sequential — is curiosity. It just doesn't announce itself."
-  },
-  {
-    trait: "openness",
-    band: "balanced",
-    title: "Moves between familiar and new",
-    summary: "Your child shows flexibility in how they approach tasks. They can follow structure when it is provided and engage with something new when the situation calls for it. In research terms, this sits near the center of the openness range and is often linked to adaptability across environments. They tend to adjust based on context rather than a strong internal drive toward or away from novelty.",
-    strengths: [
-      "Follows structured instruction without needing it to be interesting first",
-      "Can be introduced to new topics without requiring extensive preparation",
-      "Reads environmental cues well — adjusts approach based on what's expected",
-      "Less likely to be derailed by either too much novelty or too much routine"
-    ],
-    watch_outs: [
-      "Because neither extreme pulls strongly, preferences can be hard to identify — which makes it harder to know what genuinely motivates them",
-      "They may default to whatever is easiest or most expected rather than what they find most meaningful",
-      "Without deliberate encouragement, they may not push into areas of deeper interest on their own"
-    ],
-    what_to_do: [
-      "Offer low-stakes choices periodically: 'You can do this the usual way or try a different approach.' Watch which they pick and why",
-      "After a task is done, ask what they found interesting about it — not just whether they finished. This surfaces motivation patterns that aren't always visible in behavior",
-      "Ask directly what they'd actually like to try. Their adaptability can mask real preferences — check in rather than assuming they're satisfied"
-    ],
-    context: "Teachers often describe these children as easygoing, which is accurate but can lead to under-investment. They rarely cause problems and rarely ask for more. They benefit just as much from challenge and exploration as any other child — they just won't show you they need it."
-  },
-  {
-    trait: "openness",
-    band: "higher",
-    title: "Drawn to what's new",
-    summary: "Your child is oriented toward exploration. Higher openness is linked in research to curiosity, idea generation, and comfort with uncertainty. They tend to engage quickly with new material and are motivated by discovery and possibility. Their attention is often pulled toward beginnings and ideas rather than completion.",
-    strengths: [
-      "Generates ideas quickly and makes unexpected connections between topics",
-      "Comfortable starting something without knowing exactly where it will go",
-      "Stays engaged longer in creative, open-ended, or discovery-based tasks",
-      "Asks 'why' and 'what if' more than most — this is active information-gathering"
-    ],
-    watch_outs: [
-      "The beginning of something is genuinely more interesting than the middle or end. Completion needs scaffolding built into the task itself",
-      "Highly standardized tasks — repetitive worksheets, rote memorization, fixed-answer formats — can feel aversive. Performance in these may not reflect actual ability",
-      "They may frustrate peers or teachers who prefer a single clear approach. The child is optimizing for something different than efficiency"
-    ],
-    what_to_do: [
-      "Build 'done' into the task from the start. 'You have 20 minutes, then we move on' works better than 'work on this until it's good.' Finite containers help",
-      "Use their curiosity as a lever for less preferred tasks: 'Before we do the worksheet, tell me one thing you wonder about this topic.' It creates buy-in",
-      "Let them show understanding in formats other than standard ones when possible — oral explanation, drawing, building. The goal is surfacing what they know"
-    ],
-    context: "In Korean educational settings, this child often gets feedback about focus, completion, or following directions. That feedback addresses the symptom. The cause is that their engagement is front-loaded — the solution is structure that channels the energy, not discipline that suppresses it."
-  },
-  {
-    trait: "conscientiousness",
-    band: "lower",
-    title: "Works in bursts, not streaks",
-    summary: "Your child's effort tends to follow interest and energy. Lower conscientiousness in childhood is linked to less automatic task persistence and a weaker internal tracking system. This does not reflect ability. It means follow-through depends more on how a task is structured than on internal drive. With the right external supports, these children complete tasks effectively.",
-    strengths: [
-      "Flexible and unattached to 'the right way' — can adapt quickly when a better approach appears",
-      "Often highly capable in short, engaging bursts",
-      "Less likely to persist in the wrong direction just because they started there",
-      "Can switch between tasks without the emotional cost that higher-conscientiousness children often experience"
-    ],
-    watch_outs: [
-      "Multi-step or long-horizon tasks are genuinely hard without external support. The internal tracking system that keeps other children on task is less automatic here",
-      "Belongings, homework, and responsibilities will be missed without physical reminders — repeatedly. This is predictable and manageable with the right setup",
-      "They may resist tasks that feel disconnected from anything real. That resistance often has information in it worth paying attention to"
-    ],
-    what_to_do: [
-      "External structure replaces internal structure. Checklists, timers, visual schedules, and dedicated physical spots for belongings are tools — use them consistently",
-      "Break longer tasks into pieces with a clear end-point for each. 'Finish the homework' is too large. 'Do the first three questions, then we check' is workable",
-      "Connect tasks to outcomes they actually care about. Abstract responsibility lands less well than concrete cause and effect: 'When we spend 10 minutes tonight, we don't spend an hour on Saturday'"
-    ],
-    context: "This trait profile is among the most stigmatized in Korean parenting and educational contexts, where persistence and follow-through are treated as markers of character. The research is unambiguous: conscientiousness is highly developable through adolescence, and early environment matters enormously. Building habits through repetition and structure works. Pressure alone doesn't."
-  },
-  {
-    trait: "conscientiousness",
-    band: "balanced",
-    title: "Follows through when it matters",
-    summary: "Your child can be organized and persistent when expectations are clear and the task feels meaningful. In research, this reflects moderate effortful control — the ability to sustain effort, with consistency depending on context, clarity, and perceived relevance. These children are capable of strong follow-through. Whether they apply it depends significantly on how the situation is framed.",
-    strengths: [
-      "Capable of strong follow-through when engaged — reliable under the right conditions",
-      "Less prone to perfectionistic spirals than higher-conscientiousness children",
-      "Can adjust when a plan changes without becoming dysregulated",
-      "Matches effort to what a situation actually requires rather than applying maximum effort to everything"
-    ],
-    watch_outs: [
-      "Consistency requires clear, repeated expectations. Without them, performance varies in ways that look like inconsistency but are actually sensitivity to context",
-      "They may perform well in one subject and poorly in another based almost entirely on how those classes are structured",
-      "When motivation drops, output drops with it. Building habits that run on structure rather than motivation is the long-term goal"
-    ],
-    what_to_do: [
-      "Identify the conditions under which they follow through well and replicate them. This is information about what works for this specific child",
-      "Build simple, low-effort routines for recurring responsibilities. A five-second habit done every day is worth more than an intensive effort done occasionally",
-      "When performance drops, check context first: Has the structure changed? Is the task less clear? Has their energy shifted? These are more likely explanations than attitude"
-    ],
-    context: "Teachers often describe these children as capable but inconsistent. That's accurate but incomplete. The inconsistency follows patterns — it isn't random. Parents who learn those patterns can work with them far more effectively than those who try to iron them out through general pressure."
-  },
-  {
-    trait: "conscientiousness",
-    band: "higher",
-    title: "Persistent and precise",
-    summary: "Your child shows strong task persistence and attention to detail. Research consistently links higher conscientiousness to academic performance and reliability. These children tend to track expectations internally and hold themselves to standards beyond what is explicitly required. They are often the ones who notice what was missed, finish what they start, and follow through without being reminded.",
-    strengths: [
-      "Meets expectations reliably and often exceeds them without being asked",
-      "Notices errors and gaps — a natural quality-checker in group settings",
-      "Performs consistently even on tasks that aren't inherently interesting",
-      "Builds trust quickly with teachers and adults"
-    ],
-    watch_outs: [
-      "The standard they hold themselves to is often invisible to others. When they fall short of it, the distress is real — even when the shortfall looks minor from the outside",
-      "They may avoid starting tasks they're not confident they can do well. This can look like procrastination — it's closer to risk management",
-      "In group projects, they may take over or become frustrated when others don't match their effort level"
-    ],
-    what_to_do: [
-      "Normalize imperfection in specific moments, not just as a general life lesson: 'That draft doesn't need to be perfect, it needs to exist by Friday'",
-      "Watch for effort that exceeds what a task requires. Two hours on a 20-minute assignment is information about internal pressure, not dedication",
-      "Give them roles where precision is genuinely useful. They don't need to be pushed toward flexibility at every turn — they need environments where who they are is an asset"
-    ],
-    context: "High conscientiousness in Korean educational settings is often treated as straightforwardly ideal — and in many ways, it is. The risk is that it gets reinforced without limits. The research on perfectionism in high-achieving children is consistent: it protects performance in the short term and complicates wellbeing over time. Support the strength while building tolerance for good enough."
-  },
-  {
-    trait: "extraversion",
-    band: "lower",
-    title: "Processes before participating",
-    summary: "Your child tends to observe a situation before entering it. Lower extraversion is linked to lower stimulation-seeking and a preference for lower-intensity environments. These children often engage more deeply after they have had time to observe and understand what is happening. Group settings are genuinely tiring for them — this is how their nervous system works, and it is worth taking seriously.",
-    strengths: [
-      "Thoughtful and measured — less likely to act impulsively in social situations",
-      "Can sustain independent focus for longer than more socially-oriented children",
-      "Often more aware of group dynamics than they appear — they've been watching",
-      "Develops deeper individual relationships rather than many surface-level ones"
-    ],
-    watch_outs: [
-      "Group settings, especially loud or unpredictable ones, are genuinely tiring. This is how their nervous system works — it's worth taking seriously",
-      "In classrooms that reward vocal participation, their actual understanding and engagement will be systematically undercounted",
-      "After a full day of group interaction, they need genuine quiet recovery time. What looks like shutdown is usually depletion"
-    ],
-    what_to_do: [
-      "Give advance notice before new social situations: who will be there, what will happen, how long it will last. Processing before arrival changes the experience significantly",
-      "Advocate with teachers for alternative participation formats — written responses, one-on-one check-ins, small group work. The goal is evidence of understanding",
-      "Protect recovery time after high-demand social days. A child who goes directly from school to an afternoon activity without a break will hit a wall"
-    ],
-    context: "Korean educational culture places significant weight on participation, presentation, and social confidence. This child may receive feedback about being too quiet or lacking confidence. The intervention isn't to push them into the center of the room — it's to build contexts where their depth of engagement is visible without requiring performance."
-  },
-  {
-    trait: "extraversion",
-    band: "balanced",
-    title: "Social when it makes sense",
-    summary: "Your child moves comfortably between social interaction and independent work. Moderate extraversion is associated with flexible social behavior — engaging when needed and stepping back when the situation calls for it. These children adjust their level of interaction based on context rather than defaulting to high or low engagement. They tend to read the room and respond accordingly.",
-    strengths: [
-      "Functions well in both collaborative and independent work without significant adjustment cost",
-      "Less likely to be destabilized by either too much or too little social interaction",
-      "Reads social situations accurately — knows when to engage and when to hold back",
-      "Can perform for an audience when needed, but doesn't require one"
-    ],
-    watch_outs: [
-      "Because they don't strongly signal their social needs, those needs can be overlooked",
-      "In group settings, they may not advocate for their own ideas — not from lack of confidence, but from lack of urgency",
-      "Teachers may underestimate their engagement because they are neither the most vocal nor the most noticeably withdrawn"
-    ],
-    what_to_do: [
-      "Check in directly about social experience: 'Did you enjoy that group today?' gives more information than observation alone",
-      "Encourage them to practice initiating: 'Next time, see if you can be the first one to suggest something.' Low-stakes practice builds the habit",
-      "Make sure they have at least one strong peer relationship, not just a functional social presence in a group"
-    ],
-    context: "This range suits most Korean educational settings well. The risk is that this child's adaptability gets misread as not needing anything in particular. All children benefit from deliberate social support — it just presents differently here."
-  },
-  {
-    trait: "extraversion",
-    band: "higher",
-    title: "Enters every room",
-    summary: "Your child is energized by social interaction and tends to initiate quickly. Higher extraversion is linked to behavioral activation and reward sensitivity. These children often think by speaking — interaction is how they process, not a distraction from processing. They engage outwardly and tend to create social energy wherever they are.",
-    strengths: [
-      "Comfortable initiating with unfamiliar people — social transitions are easier for them than for most",
-      "Brings visible energy to group activities, which often lifts overall engagement",
-      "Processes thoughts by speaking them — this is how they think",
-      "Unlikely to go unnoticed in any environment, which creates natural opportunity"
-    ],
-    watch_outs: [
-      "May speak before their thoughts are fully formed — a processing style that benefits from specific, practiced strategies",
-      "Can unintentionally dominate group conversations. Peers may pull back rather than push back, which the child often doesn't notice",
-      "Extended solo work and low-stimulation environments take real effort in a way that social tasks simply don't"
-    ],
-    what_to_do: [
-      "Teach a specific pause practice: 'Before you answer, take one breath.' This gives their thoughts time to catch up with their energy",
-      "Create explicit listening structures: 'Your job in this conversation is to ask two questions before sharing your own idea.' Make it a game",
-      "Schedule solo focus time during lower-energy parts of the day — after social interaction, not before. They'll tolerate it better"
-    ],
-    context: "High extraversion is visible and often rewarded in Korean group settings. The longer-term challenge is that children who are always in motion socially sometimes don't build the tolerance for sustained independent work that becomes important later. Worth attending to early — not to suppress the energy, but to build the complementary skill alongside it."
-  },
-  {
-    trait: "agreeableness",
-    band: "lower",
-    title: "Direct and self-directed",
-    summary: "Your child expresses their own perspective clearly and does not adjust automatically to maintain harmony. Lower agreeableness is associated with assertiveness and reduced compliance. These children prioritize accuracy and personal position over smooth interaction — they are less likely to go along with something they disagree with, and more likely to say so directly.",
-    strengths: [
-      "Won't agree with something they believe is wrong just to avoid conflict — a form of integrity",
-      "Less susceptible to peer pressure than children who prioritize social harmony",
-      "Comfortable advocating for their own needs",
-      "In situations where someone needs to push back, this child often will"
-    ],
-    watch_outs: [
-      "Holding a firm position can read as uncooperative in group settings, even when the position is reasonable. This gap between intent and perception is worth addressing directly",
-      "Conflict can escalate more quickly than this child realizes — they often underestimate how others experience direct communication",
-      "They may miss or minimize others' emotional reactions to disagreement"
-    ],
-    what_to_do: [
-      "Teach the difference between 'I disagree with your idea' and 'I think your idea is wrong' — the content is similar but the impact lands differently. Specific language practice helps",
-      "Role-play scenarios where holding a position and maintaining a relationship are both possible. These children sometimes need to see that these aren't mutually exclusive",
-      "Name it when you observe it going well: 'You disagreed with that clearly and the conversation kept going. That's a skill.'"
-    ],
-    context: "Korean social and academic environments place high value on cooperation and group harmony. A child with this profile may receive feedback about attitude or team behavior that doesn't fully capture what's happening. Assertiveness and directness are genuine strengths — the work is building awareness of how they land on others, not eliminating them."
-  },
-  {
-    trait: "agreeableness",
-    band: "balanced",
-    title: "Cooperates and holds ground",
-    summary: "Your child balances cooperation with independence. Moderate agreeableness is linked to flexible interpersonal behavior — able to adjust to group needs while maintaining a personal position when it matters. These children can work smoothly with others and hold their ground when needed. They tend to read the situation and respond accordingly.",
-    strengths: [
-      "Can collaborate without losing their own direction",
-      "Maintains relationships during disagreements more easily than children at either extreme",
-      "Able to read when to cooperate and when to push back",
-      "Less likely to become either a pushover or a source of friction in group settings"
-    ],
-    watch_outs: [
-      "May avoid expressing a position in ambiguous situations — not from lack of opinion, but from weighing whether it's worth it",
-      "Under social pressure, they may adjust their stated view without fully agreeing internally",
-      "They may not be the one who flags a problem in a group — even when they can see it clearly"
-    ],
-    what_to_do: [
-      "Ask what they actually think, not just what they're willing to say: 'I know you went along with that — what would you have chosen if it was just you?'",
-      "Point out instances where they expressed disagreement and the relationship stayed intact. This builds the evidence they need to do it more",
-      "Create low-stakes opportunities to practice stating a preference: small family decisions, activity choices, meal preferences"
-    ],
-    context: "This profile tends to work well in Korean group settings — able to cooperate when needed, hold ground when necessary. The growth edge is clarity about what they actually want and consistency in expressing it."
-  },
-  {
-    trait: "agreeableness",
-    band: "higher",
-    title: "Keeps the group together",
-    summary: "Your child is highly attuned to others and prioritizes harmony. Higher agreeableness is associated with prosocial behavior and sensitivity to interpersonal dynamics. These children adjust quickly to maintain smooth interactions, notice when someone is left out, and often help without being asked. Their attunement to others is a real skill — and one that needs to be balanced with attention to their own needs.",
-    strengths: [
-      "Genuinely attuned to others' emotional states — a real skill, not just a personality tendency",
-      "Naturally reduces friction in groups, which makes them valuable to group dynamics",
-      "Reliable and helpful in ways that build genuine trust",
-      "Able to see multiple perspectives in a conflict"
-    ],
-    watch_outs: [
-      "May not express disagreement even when they clearly have it — the internal experience and the external behavior can diverge significantly",
-      "Consistently prioritizing others means their own preferences, needs, and limits often go unvoiced and unmet",
-      "In academic settings, they may not advocate for themselves with teachers or peers, which can lead to being underestimated"
-    ],
-    what_to_do: [
-      "Give explicit, repeated permission to disagree at home — and practice it: 'Tell me something you actually don't want to do this weekend'",
-      "Notice and name when they put themselves last: 'I saw you give up your turn again. Did you want that turn?' Make the pattern visible without judgment",
-      "Teach the difference between helping because you want to and helping because you feel you have to. Both happen — both are worth knowing about"
-    ],
-    context: "High agreeableness is socially valued and academically rewarded in Korean settings. The longer-term risk is that children who consistently center others' needs over their own develop difficulty identifying and expressing their own preferences as they get older. The goal is to make sure cooperation is a choice, not just a reflex."
-  },
-  {
-    trait: "negative_emotionality",
-    band: "lower",
-    title: "Stable under pressure",
-    summary: "Your child shows low emotional reactivity to stress, change, and frustration. In research, lower negative emotionality is linked to faster recovery and lower baseline sensitivity to disruption. These children return to baseline quickly after difficulty and tend to move through challenging situations without extended disruption. Their emotional stability is genuine and functional.",
-    strengths: [
-      "Handles change, correction, and disappointment without extended disruption",
-      "Maintains function under pressure in ways that support performance in high-stakes situations",
-      "Often described as easy to be around — they regulate efficiently",
-      "Less likely to have prolonged recovery periods after difficulty"
-    ],
-    watch_outs: [
-      "Low external reactivity doesn't mean low internal experience. This child may feel things significantly without showing it — which means their distress can go unnoticed",
-      "They may not ask for support even when they need it, either because they don't recognize the need or assume they should handle it alone",
-      "In relationships, consistently low emotional expression can be misread by peers as indifference"
-    ],
-    what_to_do: [
-      "Check in verbally after difficult events, even when the child appears fine: 'That seemed hard. How are you actually feeling about it?' The absence of visible reaction isn't evidence of absence of experience",
-      "Build emotional vocabulary practice into ordinary moments — not just when something goes wrong. 'What was the best part of today? What was the hardest part?' normalizes reflection",
-      "Their stability is a genuine asset. It doesn't mean they need less emotional investment — it means that investment needs to be deliberate"
-    ],
-    context: "In Korean parenting and educational contexts, emotional stability is often treated as straightforwardly ideal. The risk is under-investment in emotional development for children who appear to be managing well. Regulation is a skill worth building deliberately, not just benefiting from passively."
-  },
-  {
-    trait: "negative_emotionality",
-    band: "balanced",
-    title: "Feels it, then settles",
-    summary: "Your child shows emotional responses and returns to baseline with time or support. Moderate negative emotionality reflects a system that reacts and then regulates. These children are emotionally readable — you can usually tell when something is wrong — and they recover with reasonable consistency. They benefit from support but are not consistently overwhelmed by their reactions.",
-    strengths: [
-      "Emotionally readable — you can usually tell when something is wrong, which makes support easier to provide",
-      "Recovers from setbacks with reasonable consistency",
-      "The visibility of their emotional experience is information — for them and for the people around them",
-      "Neither suppresses emotions nor becomes overwhelmed by them in most situations"
-    ],
-    watch_outs: [
-      "In higher-intensity situations — significant change, academic pressure, conflict with peers — recovery may take longer and require more active support",
-      "May rely on external reassurance to settle, which is functional in the short term",
-      "Sleep, hunger, and accumulated stress affect their emotional stability more noticeably than for lower-reactivity children"
-    ],
-    what_to_do: [
-      "Build a consistent calming sequence this child knows and can access — a specific physical or mental step they can take. Practice it when they're not upset so it's available when they are",
-      "When they're in the middle of a reaction, stay present without trying to fix it immediately. Recovery happens faster when the child feels seen",
-      "After they've settled, name what helped: 'You took a few minutes and then came back — that worked.' Building awareness of their own recovery process strengthens it"
-    ],
-    context: "This is a functional and common range. The goal isn't to move toward lower reactivity — it's to develop recovery that becomes more internal over time. Emotional expressiveness in this range is not a liability. What matters is the recovery, and recovery is teachable."
-  },
-  {
-    trait: "negative_emotionality",
-    band: "higher",
-    title: "Feels things at full volume",
-    summary: "Your child reacts strongly to frustration, unexpected change, correction, and uncertainty. Higher negative emotionality is associated with increased sensitivity and slower return to baseline. These children experience events more intensely — their reactions reflect how the system is tuned, not a choice to overreact. When regulated and secure, their engagement and warmth are fully visible.",
-    strengths: [
-      "Deeply engaged with their experiences — they are not going through the motions",
-      "Emotionally honest in ways that build genuine relationships with people who understand them",
-      "Sensitive to changes in environment, relationships, and fairness — this attentiveness has real value",
-      "When regulated and secure, their engagement and warmth are fully visible"
-    ],
-    watch_outs: [
-      "Transitions between activities, locations, or emotional states are the highest-risk moments. Warning signs often appear before the transition, not during it",
-      "Correction and criticism — even mild, well-intentioned forms — can land much harder than the adult intended",
-      "Accumulated stress across a day is real and cumulative. A child who has been managing all day will have less capacity in the evening"
-    ],
-    what_to_do: [
-      "Build predictability wherever possible. When change is coming, announce it in advance: 'In ten minutes we're going to stop and have dinner.' The buffer matters",
-      "When a reaction happens, prioritize co-regulation over correction. A child who is activated cannot process instruction — wait for the window, it will come",
-      "After the child has settled, do a brief debrief: 'That was hard. What happened?' This builds their own understanding of their patterns, which is the foundation of self-regulation"
-    ],
-    context: "This profile receives more negative feedback in Korean educational and family settings than almost any other. Strong emotional reactions are frequently labeled as immature, dramatic, or defiant. The research says something different: emotional sensitivity at this level often correlates with high empathy, creativity, and depth of engagement. The goal is building the regulation capacity that allows those strengths to be visible."
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OCEAN Assessment</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="report-content.js"></script>
+  <script src="products.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+
+    .assessment-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: var(--white);
+    }
+
+    .progress-bar-wrap {
+      width: 100%; max-width: 560px; margin-bottom: 40px;
+    }
+
+    .progress-label {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: 10px;
+      display: flex; justify-content: space-between;
+    }
+
+    .progress-track { height: 4px; background: var(--celadon-pale); border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--celadon); border-radius: 4px; transition: width 0.4s ease; }
+
+    .screen { display: none; width: 100%; max-width: 560px; animation: fadeUp 0.4s ease forwards; }
+    .screen.active { display: block; }
+
+    .screen-card {
+      background: var(--cream); border-radius: 20px; padding: 40px 32px; text-align: center;
+    }
+
+    .screen-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 5vw, 28px); font-weight: 400;
+      color: var(--ink); margin-bottom: 16px; line-height: 1.3;
+    }
+
+    .screen-card p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 20px; }
+    .screen-card .disclaimer { font-size: 12px; color: var(--stone); margin-top: 16px; font-style: italic; }
+
+    .question-section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 16px; display: block;
+    }
+
+    .question-prompt {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 3.5vw, 24px); font-weight: 400;
+      color: var(--ink); line-height: 1.4; margin-bottom: 28px;
+    }
+
+    .question-counter { font-size: 12px; color: var(--stone); margin-bottom: 8px; letter-spacing: 0.1em; }
+
+    .options-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .option-btn {
+      width: 100%; padding: 16px 20px;
+      background: var(--cream); border: 2px solid transparent;
+      border-radius: 14px; font-family: 'Noto Serif KR', serif;
+      font-size: 15px; color: var(--ink); text-align: left;
+      cursor: pointer; transition: all 0.2s ease; line-height: 1.5; min-height: 52px;
+    }
+
+    .option-btn:hover { border-color: var(--celadon); background: var(--celadon-pale); }
+    .option-btn.selected { border-color: var(--celadon); background: var(--celadon-pale); }
+
+    .calibration-wrap {
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--celadon-light);
+      animation: fadeUp 0.3s ease forwards;
+    }
+
+    .calibration-label { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; font-style: italic; }
+    .calibration-options { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .cal-btn {
+      flex: 1; min-width: 120px; padding: 12px 16px;
+      background: var(--white); border: 1px solid var(--celadon-light);
+      border-radius: 12px; font-family: 'Noto Serif KR', serif;
+      font-size: 13px; color: var(--ink-soft); cursor: pointer;
+      transition: all 0.2s ease; min-height: 48px; text-align: center;
+    }
+
+    .cal-btn:hover, .cal-btn.selected { background: var(--celadon); color: var(--white); border-color: var(--celadon); }
+
+    .next-btn {
+      margin-top: 28px; width: 100%; padding: 16px;
+      background: var(--celadon); color: var(--white);
+      border: none; border-radius: 40px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s ease; display: none; min-height: 52px;
+    }
+
+    .next-btn.visible { display: block; }
+    .next-btn:hover { background: var(--moss); }
+
+    /* ── RESULTS ── */
+    .results-wrap { width: 100%; max-width: 680px; padding-bottom: 80px; }
+
+    .results-header { text-align: center; margin-bottom: 40px; }
+
+    .results-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 5vw, 38px); font-weight: 400;
+      color: var(--ink); margin-bottom: 8px;
+    }
+
+    .results-header p { color: var(--ink-soft); font-size: 15px; }
+
+    .archetype-card {
+      background: var(--ink); color: var(--white);
+      border-radius: 20px; padding: 36px 32px;
+      margin-bottom: 32px; text-align: center;
+    }
+
+    .archetype-character {
+      width: 100px; height: 130px; margin: 0 auto 16px;
+      border-radius: 14px; overflow: hidden;
+      background: linear-gradient(135deg, var(--celadon-pale), var(--amber-light));
+    }
+
+    .archetype-character img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .archetype-name { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--white); margin-bottom: 4px; }
+    .archetype-tagline { font-size: 13px; color: var(--celadon-light); letter-spacing: 0.1em; margin-bottom: 12px; }
+    .archetype-desc { font-size: 14px; line-height: 1.7; color: rgba(253,252,249,0.7); }
+
+    .trait-bars { background: var(--cream); border-radius: 20px; padding: 28px; margin-bottom: 24px; }
+
+    .trait-bars h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px; font-weight: 400; color: var(--ink); margin-bottom: 20px;
+    }
+
+    .trait-row { margin-bottom: 20px; }
+
+    .trait-row-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 8px; }
+    .trait-row-left { flex: 1; }
+    .trait-row-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .trait-row-plain { font-size: 12px; color: var(--stone); font-style: italic; display: block; margin-top: 2px; }
+    .trait-row-band { font-size: 12px; color: var(--celadon); font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; padding-top: 2px; }
+
+    .trait-track { height: 8px; background: var(--celadon-light); border-radius: 8px; overflow: hidden; }
+    .trait-fill { height: 100%; background: var(--celadon); border-radius: 8px; transition: width 1s ease; width: 0%; }
+    .trait-desc { font-size: 13px; color: var(--ink-soft); margin-top: 6px; line-height: 1.6; }
+
+    /* ── DETAILED REPORT ACCORDION ── */
+    .report-section { margin-bottom: 24px; }
+
+    .report-section-header {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; font-weight: 400;
+      color: var(--ink); margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--celadon-light);
+    }
+
+    .accordion-item { margin-bottom: 8px; }
+
+    .accordion-trigger {
+      width: 100%; padding: 18px 20px;
+      background: var(--cream);
+      border: 1px solid transparent;
+      border-radius: 14px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; font-weight: 600;
+      color: var(--ink); text-align: left;
+      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .accordion-trigger:hover { border-color: var(--celadon-light); background: var(--celadon-pale); }
+    .accordion-trigger.open { border-color: var(--celadon); background: var(--celadon-pale); border-radius: 14px 14px 0 0; }
+
+    .accordion-trigger-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+    .accordion-band {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--celadon);
+      background: rgba(139,175,154,0.15);
+      padding: 3px 10px; border-radius: 20px;
+    }
+
+    .accordion-arrow { font-size: 11px; color: var(--stone); transition: transform 0.3s ease; display: inline-block; }
+    .accordion-trigger.open .accordion-arrow { transform: rotate(180deg); }
+
+    .accordion-panel {
+      display: none;
+      background: var(--white);
+      border: 1px solid var(--celadon);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      padding: 24px 20px;
+      animation: fadeUp 0.25s ease forwards;
+    }
+
+    .accordion-panel.open { display: block; }
+
+    .panel-summary {
+      font-size: 15px; line-height: 1.8;
+      color: var(--ink-soft); margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--celadon-pale);
+    }
+
+    .panel-block { margin-bottom: 20px; }
+
+    .panel-block-title {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 10px; display: block;
+    }
+
+    .panel-list { list-style: none; padding: 0; margin: 0; }
+
+    .panel-list li {
+      font-size: 14px; line-height: 1.7;
+      color: var(--ink-soft); padding: 8px 0 8px 18px;
+      position: relative;
+      border-bottom: 1px solid var(--celadon-pale);
+    }
+
+    .panel-list li:last-child { border-bottom: none; }
+
+    .panel-list li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--celadon); font-size: 11px; top: 10px;
+    }
+
+    .panel-context {
+      font-size: 13px; line-height: 1.8;
+      color: var(--ink); background: var(--celadon-pale);
+      border-left: 3px solid var(--celadon);
+      padding: 14px 16px; border-radius: 0 8px 8px 0;
+      margin-top: 4px;
+    }
+
+    /* ── PRODUCTS ── */
+    .products-section {
+      background: var(--cream); border-radius: 20px;
+      padding: 28px; margin-bottom: 24px;
+    }
+
+    .products-section h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px;
+    }
+
+    .products-intro {
+      font-size: 14px; color: var(--ink-soft);
+      margin-bottom: 24px; line-height: 1.6; font-style: italic;
+    }
+
+    .product-card {
+      background: var(--white); border-radius: 14px;
+      padding: 18px; margin-bottom: 12px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+
+    .product-card:hover { box-shadow: 0 4px 16px rgba(44,44,44,0.07); }
+
+    .product-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: var(--celadon-pale);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 10px; font-weight: 700;
+      color: var(--moss); letter-spacing: 0.05em;
+      text-align: center; line-height: 1.3; padding: 4px;
+    }
+
+    .product-info { flex: 1; min-width: 0; }
+
+    .product-name {
+      font-size: 14px; font-weight: 600; color: var(--ink);
+      margin-bottom: 4px; line-height: 1.3;
+    }
+
+    .product-tagline { font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 8px; }
+
+    .product-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .product-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 10px;
+    }
+
+    .product-tag.category { color: var(--amber); background: rgba(196,133,58,0.1); }
+    .product-tag.age { color: var(--stone); background: rgba(140,139,132,0.1); }
+
+    .products-cta {
+      text-align: center; margin-top: 20px;
+      padding-top: 20px; border-top: 1px solid var(--celadon-light);
+    }
+
+    .products-cta a {
+      display: inline-block; background: var(--amber); color: var(--white);
+      padding: 12px 28px; border-radius: 40px;
+      font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all 0.2s ease;
+    }
+
+    .products-cta a:hover { background: var(--ink); }
+
+    /* ── PREMIUM CTA ── */
+    .premium-cta {
+      background: var(--ink); border-radius: 20px;
+      padding: 36px 32px; text-align: center; color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .premium-cta h3 { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+    .premium-cta p { font-size: 14px; line-height: 1.7; opacity: 0.8; margin-bottom: 24px; }
+
+    .premium-cta a {
+      display: inline-block; background: var(--celadon); color: var(--white);
+      padding: 14px 32px; border-radius: 40px;
+      font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all 0.2s ease;
+    }
+
+    .premium-cta a:hover { background: var(--moss); }
+
+    .results-disclaimer {
+      text-align: center; font-size: 12px; color: var(--stone);
+      font-style: italic; margin-top: 24px; line-height: 1.7;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      .assessment-wrap { padding: 24px 16px; justify-content: flex-start; padding-top: 48px; }
+      .screen-card { padding: 28px 20px; }
+      .calibration-options { flex-direction: column; }
+      .cal-btn { min-width: unset; width: 100%; }
+      .archetype-card { padding: 28px 20px; }
+      .premium-cta { padding: 28px 20px; }
+      .trait-row-header { flex-direction: column; gap: 2px; }
+      .trait-row-band { padding-top: 0; }
+      .product-card { flex-direction: column; }
+      .accordion-trigger { padding: 14px 16px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="assessment-wrap">
+
+  <div class="progress-bar-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label">
+      <span id="progressSection">About your child</span>
+      <span id="progressCount">1 / 20</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="screen active" id="screen-intro">
+    <div class="screen-card">
+      <h2>A quick guided conversation</h2>
+      <p>Answer based on your child's usual behavior over the past 3–6 months. There are no right or wrong answers.</p>
+      <p>Takes about 15–20 minutes. You'll go first, then invite your child for a few questions.</p>
+      <button class="hero-cta" onclick="startAssessment()" style="border:none;cursor:pointer;width:100%;margin-top:8px">Let's begin</button>
+      <p class="disclaimer">This profile is a developmental guidance tool, not a diagnosis or a fixed label.</p>
+    </div>
+  </div>
+
+  <!-- PARENT INTRO -->
+  <div class="screen" id="screen-parent-intro">
+    <div class="screen-card">
+      <h2>First: just you</h2>
+      <p>Choose the option that sounds more like your child most of the time. Go with your first honest impression.</p>
+      <button class="hero-cta" onclick="showParentQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px">Start</button>
+    </div>
+  </div>
+
+  <!-- PARENT QUESTION -->
+  <div class="screen" id="screen-parent-q">
+    <span class="question-section-label">About your child</span>
+    <div class="question-counter" id="pQuestionCounter"></div>
+    <div class="question-prompt" id="pQuestionPrompt"></div>
+    <div class="options-list" id="pOptionsList"></div>
+    <button class="next-btn" id="pNextBtn" onclick="nextParentQuestion()">Next</button>
+  </div>
+
+  <!-- TRANSITION -->
+  <div class="screen" id="screen-transition">
+    <div class="screen-card">
+      <h2>Now invite your child</h2>
+      <p>Read the next prompts aloud and let your child choose. After each one, you'll tell us whether that answer was typical for them.</p>
+      <button class="hero-cta" onclick="showChildQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px">Continue</button>
+    </div>
+  </div>
+
+  <!-- CHILD QUESTION -->
+  <div class="screen" id="screen-child-q">
+    <span class="question-section-label">Read aloud to your child</span>
+    <div class="question-counter" id="cQuestionCounter"></div>
+    <div class="question-prompt" id="cQuestionPrompt"></div>
+    <div class="options-list" id="cOptionsList"></div>
+    <div class="calibration-wrap" id="calibrationWrap" style="display:none">
+      <div class="calibration-label">How typical was that answer for your child?</div>
+      <div class="calibration-options">
+        <button class="cal-btn" onclick="selectCalibration('very_typical', this)">Very typical</button>
+        <button class="cal-btn" onclick="selectCalibration('somewhat_typical', this)">Somewhat typical</button>
+        <button class="cal-btn" onclick="selectCalibration('not_very_typical', this)">Not very typical</button>
+      </div>
+    </div>
+    <button class="next-btn" id="cNextBtn" onclick="nextChildQuestion()">Next</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="screen-results">
+    <div class="results-wrap">
+
+      <div class="results-header">
+        <h2>Your child's profile</h2>
+        <p>Based on your answers and your child's.</p>
+      </div>
+
+      <div class="archetype-card" id="archetypeCard"></div>
+
+      <div class="trait-bars">
+        <h3>The five dimensions</h3>
+        <div id="traitBarsContent"></div>
+      </div>
+
+      <!-- DETAILED REPORT -->
+      <div class="report-section">
+        <div class="report-section-header">Full report</div>
+        <div id="accordionContent"></div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="products-section" id="productsSection">
+        <h3>Supporting your child's growth</h3>
+        <p class="products-intro">Every trait can develop with the right materials and environment. These are matched to your child's profile.</p>
+        <div id="productsContent"></div>
+        <div class="products-cta">
+          <a href="index.html#waitlist">See the full OCEAN catalog</a>
+        </div>
+      </div>
+
+      <!-- PREMIUM CTA -->
+      <div class="premium-cta">
+        <h3>Want to go deeper?</h3>
+        <p>Book a session with a child psychology specialist who can walk through these results with you in detail.</p>
+        <a href="index.html#waitlist">Book a consultation</a>
+      </div>
+
+      <p class="results-disclaimer">This profile is a developmental guidance tool, not a clinical diagnosis or a fixed label. Children's behavior varies by age, setting, sleep, stress, and relationship context.</p>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
+  return a;
+}
+
+const rawParentItems = [
+  { id:"P1", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Likes doing familiar activities in familiar ways"},{id:"B",text:"Wants to try new activities even without knowing much about them"}] },
+  { id:"P2", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Uses toys and materials for their usual purpose"},{id:"B",text:"Uses toys and materials in unusual or made-up ways"}] },
+  { id:"P3", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Prefers stories they already understand"},{id:"B",text:"Likes stories with surprising or unusual ideas"}] },
+  { id:"P4", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Wants clear directions before starting"},{id:"B",text:"Starts exploring and figures things out while doing it"}] },
+  { id:"P5", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Starts a small task and usually sees it through"},{id:"B",text:"Starts a small task but often shifts to something else"}] },
+  { id:"P6", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Keeps track of their belongings without many reminders"},{id:"B",text:"Often needs reminders about their belongings"}] },
+  { id:"P7", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Likes finishing one thing before moving to the next"},{id:"B",text:"Moves between activities depending on interest"}] },
+  { id:"P8", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Notices when something was skipped or missed"},{id:"B",text:"Is satisfied once the main part is done"}] },
+  { id:"P9", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Usually starts talking or joining first"},{id:"B",text:"Usually watches first and joins later"}] },
+  { id:"P10", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Seems energized after being with other kids"},{id:"B",text:"Seems to need quiet time after being with other kids"}] },
+  { id:"P11", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Speaks up easily in groups"},{id:"B",text:"Speaks more once comfortable"}] },
+  { id:"P12", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Chooses group play when both options are available"},{id:"B",text:"Chooses solo play when both options are available"}] },
+  { id:"P13", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Adjusts to keep things smooth with others"},{id:"B",text:"Pushes back when they think something should be different"}] },
+  { id:"P14", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Quickly notices when someone feels left out"},{id:"B",text:"Stays focused on what they are doing unless someone points it out"}] },
+  { id:"P15", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Offers help on their own"},{id:"B",text:"Usually helps once asked"}] },
+  { id:"P16", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"During disagreements, tends to soften or step back"},{id:"B",text:"During disagreements, tends to hold their position"}] },
+  { id:"P17", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Settles fairly quickly after disappointment"},{id:"B",text:"Stays upset for a while after disappointment"}] },
+  { id:"P18", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Walks into new situations fairly easily"},{id:"B",text:"Hesitates in new situations"}] },
+  { id:"P19", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Handles correction without much visible upset"},{id:"B",text:"Reacts strongly to correction"}] },
+  { id:"P20", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Adjusts fairly easily when plans change"},{id:"B",text:"Gets unsettled when plans change"}] }
 ];
+
+const rawChildItems = [
+  { id:"C1", construct:"openness", prompt:"You get a new box of art supplies. What sounds most fun?", options:[{id:"1",text:"Draw something I already know how to make"},{id:"2",text:"Try mixing things in a new way"},{id:"3",text:"Wait for someone to show me what to do first"}] },
+  { id:"C2", construct:"openness", prompt:"At playtime, you can choose one.", options:[{id:"1",text:"A favorite game I already know"},{id:"2",text:"A brand-new game I've never tried"},{id:"3",text:"Making up my own game"}] },
+  { id:"C3", construct:"conscientiousness", prompt:"You're building something and it gets tricky. What do you do first?", options:[{id:"1",text:"Keep going until I finish it"},{id:"2",text:"Take a break and maybe come back later"},{id:"3",text:"Start doing something else instead"}] },
+  { id:"C4", construct:"conscientiousness", prompt:"You're almost done cleaning up your toys.", options:[{id:"1",text:"Check if anything is still left out"},{id:"2",text:"Stop when most things are put away"},{id:"3",text:"Ask someone else if it looks done"}] },
+  { id:"C5", construct:"extraversion", prompt:"At a playground where you don't know anyone, what would you most likely do?", options:[{id:"1",text:"Go ask someone to play"},{id:"2",text:"Play by myself first"},{id:"3",text:"Stay near my parent for a while"}] },
+  { id:"C6", construct:"extraversion", prompt:"At a birthday party, what sounds best?", options:[{id:"1",text:"Running around with everyone"},{id:"2",text:"Talking to one or two people"},{id:"3",text:"Finding a quieter activity"}] },
+  { id:"C7", construct:"agreeableness", prompt:"Another child looks sad during a game. What would you probably do?", options:[{id:"1",text:"Go see if they want help or company"},{id:"2",text:"Keep playing unless an adult says something"},{id:"3",text:"Watch first to see what happens"}] },
+  { id:"C8", construct:"agreeableness", prompt:"You and another child both want the same toy.", options:[{id:"1",text:"Take turns"},{id:"2",text:"Explain why I should have it now"},{id:"3",text:"Walk away and choose something else"}] },
+  { id:"C9", construct:"negative_emotionality", prompt:"You worked hard on something and it breaks by accident.", options:[{id:"1",text:"I'd get upset right away"},{id:"2",text:"I'd try to fix it"},{id:"3",text:"I'd ask for help calmly"}] },
+  { id:"C10", construct:"negative_emotionality", prompt:"You hear that today's plan changed.", options:[{id:"1",text:"That's okay, I can do the new plan"},{id:"2",text:"I need a minute to get used to it"},{id:"3",text:"I really don't like that"}] }
+];
+
+const parentScoring = {
+  P1:{keyed:"B"},P2:{keyed:"B"},P3:{keyed:"B"},P4:{keyed:"B"},
+  P5:{keyed:"A"},P6:{keyed:"A"},P7:{keyed:"A"},P8:{keyed:"A"},
+  P9:{keyed:"A"},P10:{keyed:"A"},P11:{keyed:"A"},P12:{keyed:"A"},
+  P13:{keyed:"A"},P14:{keyed:"A"},P15:{keyed:"A"},P16:{keyed:"A"},
+  P17:{keyed:"B"},P18:{keyed:"B"},P19:{keyed:"B"},P20:{keyed:"B"}
+};
+
+const childScoring = {
+  C1:{1:0.0,2:1.0,3:0.5},C2:{1:0.0,2:1.0,3:1.0},
+  C3:{1:1.0,2:0.5,3:0.0},C4:{1:1.0,2:0.5,3:0.5},
+  C5:{1:1.0,2:0.5,3:0.0},C6:{1:1.0,2:0.5,3:0.0},
+  C7:{1:1.0,2:0.0,3:0.5},C8:{1:1.0,2:0.25,3:0.5},
+  C9:{1:1.0,2:0.25,3:0.0},C10:{1:0.0,2:0.5,3:1.0}
+};
+
+const calibrationMultipliers = { very_typical:1.0, somewhat_typical:0.7, not_very_typical:0.4 };
+
+const traitDescriptions = {
+  openness:{ name:"Openness to Experience", plain:"Explores first.", higher:"More likely to seek novelty, imagination, and experimentation.", balanced:"Comfortable with both familiar routines and new possibilities.", lower:"More likely to prefer clarity, routine, and familiar ways of doing things." },
+  conscientiousness:{ name:"Conscientiousness", plain:"Finishes and tracks.", higher:"More likely to finish, track, check, and follow through.", balanced:"Can be responsible and organized, but varies by interest or context.", lower:"More likely to shift attention quickly and benefit from external structure." },
+  extraversion:{ name:"Extraversion", plain:"Joins fast.", higher:"More likely to initiate, speak up, and seek social stimulation.", balanced:"Socially engaged, but may warm up before fully joining.", lower:"More likely to observe first, prefer quieter interaction, or recharge alone." },
+  agreeableness:{ name:"Agreeableness", plain:"Keeps things smooth.", higher:"More likely to smooth conflict, help, notice others, and cooperate.", balanced:"Can be warm and cooperative while still asserting personal needs.", lower:"More likely to hold position, focus on own goals, or engage directly in disagreement." },
+  negative_emotionality:{ name:"Sensitivity", plain:"Feels change strongly.", higher:"More likely to react strongly to change, frustration, correction, or uncertainty.", balanced:"Shows feelings clearly, but usually settles without much spillover.", lower:"More likely to stay steady and recover quickly after setbacks." }
+};
+
+const archetypes = [
+  { id:"curie_style_explorer", name:"Curie-style Explorer", tagline:"Curious and persistent.", desc:"Drawn to new ideas and also willing to stay with a challenge long enough to learn from it.", logic:{openness:"high",conscientiousness:"high"}, character:"osol" },
+  { id:"goodall_style_observer", name:"Goodall-style Observer", tagline:"Quiet curiosity.", desc:"Explores deeply, notices details, and may prefer discovery without a lot of social noise.", logic:{openness:"high",extraversion:"low"}, character:"osol" },
+  { id:"attenborough_style_wonderer", name:"Attenborough-style Wonderer", tagline:"Eager and engaged.", desc:"Drawn to novelty, stories, and shared excitement about the world.", logic:{openness:"high",extraversion:"high"}, character:"epa" },
+  { id:"rogers_style_harmonizer", name:"Rogers-style Harmonizer", tagline:"Warm and steady.", desc:"Tends to smooth tension, notice others, and bring calm to relationships.", logic:{agreeableness:"high",negative_emotionality:"low"}, character:"aru" },
+  { id:"serena_style_finisher", name:"Serena-style Finisher", tagline:"Driven and determined.", desc:"Stays on task, pushes through obstacles, and is less likely to back down quickly.", logic:{conscientiousness:"high"}, character:"chiu" },
+  { id:"earhart_style_bold_starter", name:"Earhart-style Bold Starter", tagline:"Jumps in.", desc:"Ready to enter new situations, try unfamiliar things, and move before overthinking.", logic:{extraversion:"high",openness:"high"}, character:"epa" },
+  { id:"frida_style_intense_creator", name:"Frida-style Intense Creator", tagline:"Imaginative and strong-feeling.", desc:"Imaginative, expressive, and likely to experience setbacks or changes with real intensity.", logic:{openness:"high",negative_emotionality:"high"}, character:"nuri" },
+  { id:"yoyoma_style_connector", name:"Yo-Yo Ma-style Connector", tagline:"Engaged and kind.", desc:"Enjoys people, joins readily, and tends to bring warmth into group settings.", logic:{agreeableness:"high",extraversion:"high"}, character:"aru" },
+  { id:"flexible_adapter", name:"Flexible Adapter", tagline:"Balanced across settings.", desc:"Shows situational flexibility rather than one dominant pattern.", logic:{all:"balanced"}, character:"chiu" }
+];
+
+const characterImages = { chiu:"images/chiu.png", osol:"images/osol.png", epa:"images/epa.png", aru:"images/aru.png", nuri:"images/nuri.png" };
+
+const interpretationBands = [
+  {min:0,max:24,label:"Lower"},{min:25,max:44,label:"Somewhat lower"},
+  {min:45,max:55,label:"Balanced"},{min:56,max:75,label:"Somewhat higher"},
+  {min:76,max:100,label:"Higher"}
+];
+
+const bandToKey = { "Lower":"lower", "Somewhat lower":"lower", "Balanced":"balanced", "Somewhat higher":"higher", "Higher":"higher" };
+
+let parentItems = shuffle(rawParentItems).map(q => ({ ...q, options: shuffle(q.options) }));
+let childItems = shuffle(rawChildItems).map(q => ({ ...q, options: shuffle(q.options) }));
+
+let pIndex = 0, cIndex = 0;
+let pAnswers = {}, cAnswers = {}, cCalibrations = {};
+let selectedOption = null, selectedCal = null;
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startAssessment() { showScreen('screen-parent-intro'); }
+
+function showParentQuestions() {
+  document.getElementById('progressWrap').style.display = 'block';
+  pIndex = 0; renderParentQuestion(); showScreen('screen-parent-q');
+}
+
+function showChildQuestions() {
+  cIndex = 0; renderChildQuestion(); showScreen('screen-child-q');
+}
+
+function renderParentQuestion() {
+  const q = parentItems[pIndex];
+  document.getElementById('pQuestionCounter').textContent = `Question ${pIndex + 1} of ${parentItems.length}`;
+  document.getElementById('pQuestionPrompt').textContent = q.prompt;
+  const list = document.getElementById('pOptionsList');
+  list.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn'; btn.textContent = opt.text;
+    btn.onclick = () => selectParentOption(opt.id, btn);
+    list.appendChild(btn);
+  });
+  document.getElementById('pNextBtn').classList.remove('visible');
+  selectedOption = null;
+  updateProgress('parent', pIndex, parentItems.length);
+}
+
+function selectParentOption(optId, btn) {
+  document.querySelectorAll('#pOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedOption = optId;
+  document.getElementById('pNextBtn').classList.add('visible');
+}
+
+function nextParentQuestion() {
+  if (!selectedOption) return;
+  pAnswers[parentItems[pIndex].id] = selectedOption;
+  pIndex++;
+  if (pIndex < parentItems.length) { renderParentQuestion(); }
+  else { showScreen('screen-transition'); document.getElementById('progressWrap').style.display = 'none'; }
+}
+
+function renderChildQuestion() {
+  const q = childItems[cIndex];
+  document.getElementById('cQuestionCounter').textContent = `Question ${cIndex + 1} of ${childItems.length}`;
+  document.getElementById('cQuestionPrompt').textContent = q.prompt;
+  const list = document.getElementById('cOptionsList');
+  list.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn'; btn.textContent = opt.text;
+    btn.onclick = () => selectChildOption(opt.id, btn);
+    list.appendChild(btn);
+  });
+  document.getElementById('calibrationWrap').style.display = 'none';
+  document.getElementById('cNextBtn').classList.remove('visible');
+  selectedOption = null; selectedCal = null;
+  document.getElementById('progressWrap').style.display = 'block';
+  updateProgress('child', cIndex, childItems.length);
+}
+
+function selectChildOption(optId, btn) {
+  document.querySelectorAll('#cOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedOption = optId;
+  document.getElementById('calibrationWrap').style.display = 'block';
+}
+
+function selectCalibration(calId, btn) {
+  document.querySelectorAll('.cal-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedCal = calId;
+  if (selectedOption) document.getElementById('cNextBtn').classList.add('visible');
+}
+
+function nextChildQuestion() {
+  if (!selectedOption || !selectedCal) return;
+  cAnswers[childItems[cIndex].id] = selectedOption;
+  cCalibrations[childItems[cIndex].id] = selectedCal;
+  cIndex++;
+  if (cIndex < childItems.length) { renderChildQuestion(); }
+  else { document.getElementById('progressWrap').style.display = 'none'; calculateAndShowResults(); }
+}
+
+function updateProgress(section, index, total) {
+  document.getElementById('progressSection').textContent = section === 'parent' ? 'About your child' : 'Your child answers';
+  document.getElementById('progressCount').textContent = `${index + 1} / ${total}`;
+  document.getElementById('progressFill').style.width = ((index / total) * 100) + '%';
+}
+
+function calculateAndShowResults() {
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  const scores = {};
+  traits.forEach(trait => {
+    const pItems = rawParentItems.filter(q => q.construct === trait);
+    let pRaw = 0;
+    pItems.forEach(q => { if (pAnswers[q.id] === parentScoring[q.id].keyed) pRaw++; });
+    const pScore = (pRaw / pItems.length) * 100;
+    const cItems = rawChildItems.filter(q => q.construct === trait);
+    let cRaw = 0;
+    cItems.forEach(q => {
+      const optScore = childScoring[q.id][parseInt(cAnswers[q.id])] || 0;
+      const calMult = calibrationMultipliers[cCalibrations[q.id]] || 1.0;
+      cRaw += optScore * calMult;
+    });
+    const cScore = (cRaw / cItems.length) * 100;
+    scores[trait] = (pScore * 0.7) + (cScore * 0.3);
+  });
+  renderResults(scores);
+}
+
+function getBand(score) {
+  for (const band of interpretationBands) {
+    if (score >= band.min && score <= band.max) return band.label;
+  }
+  return 'Balanced';
+}
+
+function isHigh(s) { return s >= 56; }
+function isLow(s) { return s <= 44; }
+
+function matchArchetype(scores) {
+  for (const arch of archetypes) {
+    if (arch.logic.all === 'balanced') continue;
+    let matches = true;
+    for (const [trait, level] of Object.entries(arch.logic)) {
+      const s = scores[trait];
+      if (level === 'high' && !isHigh(s)) { matches = false; break; }
+      if (level === 'low' && !isLow(s)) { matches = false; break; }
+      if (level === 'low_to_balanced' && isHigh(s)) { matches = false; break; }
+      if (level === 'balanced_to_high' && isLow(s)) { matches = false; break; }
+    }
+    if (matches) return arch;
+  }
+  return archetypes.find(a => a.id === 'flexible_adapter');
+}
+
+function renderResults(scores) {
+  showScreen('screen-results');
+  const archetype = matchArchetype(scores);
+
+  // Archetype card
+  document.getElementById('archetypeCard').innerHTML = `
+    <div class="archetype-character">
+      <img src="${characterImages[archetype.character]}" alt="${archetype.character}" onerror="this.style.display='none'" />
+    </div>
+    <div class="archetype-name">${archetype.name}</div>
+    <div class="archetype-tagline">${archetype.tagline}</div>
+    <div class="archetype-desc">${archetype.desc}</div>
+  `;
+
+  // Trait bars
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  let barsHTML = '';
+  traits.forEach(trait => {
+    const score = Math.round(scores[trait]);
+    const band = getBand(score);
+    const desc = traitDescriptions[trait];
+    const descText = desc[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
+    barsHTML += `
+      <div class="trait-row">
+        <div class="trait-row-header">
+          <div class="trait-row-left">
+            <span class="trait-row-name">${desc.name}</span>
+            <span class="trait-row-plain">${desc.plain}</span>
+          </div>
+          <span class="trait-row-band">${band}</span>
+        </div>
+        <div class="trait-track">
+          <div class="trait-fill" data-score="${score}" style="width:0%"></div>
+        </div>
+        <div class="trait-desc">${descText}</div>
+      </div>`;
+  });
+  document.getElementById('traitBarsContent').innerHTML = barsHTML;
+  setTimeout(() => {
+    document.querySelectorAll('.trait-fill').forEach(el => { el.style.width = el.dataset.score + '%'; });
+  }, 300);
+
+  // Detailed report accordion
+  let accordionHTML = '';
+  traits.forEach((trait, i) => {
+    const score = Math.round(scores[trait]);
+    const band = getBand(score);
+    const bandKey = bandToKey[band];
+    const reportItem = detailedReportData.find(r => r.trait === trait && r.band === bandKey);
+    if (!reportItem) return;
+
+    const strengthsHTML = reportItem.strengths.map(s => `<li>${s}</li>`).join('');
+    const watchoutsHTML = reportItem.watch_outs.map(s => `<li>${s}</li>`).join('');
+    const whatHTML = reportItem.what_to_do.map(s => `<li>${s}</li>`).join('');
+
+    accordionHTML += `
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)" data-index="${i}">
+          <span>${reportItem.title}</span>
+          <span class="accordion-trigger-right">
+            <span class="accordion-band">${band}</span>
+            <span class="accordion-arrow">&#9660;</span>
+          </span>
+        </button>
+        <div class="accordion-panel">
+          <p class="panel-summary">${reportItem.summary}</p>
+          <div class="panel-block">
+            <span class="panel-block-title">Strengths</span>
+            <ul class="panel-list">${strengthsHTML}</ul>
+          </div>
+          <div class="panel-block">
+            <span class="panel-block-title">Worth knowing</span>
+            <ul class="panel-list">${watchoutsHTML}</ul>
+          </div>
+          <div class="panel-block">
+            <span class="panel-block-title">What to do</span>
+            <ul class="panel-list">${whatHTML}</ul>
+          </div>
+          <div class="panel-block">
+            <span class="panel-block-title">Context</span>
+            <div class="panel-context">${reportItem.context}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('accordionContent').innerHTML = accordionHTML;
+
+  // Products
+  const recommended = getProductsForTraits(scores);
+  let productsHTML = '';
+  recommended.forEach(p => {
+    productsHTML += `
+      <div class="product-card">
+        <div class="product-icon">${categoryLabels[p.category]}</div>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-tagline">${p.tagline}</div>
+          <div class="product-meta">
+            <span class="product-tag category">${categoryLabels[p.category]}</span>
+            <span class="product-tag age">Ages ${p.age_range}</span>
+          </div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('productsContent').innerHTML = productsHTML;
+}
+
+function toggleAccordion(btn) {
+  const panel = btn.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
+  // Open this one if it was closed
+  if (!isOpen) {
+    panel.classList.add('open');
+    btn.classList.add('open');
+    setTimeout(() => { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+  }
+}
+</script>
+</body>
+</html>

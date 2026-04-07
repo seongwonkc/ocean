@@ -1,0 +1,347 @@
+const detailedReportData = [
+  {
+    trait: "openness",
+    band: "lower",
+    title: "Builds on what they know",
+    summary: "Your child tends to work best when expectations are clear and the situation is familiar. In developmental research, this pattern is described as lower novelty-seeking, which reflects a preference for depth over breadth. They often take longer to engage with something new, and once they do, their engagement is steady and grounded. Many children who prefer familiarity perform strongly when expectations are clear — the key is not to force novelty, but to build comfort with it gradually.",
+    strengths: [
+      "Develops genuine mastery — real skill in what they practice, not just exposure",
+      "Performs consistently in structured environments without needing variety to stay engaged",
+      "Careful and deliberate before committing to something new — reads instructions, asks questions, wants to understand first",
+      "Less likely to abandon a task because something more interesting appeared"
+    ],
+    watch_outs: [
+      "New environments or open-ended tasks can produce real hesitation. Address this before the task begins, not during it",
+      "In classrooms that reward spontaneous participation or creative risk-taking, this child may underperform relative to their actual ability",
+      "Their curiosity is directed toward depth. It can look like a lack of curiosity to adults expecting visible enthusiasm for new things"
+    ],
+    what_to_do: [
+      "Before anything new, give a brief preview: what it is, what they'll need to do, what it will feel like. This removes friction before it becomes resistance",
+      "Connect new tasks to what they already know well. 'This is like X, but with one difference' works far better than 'let's try something completely different'",
+      "Measure progress by depth of understanding. This child often knows one thing very well rather than five things superficially — that is a strength worth naming"
+    ],
+    context: "Korean academic environments heavily reward structured mastery, and this profile often fits those expectations well. The temptation is to push for more visible curiosity or faster engagement with new material. What looks like hesitation is often careful entry. Their kind of curiosity — careful, deep, sequential — is curiosity. It just doesn't announce itself."
+  },
+  {
+    trait: "openness",
+    band: "balanced",
+    title: "Moves between familiar and new",
+    summary: "Your child shows flexibility in how they approach tasks. They can follow structure when it is provided and engage with something new when the situation calls for it. In research terms, this sits near the center of the openness range and is often linked to adaptability across environments. They tend to adjust based on context rather than a strong internal drive toward or away from novelty.",
+    strengths: [
+      "Follows structured instruction without needing it to be interesting first",
+      "Can be introduced to new topics without requiring extensive preparation",
+      "Reads environmental cues well — adjusts approach based on what's expected",
+      "Less likely to be derailed by either too much novelty or too much routine"
+    ],
+    watch_outs: [
+      "Because neither extreme pulls strongly, preferences can be hard to identify — which makes it harder to know what genuinely motivates them",
+      "They may default to whatever is easiest or most expected rather than what they find most meaningful",
+      "Without deliberate encouragement, they may not push into areas of deeper interest on their own"
+    ],
+    what_to_do: [
+      "Offer low-stakes choices periodically: 'You can do this the usual way or try a different approach.' Watch which they pick and why",
+      "After a task is done, ask what they found interesting about it — not just whether they finished. This surfaces motivation patterns that aren't always visible in behavior",
+      "Ask directly what they'd actually like to try. Their adaptability can mask real preferences — check in rather than assuming they're satisfied"
+    ],
+    context: "Teachers often describe these children as easygoing, which is accurate but can lead to under-investment. They rarely cause problems and rarely ask for more. They benefit just as much from challenge and exploration as any other child — they just won't show you they need it."
+  },
+  {
+    trait: "openness",
+    band: "higher",
+    title: "Drawn to what's new",
+    summary: "Your child is oriented toward exploration. Higher openness is linked in research to curiosity, idea generation, and comfort with uncertainty. They tend to engage quickly with new material and are motivated by discovery and possibility. Their attention is often pulled toward beginnings and ideas rather than completion.",
+    strengths: [
+      "Generates ideas quickly and makes unexpected connections between topics",
+      "Comfortable starting something without knowing exactly where it will go",
+      "Stays engaged longer in creative, open-ended, or discovery-based tasks",
+      "Asks 'why' and 'what if' more than most — this is active information-gathering"
+    ],
+    watch_outs: [
+      "The beginning of something is genuinely more interesting than the middle or end. Completion needs scaffolding built into the task itself",
+      "Highly standardized tasks — repetitive worksheets, rote memorization, fixed-answer formats — can feel aversive. Performance in these may not reflect actual ability",
+      "They may frustrate peers or teachers who prefer a single clear approach. The child is optimizing for something different than efficiency"
+    ],
+    what_to_do: [
+      "Build 'done' into the task from the start. 'You have 20 minutes, then we move on' works better than 'work on this until it's good.' Finite containers help",
+      "Use their curiosity as a lever for less preferred tasks: 'Before we do the worksheet, tell me one thing you wonder about this topic.' It creates buy-in",
+      "Let them show understanding in formats other than standard ones when possible — oral explanation, drawing, building. The goal is surfacing what they know"
+    ],
+    context: "In Korean educational settings, this child often gets feedback about focus, completion, or following directions. That feedback addresses the symptom. The cause is that their engagement is front-loaded — the solution is structure that channels the energy, not discipline that suppresses it."
+  },
+  {
+    trait: "conscientiousness",
+    band: "lower",
+    title: "Works in bursts, not streaks",
+    summary: "Your child's effort tends to follow interest and energy. Lower conscientiousness in childhood is linked to less automatic task persistence and a weaker internal tracking system. This does not reflect ability. It means follow-through depends more on how a task is structured than on internal drive. With the right external supports, these children complete tasks effectively.",
+    strengths: [
+      "Flexible and unattached to 'the right way' — can adapt quickly when a better approach appears",
+      "Often highly capable in short, engaging bursts",
+      "Less likely to persist in the wrong direction just because they started there",
+      "Can switch between tasks without the emotional cost that higher-conscientiousness children often experience"
+    ],
+    watch_outs: [
+      "Multi-step or long-horizon tasks are genuinely hard without external support. The internal tracking system that keeps other children on task is less automatic here",
+      "Belongings, homework, and responsibilities will be missed without physical reminders — repeatedly. This is predictable and manageable with the right setup",
+      "They may resist tasks that feel disconnected from anything real. That resistance often has information in it worth paying attention to"
+    ],
+    what_to_do: [
+      "External structure replaces internal structure. Checklists, timers, visual schedules, and dedicated physical spots for belongings are tools — use them consistently",
+      "Break longer tasks into pieces with a clear end-point for each. 'Finish the homework' is too large. 'Do the first three questions, then we check' is workable",
+      "Connect tasks to outcomes they actually care about. Abstract responsibility lands less well than concrete cause and effect: 'When we spend 10 minutes tonight, we don't spend an hour on Saturday'"
+    ],
+    context: "This trait profile is among the most stigmatized in Korean parenting and educational contexts, where persistence and follow-through are treated as markers of character. The research is unambiguous: conscientiousness is highly developable through adolescence, and early environment matters enormously. Building habits through repetition and structure works. Pressure alone doesn't."
+  },
+  {
+    trait: "conscientiousness",
+    band: "balanced",
+    title: "Follows through when it matters",
+    summary: "Your child can be organized and persistent when expectations are clear and the task feels meaningful. In research, this reflects moderate effortful control — the ability to sustain effort, with consistency depending on context, clarity, and perceived relevance. These children are capable of strong follow-through. Whether they apply it depends significantly on how the situation is framed.",
+    strengths: [
+      "Capable of strong follow-through when engaged — reliable under the right conditions",
+      "Less prone to perfectionistic spirals than higher-conscientiousness children",
+      "Can adjust when a plan changes without becoming dysregulated",
+      "Matches effort to what a situation actually requires rather than applying maximum effort to everything"
+    ],
+    watch_outs: [
+      "Consistency requires clear, repeated expectations. Without them, performance varies in ways that look like inconsistency but are actually sensitivity to context",
+      "They may perform well in one subject and poorly in another based almost entirely on how those classes are structured",
+      "When motivation drops, output drops with it. Building habits that run on structure rather than motivation is the long-term goal"
+    ],
+    what_to_do: [
+      "Identify the conditions under which they follow through well and replicate them. This is information about what works for this specific child",
+      "Build simple, low-effort routines for recurring responsibilities. A five-second habit done every day is worth more than an intensive effort done occasionally",
+      "When performance drops, check context first: Has the structure changed? Is the task less clear? Has their energy shifted? These are more likely explanations than attitude"
+    ],
+    context: "Teachers often describe these children as capable but inconsistent. That's accurate but incomplete. The inconsistency follows patterns — it isn't random. Parents who learn those patterns can work with them far more effectively than those who try to iron them out through general pressure."
+  },
+  {
+    trait: "conscientiousness",
+    band: "higher",
+    title: "Persistent and precise",
+    summary: "Your child shows strong task persistence and attention to detail. Research consistently links higher conscientiousness to academic performance and reliability. These children tend to track expectations internally and hold themselves to standards beyond what is explicitly required. They are often the ones who notice what was missed, finish what they start, and follow through without being reminded.",
+    strengths: [
+      "Meets expectations reliably and often exceeds them without being asked",
+      "Notices errors and gaps — a natural quality-checker in group settings",
+      "Performs consistently even on tasks that aren't inherently interesting",
+      "Builds trust quickly with teachers and adults"
+    ],
+    watch_outs: [
+      "The standard they hold themselves to is often invisible to others. When they fall short of it, the distress is real — even when the shortfall looks minor from the outside",
+      "They may avoid starting tasks they're not confident they can do well. This can look like procrastination — it's closer to risk management",
+      "In group projects, they may take over or become frustrated when others don't match their effort level"
+    ],
+    what_to_do: [
+      "Normalize imperfection in specific moments, not just as a general life lesson: 'That draft doesn't need to be perfect, it needs to exist by Friday'",
+      "Watch for effort that exceeds what a task requires. Two hours on a 20-minute assignment is information about internal pressure, not dedication",
+      "Give them roles where precision is genuinely useful. They don't need to be pushed toward flexibility at every turn — they need environments where who they are is an asset"
+    ],
+    context: "High conscientiousness in Korean educational settings is often treated as straightforwardly ideal — and in many ways, it is. The risk is that it gets reinforced without limits. The research on perfectionism in high-achieving children is consistent: it protects performance in the short term and complicates wellbeing over time. Support the strength while building tolerance for good enough."
+  },
+  {
+    trait: "extraversion",
+    band: "lower",
+    title: "Processes before participating",
+    summary: "Your child tends to observe a situation before entering it. Lower extraversion is linked to lower stimulation-seeking and a preference for lower-intensity environments. These children often engage more deeply after they have had time to observe and understand what is happening. Group settings are genuinely tiring for them — this is how their nervous system works, and it is worth taking seriously.",
+    strengths: [
+      "Thoughtful and measured — less likely to act impulsively in social situations",
+      "Can sustain independent focus for longer than more socially-oriented children",
+      "Often more aware of group dynamics than they appear — they've been watching",
+      "Develops deeper individual relationships rather than many surface-level ones"
+    ],
+    watch_outs: [
+      "Group settings, especially loud or unpredictable ones, are genuinely tiring. This is how their nervous system works — it's worth taking seriously",
+      "In classrooms that reward vocal participation, their actual understanding and engagement will be systematically undercounted",
+      "After a full day of group interaction, they need genuine quiet recovery time. What looks like shutdown is usually depletion"
+    ],
+    what_to_do: [
+      "Give advance notice before new social situations: who will be there, what will happen, how long it will last. Processing before arrival changes the experience significantly",
+      "Advocate with teachers for alternative participation formats — written responses, one-on-one check-ins, small group work. The goal is evidence of understanding",
+      "Protect recovery time after high-demand social days. A child who goes directly from school to an afternoon activity without a break will hit a wall"
+    ],
+    context: "Korean educational culture places significant weight on participation, presentation, and social confidence. This child may receive feedback about being too quiet or lacking confidence. The intervention isn't to push them into the center of the room — it's to build contexts where their depth of engagement is visible without requiring performance."
+  },
+  {
+    trait: "extraversion",
+    band: "balanced",
+    title: "Social when it makes sense",
+    summary: "Your child moves comfortably between social interaction and independent work. Moderate extraversion is associated with flexible social behavior — engaging when needed and stepping back when the situation calls for it. These children adjust their level of interaction based on context rather than defaulting to high or low engagement. They tend to read the room and respond accordingly.",
+    strengths: [
+      "Functions well in both collaborative and independent work without significant adjustment cost",
+      "Less likely to be destabilized by either too much or too little social interaction",
+      "Reads social situations accurately — knows when to engage and when to hold back",
+      "Can perform for an audience when needed, but doesn't require one"
+    ],
+    watch_outs: [
+      "Because they don't strongly signal their social needs, those needs can be overlooked",
+      "In group settings, they may not advocate for their own ideas — not from lack of confidence, but from lack of urgency",
+      "Teachers may underestimate their engagement because they are neither the most vocal nor the most noticeably withdrawn"
+    ],
+    what_to_do: [
+      "Check in directly about social experience: 'Did you enjoy that group today?' gives more information than observation alone",
+      "Encourage them to practice initiating: 'Next time, see if you can be the first one to suggest something.' Low-stakes practice builds the habit",
+      "Make sure they have at least one strong peer relationship, not just a functional social presence in a group"
+    ],
+    context: "This range suits most Korean educational settings well. The risk is that this child's adaptability gets misread as not needing anything in particular. All children benefit from deliberate social support — it just presents differently here."
+  },
+  {
+    trait: "extraversion",
+    band: "higher",
+    title: "Enters every room",
+    summary: "Your child is energized by social interaction and tends to initiate quickly. Higher extraversion is linked to behavioral activation and reward sensitivity. These children often think by speaking — interaction is how they process, not a distraction from processing. They engage outwardly and tend to create social energy wherever they are.",
+    strengths: [
+      "Comfortable initiating with unfamiliar people — social transitions are easier for them than for most",
+      "Brings visible energy to group activities, which often lifts overall engagement",
+      "Processes thoughts by speaking them — this is how they think",
+      "Unlikely to go unnoticed in any environment, which creates natural opportunity"
+    ],
+    watch_outs: [
+      "May speak before their thoughts are fully formed — a processing style that benefits from specific, practiced strategies",
+      "Can unintentionally dominate group conversations. Peers may pull back rather than push back, which the child often doesn't notice",
+      "Extended solo work and low-stimulation environments take real effort in a way that social tasks simply don't"
+    ],
+    what_to_do: [
+      "Teach a specific pause practice: 'Before you answer, take one breath.' This gives their thoughts time to catch up with their energy",
+      "Create explicit listening structures: 'Your job in this conversation is to ask two questions before sharing your own idea.' Make it a game",
+      "Schedule solo focus time during lower-energy parts of the day — after social interaction, not before. They'll tolerate it better"
+    ],
+    context: "High extraversion is visible and often rewarded in Korean group settings. The longer-term challenge is that children who are always in motion socially sometimes don't build the tolerance for sustained independent work that becomes important later. Worth attending to early — not to suppress the energy, but to build the complementary skill alongside it."
+  },
+  {
+    trait: "agreeableness",
+    band: "lower",
+    title: "Direct and self-directed",
+    summary: "Your child expresses their own perspective clearly and does not adjust automatically to maintain harmony. Lower agreeableness is associated with assertiveness and reduced compliance. These children prioritize accuracy and personal position over smooth interaction — they are less likely to go along with something they disagree with, and more likely to say so directly.",
+    strengths: [
+      "Won't agree with something they believe is wrong just to avoid conflict — a form of integrity",
+      "Less susceptible to peer pressure than children who prioritize social harmony",
+      "Comfortable advocating for their own needs",
+      "In situations where someone needs to push back, this child often will"
+    ],
+    watch_outs: [
+      "Holding a firm position can read as uncooperative in group settings, even when the position is reasonable. This gap between intent and perception is worth addressing directly",
+      "Conflict can escalate more quickly than this child realizes — they often underestimate how others experience direct communication",
+      "They may miss or minimize others' emotional reactions to disagreement"
+    ],
+    what_to_do: [
+      "Teach the difference between 'I disagree with your idea' and 'I think your idea is wrong' — the content is similar but the impact lands differently. Specific language practice helps",
+      "Role-play scenarios where holding a position and maintaining a relationship are both possible. These children sometimes need to see that these aren't mutually exclusive",
+      "Name it when you observe it going well: 'You disagreed with that clearly and the conversation kept going. That's a skill.'"
+    ],
+    context: "Korean social and academic environments place high value on cooperation and group harmony. A child with this profile may receive feedback about attitude or team behavior that doesn't fully capture what's happening. Assertiveness and directness are genuine strengths — the work is building awareness of how they land on others, not eliminating them."
+  },
+  {
+    trait: "agreeableness",
+    band: "balanced",
+    title: "Cooperates and holds ground",
+    summary: "Your child balances cooperation with independence. Moderate agreeableness is linked to flexible interpersonal behavior — able to adjust to group needs while maintaining a personal position when it matters. These children can work smoothly with others and hold their ground when needed. They tend to read the situation and respond accordingly.",
+    strengths: [
+      "Can collaborate without losing their own direction",
+      "Maintains relationships during disagreements more easily than children at either extreme",
+      "Able to read when to cooperate and when to push back",
+      "Less likely to become either a pushover or a source of friction in group settings"
+    ],
+    watch_outs: [
+      "May avoid expressing a position in ambiguous situations — not from lack of opinion, but from weighing whether it's worth it",
+      "Under social pressure, they may adjust their stated view without fully agreeing internally",
+      "They may not be the one who flags a problem in a group — even when they can see it clearly"
+    ],
+    what_to_do: [
+      "Ask what they actually think, not just what they're willing to say: 'I know you went along with that — what would you have chosen if it was just you?'",
+      "Point out instances where they expressed disagreement and the relationship stayed intact. This builds the evidence they need to do it more",
+      "Create low-stakes opportunities to practice stating a preference: small family decisions, activity choices, meal preferences"
+    ],
+    context: "This profile tends to work well in Korean group settings — able to cooperate when needed, hold ground when necessary. The growth edge is clarity about what they actually want and consistency in expressing it."
+  },
+  {
+    trait: "agreeableness",
+    band: "higher",
+    title: "Keeps the group together",
+    summary: "Your child is highly attuned to others and prioritizes harmony. Higher agreeableness is associated with prosocial behavior and sensitivity to interpersonal dynamics. These children adjust quickly to maintain smooth interactions, notice when someone is left out, and often help without being asked. Their attunement to others is a real skill — and one that needs to be balanced with attention to their own needs.",
+    strengths: [
+      "Genuinely attuned to others' emotional states — a real skill, not just a personality tendency",
+      "Naturally reduces friction in groups, which makes them valuable to group dynamics",
+      "Reliable and helpful in ways that build genuine trust",
+      "Able to see multiple perspectives in a conflict"
+    ],
+    watch_outs: [
+      "May not express disagreement even when they clearly have it — the internal experience and the external behavior can diverge significantly",
+      "Consistently prioritizing others means their own preferences, needs, and limits often go unvoiced and unmet",
+      "In academic settings, they may not advocate for themselves with teachers or peers, which can lead to being underestimated"
+    ],
+    what_to_do: [
+      "Give explicit, repeated permission to disagree at home — and practice it: 'Tell me something you actually don't want to do this weekend'",
+      "Notice and name when they put themselves last: 'I saw you give up your turn again. Did you want that turn?' Make the pattern visible without judgment",
+      "Teach the difference between helping because you want to and helping because you feel you have to. Both happen — both are worth knowing about"
+    ],
+    context: "High agreeableness is socially valued and academically rewarded in Korean settings. The longer-term risk is that children who consistently center others' needs over their own develop difficulty identifying and expressing their own preferences as they get older. The goal is to make sure cooperation is a choice, not just a reflex."
+  },
+  {
+    trait: "negative_emotionality",
+    band: "lower",
+    title: "Stable under pressure",
+    summary: "Your child shows low emotional reactivity to stress, change, and frustration. In research, lower negative emotionality is linked to faster recovery and lower baseline sensitivity to disruption. These children return to baseline quickly after difficulty and tend to move through challenging situations without extended disruption. Their emotional stability is genuine and functional.",
+    strengths: [
+      "Handles change, correction, and disappointment without extended disruption",
+      "Maintains function under pressure in ways that support performance in high-stakes situations",
+      "Often described as easy to be around — they regulate efficiently",
+      "Less likely to have prolonged recovery periods after difficulty"
+    ],
+    watch_outs: [
+      "Low external reactivity doesn't mean low internal experience. This child may feel things significantly without showing it — which means their distress can go unnoticed",
+      "They may not ask for support even when they need it, either because they don't recognize the need or assume they should handle it alone",
+      "In relationships, consistently low emotional expression can be misread by peers as indifference"
+    ],
+    what_to_do: [
+      "Check in verbally after difficult events, even when the child appears fine: 'That seemed hard. How are you actually feeling about it?' The absence of visible reaction isn't evidence of absence of experience",
+      "Build emotional vocabulary practice into ordinary moments — not just when something goes wrong. 'What was the best part of today? What was the hardest part?' normalizes reflection",
+      "Their stability is a genuine asset. It doesn't mean they need less emotional investment — it means that investment needs to be deliberate"
+    ],
+    context: "In Korean parenting and educational contexts, emotional stability is often treated as straightforwardly ideal. The risk is under-investment in emotional development for children who appear to be managing well. Regulation is a skill worth building deliberately, not just benefiting from passively."
+  },
+  {
+    trait: "negative_emotionality",
+    band: "balanced",
+    title: "Feels it, then settles",
+    summary: "Your child shows emotional responses and returns to baseline with time or support. Moderate negative emotionality reflects a system that reacts and then regulates. These children are emotionally readable — you can usually tell when something is wrong — and they recover with reasonable consistency. They benefit from support but are not consistently overwhelmed by their reactions.",
+    strengths: [
+      "Emotionally readable — you can usually tell when something is wrong, which makes support easier to provide",
+      "Recovers from setbacks with reasonable consistency",
+      "The visibility of their emotional experience is information — for them and for the people around them",
+      "Neither suppresses emotions nor becomes overwhelmed by them in most situations"
+    ],
+    watch_outs: [
+      "In higher-intensity situations — significant change, academic pressure, conflict with peers — recovery may take longer and require more active support",
+      "May rely on external reassurance to settle, which is functional in the short term",
+      "Sleep, hunger, and accumulated stress affect their emotional stability more noticeably than for lower-reactivity children"
+    ],
+    what_to_do: [
+      "Build a consistent calming sequence this child knows and can access — a specific physical or mental step they can take. Practice it when they're not upset so it's available when they are",
+      "When they're in the middle of a reaction, stay present without trying to fix it immediately. Recovery happens faster when the child feels seen",
+      "After they've settled, name what helped: 'You took a few minutes and then came back — that worked.' Building awareness of their own recovery process strengthens it"
+    ],
+    context: "This is a functional and common range. The goal isn't to move toward lower reactivity — it's to develop recovery that becomes more internal over time. Emotional expressiveness in this range is not a liability. What matters is the recovery, and recovery is teachable."
+  },
+  {
+    trait: "negative_emotionality",
+    band: "higher",
+    title: "Feels things at full volume",
+    summary: "Your child reacts strongly to frustration, unexpected change, correction, and uncertainty. Higher negative emotionality is associated with increased sensitivity and slower return to baseline. These children experience events more intensely — their reactions reflect how the system is tuned, not a choice to overreact. When regulated and secure, their engagement and warmth are fully visible.",
+    strengths: [
+      "Deeply engaged with their experiences — they are not going through the motions",
+      "Emotionally honest in ways that build genuine relationships with people who understand them",
+      "Sensitive to changes in environment, relationships, and fairness — this attentiveness has real value",
+      "When regulated and secure, their engagement and warmth are fully visible"
+    ],
+    watch_outs: [
+      "Transitions between activities, locations, or emotional states are the highest-risk moments. Warning signs often appear before the transition, not during it",
+      "Correction and criticism — even mild, well-intentioned forms — can land much harder than the adult intended",
+      "Accumulated stress across a day is real and cumulative. A child who has been managing all day will have less capacity in the evening"
+    ],
+    what_to_do: [
+      "Build predictability wherever possible. When change is coming, announce it in advance: 'In ten minutes we're going to stop and have dinner.' The buffer matters",
+      "When a reaction happens, prioritize co-regulation over correction. A child who is activated cannot process instruction — wait for the window, it will come",
+      "After the child has settled, do a brief debrief: 'That was hard. What happened?' This builds their own understanding of their patterns, which is the foundation of self-regulation"
+    ],
+    context: "This profile receives more negative feedback in Korean educational and family settings than almost any other. Strong emotional reactions are frequently labeled as immature, dramatic, or defiant. The research says something different: emotional sensitivity at this level often correlates with high empathy, creativity, and depth of engagement. The goal is building the regulation capacity that allows those strengths to be visible."
+  }
+];
