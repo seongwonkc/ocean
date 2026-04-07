@@ -10,9 +10,9 @@
 <body>
 
   <!-- LANGUAGE TOGGLE -->
-  <div class="lang-toggle">
-    <button data-lang="en" class="active">EN</button>
-    <button data-lang="kr">한국어</button>
+  <div class="lang-toggle" id="langToggle">
+    <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
+    <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
   </div>
 
   <!-- HERO -->
@@ -21,40 +21,39 @@
       <img src="images/hero.png" alt="The world of OCEAN" onerror="this.style.display='none'" />
       <span class="placeholder-text">hero.png</span>
     </div>
-    <p class="hero-eyebrow">A children's IP rooted in Korean mythology &amp; the Big Five</p>
-    <h1>Every child<br>contains <em>multitudes.</em></h1>
-    <p class="hero-subtitle">OCEAN helps you understand yours.</p>
-    <a href="assessment.html" class="hero-cta">Take the Free Assessment</a>
+    <p class="hero-eyebrow" id="hero-eyebrow">A children's IP rooted in Korean mythology &amp; the Big Five</p>
+    <h1 id="hero-h1">Every child<br>contains <em>multitudes.</em></h1>
+    <p class="hero-subtitle" id="hero-subtitle">OCEAN helps you understand yours.</p>
+    <a href="assessment.html" class="hero-cta" id="hero-cta">Take the Free Assessment</a>
   </section>
 
   <!-- CONCEPT -->
   <section class="concept">
-    <span class="section-label fade-in">The Science</span>
-    <h2 class="fade-in">MBTI is fun. But it wasn't built to grow.</h2>
+    <span class="section-label fade-in" id="concept-label">The Science</span>
+    <h2 class="fade-in" id="concept-h2">MBTI is fun. But it wasn't built to grow.</h2>
     <div class="concept-divider fade-in"></div>
-    <p class="fade-in">You've probably seen your child's MBTI floating around. It's fun — but it wasn't designed for children, and it wasn't designed to change.</p>
-    <p class="fade-in">OCEAN is built on the Big Five — the most rigorously tested personality framework in psychology. Unlike MBTI, Big Five traits are measurable, developmentally meaningful, and most importantly: <strong>they can grow.</strong></p>
-    <p class="fade-in">We didn't build OCEAN to label your child. We built it to help you see them more clearly.</p>
+    <p class="fade-in" id="concept-p1">You've probably seen your child's MBTI floating around. It's fun — but it wasn't designed for children, and it wasn't designed to change.</p>
+    <p class="fade-in" id="concept-p2">OCEAN is built on the Big Five — the most rigorously tested personality framework in psychology. Unlike MBTI, Big Five traits are measurable, developmentally meaningful, and most importantly: <strong>they can grow.</strong></p>
+    <p class="fade-in" id="concept-p3">We didn't build OCEAN to label your child. We built it to help you see them more clearly.</p>
   </section>
 
   <!-- CHARACTERS -->
   <section class="characters" id="characters">
     <div class="characters-header">
-      <span class="section-label fade-in">The Characters</span>
-      <h2 class="fade-in">Five children. Five spirits. One family.</h2>
-      <p class="fade-in">Meet the world of OCEAN.</p>
+      <span class="section-label fade-in" id="chars-label">The Characters</span>
+      <h2 class="fade-in" id="chars-h2">Five children. Five spirits. One family.</h2>
+      <p class="fade-in" id="chars-sub">Meet the world of OCEAN.</p>
     </div>
 
     <div class="characters-grid">
-
       <div class="character-card fade-in">
         <div class="character-image">
           <img src="images/chiu.png" alt="Chiu" onerror="this.style.display='none'" />
         </div>
         <div class="character-name">Chiu</div>
         <div class="character-name-kr">치우</div>
-        <span class="character-age">Age 9</span>
-        <p class="character-desc">The one who was already ready before you asked.</p>
+        <span class="character-age" id="chiu-age">Age 9</span>
+        <p class="character-desc" id="chiu-desc">The one who was already ready before you asked.</p>
       </div>
 
       <div class="character-card fade-in">
@@ -63,8 +62,8 @@
         </div>
         <div class="character-name">Osol</div>
         <div class="character-name-kr">오솔</div>
-        <span class="character-age">Age 8</span>
-        <p class="character-desc">Always mid-thought, mid-wonder, mid-everything.</p>
+        <span class="character-age" id="osol-age">Age 8</span>
+        <p class="character-desc" id="osol-desc">Always mid-thought, mid-wonder, mid-everything.</p>
       </div>
 
       <div class="character-card fade-in">
@@ -73,8 +72,8 @@
         </div>
         <div class="character-name">Epa</div>
         <div class="character-name-kr">이파</div>
-        <span class="character-age">Age 6</span>
-        <p class="character-desc">First through the door, loudest in the room, last to leave.</p>
+        <span class="character-age" id="epa-age">Age 6</span>
+        <p class="character-desc" id="epa-desc">First through the door, loudest in the room, last to leave.</p>
       </div>
 
       <div class="character-card fade-in">
@@ -83,8 +82,8 @@
         </div>
         <div class="character-name">Aru</div>
         <div class="character-name-kr">아루</div>
-        <span class="character-age">Age 7</span>
-        <p class="character-desc">Knows how everyone's feeling before they do.</p>
+        <span class="character-age" id="aru-age">Age 7</span>
+        <p class="character-desc" id="aru-desc">Knows how everyone's feeling before they do.</p>
       </div>
 
       <div class="character-card fade-in">
@@ -93,10 +92,9 @@
         </div>
         <div class="character-name">Nuri</div>
         <div class="character-name-kr">누리</div>
-        <span class="character-age">Age 5</span>
-        <p class="character-desc">Feels everything. Misses nothing.</p>
+        <span class="character-age" id="nuri-age">Age 5</span>
+        <p class="character-desc" id="nuri-desc">Feels everything. Misses nothing.</p>
       </div>
-
     </div>
   </section>
 
@@ -107,68 +105,206 @@
       <span class="placeholder-text">world.png</span>
     </div>
     <div class="world-text">
-      <span class="section-label fade-in">The World</span>
-      <h2 class="fade-in">A warm house at the edge of somewhere familiar.</h2>
-      <p class="fade-in">Five children, different ages, different spirits — same family. A place where a mountain spirit thinks nothing of sitting next to a fox.</p>
-      <p class="fade-in">Where the loudest voice and the quietest one need each other more than either will admit.</p>
+      <span class="section-label fade-in" id="world-label">The World</span>
+      <h2 class="fade-in" id="world-h2">A warm house at the edge of somewhere familiar.</h2>
+      <p class="fade-in" id="world-p1">Five children, different ages, different spirits — same family. A place where a mountain spirit thinks nothing of sitting next to a fox.</p>
+      <p class="fade-in" id="world-p2">Where the loudest voice and the quietest one need each other more than either will admit.</p>
     </div>
   </section>
 
-  <!-- WHY OCEAN -->
+  <!-- HOW IT WORKS -->
   <section class="why" id="why">
     <div class="why-inner">
-      <span class="section-label fade-in">For Investors &amp; Partners</span>
-      <h2 class="fade-in">Korea's premium kids market.<br>Science-backed personality development.</h2>
+      <span class="section-label fade-in" id="why-label">How It Works</span>
+      <h2 class="fade-in" id="why-h2">From first insight to lasting growth.</h2>
 
       <div class="why-grid">
         <div class="why-item fade-in">
           <div class="why-number">01</div>
-          <h3>Free Assessment</h3>
-          <p>Big Five test for children, delivered in warm character-coded language parents immediately understand.</p>
+          <h3 id="why1-h">Free Assessment</h3>
+          <p id="why1-p">Big Five test for children, delivered in warm character-coded language parents immediately understand.</p>
         </div>
         <div class="why-item fade-in">
           <div class="why-number">02</div>
-          <h3>Premium Consultation</h3>
-          <p>Full professional report with child psychology specialist. Science-backed, parent-facing.</p>
+          <h3 id="why2-h">Premium Consultation</h3>
+          <p id="why2-p">Full professional report with child psychology specialist. Science-backed, parent-facing.</p>
         </div>
         <div class="why-item fade-in">
           <div class="why-number">03</div>
-          <h3>Learning Products</h3>
-          <p>Personalized books and 학습지 tied to your child's actual profile. Traits are improvable — we show parents how.</p>
+          <h3 id="why3-h">Learning Products</h3>
+          <p id="why3-p">Personalized books and 학습지 tied to your child's actual profile. Traits are improvable — we show parents how.</p>
         </div>
         <div class="why-item fade-in">
           <div class="why-number">04</div>
-          <h3>OCEAN Education</h3>
-          <p>Long-term: an OCEAN-model early education program built around the Big Five framework.</p>
+          <h3 id="why4-h">OCEAN Education</h3>
+          <p id="why4-p">Long-term: an OCEAN-model early education program built around the Big Five framework.</p>
         </div>
       </div>
 
-      <p class="why-quote fade-in">"The characters are the thread that ties it all together."</p>
+      <p class="why-quote fade-in" id="why-quote">"Every child can grow. We help parents see exactly where."</p>
     </div>
   </section>
 
   <!-- WAITLIST -->
   <section class="waitlist" id="waitlist">
-    <h2 class="fade-in">Be the first to know.</h2>
-    <p class="waitlist-desc fade-in">OCEAN is coming. Join the waitlist and we'll reach out when we launch.</p>
+    <h2 class="fade-in" id="waitlist-h2">Be the first to know.</h2>
+    <p class="waitlist-desc fade-in" id="waitlist-desc">OCEAN is coming. Join the waitlist and we'll reach out when we launch.</p>
 
     <div class="waitlist-tabs fade-in">
-      <button class="active">I'm a Parent</button>
-      <button>I'm an Investor</button>
+      <button class="active" id="tab-parent">I'm a Parent</button>
+      <button id="tab-investor">I'm an Investor</button>
     </div>
 
     <form class="waitlist-form fade-in" name="waitlist" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="waitlist" />
-      <input type="email" name="email" placeholder="Your email address" required />
-      <button type="submit">Join Waitlist</button>
+      <input type="email" name="email" id="email-input" placeholder="Your email address" required />
+      <button type="submit" id="submit-btn">Join Waitlist</button>
     </form>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 OCEAN / 오션. All rights reserved.</p>
+    <p id="footer-text">© 2025 OCEAN / 오션. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="translations-kr.js"></script>
+  <script>
+    // ── SCROLL ANIMATIONS ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── LANGUAGE TOGGLE ──
+    const indexTranslations = {
+      en: {
+        eyebrow: "A children's IP rooted in Korean mythology & the Big Five",
+        h1: "Every child<br>contains <em>multitudes.</em>",
+        subtitle: "OCEAN helps you understand yours.",
+        cta: "Take the Free Assessment",
+        concept_label: "The Science",
+        concept_h2: "MBTI is fun. But it wasn't built to grow.",
+        concept_p1: "You've probably seen your child's MBTI floating around. It's fun — but it wasn't designed for children, and it wasn't designed to change.",
+        concept_p2: "OCEAN is built on the Big Five — the most rigorously tested personality framework in psychology. Unlike MBTI, Big Five traits are measurable, developmentally meaningful, and most importantly: <strong>they can grow.</strong>",
+        concept_p3: "We didn't build OCEAN to label your child. We built it to help you see them more clearly.",
+        chars_label: "The Characters",
+        chars_h2: "Five children. Five spirits. One family.",
+        chars_sub: "Meet the world of OCEAN.",
+        chiu_age: "Age 9", chiu_desc: "The one who was already ready before you asked.",
+        osol_age: "Age 8", osol_desc: "Always mid-thought, mid-wonder, mid-everything.",
+        epa_age: "Age 6", epa_desc: "First through the door, loudest in the room, last to leave.",
+        aru_age: "Age 7", aru_desc: "Knows how everyone's feeling before they do.",
+        nuri_age: "Age 5", nuri_desc: "Feels everything. Misses nothing.",
+        world_label: "The World",
+        world_h2: "A warm house at the edge of somewhere familiar.",
+        world_p1: "Five children, different ages, different spirits — same family. A place where a mountain spirit thinks nothing of sitting next to a fox.",
+        world_p2: "Where the loudest voice and the quietest one need each other more than either will admit.",
+        why_label: "How It Works",
+        why_h2: "From first insight to lasting growth.",
+        why1_h: "Free Assessment", why1_p: "Big Five test for children, delivered in warm character-coded language parents immediately understand.",
+        why2_h: "Premium Consultation", why2_p: "Full professional report with child psychology specialist. Science-backed, parent-facing.",
+        why3_h: "Learning Products", why3_p: "Personalized books and 학습지 tied to your child's actual profile. Traits are improvable — we show parents how.",
+        why4_h: "OCEAN Education", why4_p: "Long-term: an OCEAN-model early education program built around the Big Five framework.",
+        why_quote: '"Every child can grow. We help parents see exactly where."',
+        waitlist_h2: "Be the first to know.",
+        waitlist_desc: "OCEAN is coming. Join the waitlist and we'll reach out when we launch.",
+        tab_parent: "I'm a Parent",
+        tab_investor: "I'm an Investor",
+        email_placeholder: "Your email address",
+        submit: "Join Waitlist",
+        footer: "© 2025 OCEAN / 오션. All rights reserved.",
+      },
+      kr: {
+        eyebrow: "한국 신화와 Big Five를 담은 어린이 IP",
+        h1: "우리 아이,<br>왜 그랬을까요?",
+        subtitle: "오션이 함께 찾아드립니다.",
+        cta: "무료 검사 시작하기",
+        concept_label: "과학적 배경",
+        concept_h2: "MBTI, 재미있죠. 근데 뭔가 아쉽지 않으셨나요?",
+        concept_p1: "MBTI, 재미있죠. 근데 솔직히 우리 아이한테 딱 맞는 것 같으면서도… 뭔가 아쉬울 때 있지 않으셨나요?",
+        concept_p2: "오션은 Big Five — 심리학에서 가장 오랫동안 검증된 성격 모델을 바탕으로 만들었어요. MBTI와 다른 점이 하나 있어요. Big Five는 변해요. <strong>자랄 수 있어요.</strong> 우리 아이와 함께요.",
+        concept_p3: "유형으로 가두려는 게 아니에요. 2018아, 그래서 그랬구나2019 — 그 순간을 드리고 싶어서 만들었습니다.",
+        chars_label: "캐릭터",
+        chars_h2: "다섯 아이. 다섯 기운. 그런데 왜 이렇게 다 다를까요?",
+        chars_sub: "오션의 세계를 만나보세요.",
+        chiu_age: "9살", chiu_desc: "시키기도 전에 이미 다 해놓은 아이.",
+        osol_age: "8살", osol_desc: "맨날 딴 생각하는 것 같은데, 사실 제일 많이 생각하는 아이.",
+        epa_age: "6살", epa_desc: "어디서든 제일 먼저 친구 사귀는 아이.",
+        aru_age: "7살", aru_desc: "아무 말 안 해도 눈치채는 아이.",
+        nuri_age: "5살", nuri_desc: "별것 아닌 것에 가장 크게 감동받는 아이.",
+        world_label: "세계관",
+        world_h2: "어딘가 낯익은 곳, 따뜻한 집 한 채.",
+        world_p1: "나이도 다르고 기운도 다른 다섯 아이가 함께 살아요. 산신령이 여우 옆에 앉는 게 전혀 이상하지 않은 곳.",
+        world_p2: "제일 시끄러운 아이와 제일 조용한 아이가 사실 서로 제일 필요한 곳. 오션의 집은 그런 곳이에요.",
+        why_label: "이렇게 작동합니다",
+        why_h2: "첫 번째 인사이트부터 지속적인 성장까지.",
+        why1_h: "무료 검사", why1_p: "부모님이 바로 이해할 수 있는 따뜻한 언어로 전달하는 아이를 위한 Big Five 검사.",
+        why2_h: "프리미엄 상담", why2_p: "아동심리 전문가와의 심층 상담. 과학적 근거, 부모님 눈높이에 맞게.",
+        why3_h: "학습 콘텐츠", why3_p: "우리 아이 성향에 맞춘 책과 학습지. Big Five는 키울 수 있습니다.",
+        why4_h: "오션 교육", why4_p: "Big Five 철학을 담은 유아 교육 프로그램. 오션의 장기 비전입니다.",
+        why_quote: '"모든 아이는 성장할 수 있습니다. 오션이 그 방향을 보여드립니다."',
+        waitlist_h2: "가장 먼저 만나보세요.",
+        waitlist_desc: "오션이 곧 찾아옵니다. 사전 신청하시면 런칭 소식을 제일 먼저 전해드릴게요.",
+        tab_parent: "부모입니다",
+        tab_investor: "투자자/파트너입니다",
+        email_placeholder: "이메일 주소를 입력해주세요",
+        submit: "사전 신청하기",
+        footer: "© 2025 OCEAN / 오션. All rights reserved.",
+      }
+    };
+
+    function setLang(lang, btn) {
+      document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const t = indexTranslations[lang];
+      document.getElementById('hero-eyebrow').textContent = t.eyebrow;
+      document.getElementById('hero-h1').innerHTML = t.h1;
+      document.getElementById('hero-subtitle').textContent = t.subtitle;
+      document.getElementById('hero-cta').textContent = t.cta;
+      document.getElementById('concept-label').textContent = t.concept_label;
+      document.getElementById('concept-h2').textContent = t.concept_h2;
+      document.getElementById('concept-p1').textContent = t.concept_p1;
+      document.getElementById('concept-p2').innerHTML = t.concept_p2;
+      document.getElementById('concept-p3').textContent = t.concept_p3;
+      document.getElementById('chars-label').textContent = t.chars_label;
+      document.getElementById('chars-h2').textContent = t.chars_h2;
+      document.getElementById('chars-sub').textContent = t.chars_sub;
+      document.getElementById('chiu-age').textContent = t.chiu_age;
+      document.getElementById('chiu-desc').textContent = t.chiu_desc;
+      document.getElementById('osol-age').textContent = t.osol_age;
+      document.getElementById('osol-desc').textContent = t.osol_desc;
+      document.getElementById('epa-age').textContent = t.epa_age;
+      document.getElementById('epa-desc').textContent = t.epa_desc;
+      document.getElementById('aru-age').textContent = t.aru_age;
+      document.getElementById('aru-desc').textContent = t.aru_desc;
+      document.getElementById('nuri-age').textContent = t.nuri_age;
+      document.getElementById('nuri-desc').textContent = t.nuri_desc;
+      document.getElementById('world-label').textContent = t.world_label;
+      document.getElementById('world-h2').textContent = t.world_h2;
+      document.getElementById('world-p1').textContent = t.world_p1;
+      document.getElementById('world-p2').textContent = t.world_p2;
+      document.getElementById('why-label').textContent = t.why_label;
+      document.getElementById('why-h2').textContent = t.why_h2;
+      document.getElementById('why1-h').textContent = t.why1_h;
+      document.getElementById('why1-p').textContent = t.why1_p;
+      document.getElementById('why2-h').textContent = t.why2_h;
+      document.getElementById('why2-p').textContent = t.why2_p;
+      document.getElementById('why3-h').textContent = t.why3_h;
+      document.getElementById('why3-p').textContent = t.why3_p;
+      document.getElementById('why4-h').textContent = t.why4_h;
+      document.getElementById('why4-p').textContent = t.why4_p;
+      document.getElementById('why-quote').textContent = t.why_quote;
+      document.getElementById('waitlist-h2').textContent = t.waitlist_h2;
+      document.getElementById('waitlist-desc').textContent = t.waitlist_desc;
+      document.getElementById('tab-parent').textContent = t.tab_parent;
+      document.getElementById('tab-investor').textContent = t.tab_investor;
+      document.getElementById('email-input').placeholder = t.email_placeholder;
+      document.getElementById('submit-btn').textContent = t.submit;
+      document.getElementById('footer-text').textContent = t.footer;
+    }
+  </script>
 </body>
 </html>
