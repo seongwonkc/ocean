@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <script src="report-content.js"></script>
   <script src="products.js"></script>
+  <script src="translations-kr.js"></script>
   <style>
     * { box-sizing: border-box; }
 
@@ -354,6 +355,11 @@
   </style>
 </head>
 <body>
+
+<div class="lang-toggle" id="langToggle">
+  <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
+  <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
+</div>
 
 <div class="assessment-wrap">
 
@@ -829,6 +835,201 @@ function toggleAccordion(btn) {
     setTimeout(() => { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
   }
 }
+
+// ── LANGUAGE SYSTEM ──
+let currentLang = 'en';
+
+function setLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Re-render current screen content if past intro
+  applyLangToCurrentScreen();
+}
+
+function t(key) {
+  if (currentLang === 'kr' && kr && kr.ui[key]) return kr.ui[key];
+  return null; // fall back to existing English
+}
+
+function applyLangToCurrentScreen() {
+  if (currentLang !== 'kr') return;
+  const activeScreen = document.querySelector('.screen.active');
+  if (!activeScreen) return;
+  const id = activeScreen.id;
+
+  if (id === 'screen-intro') {
+    activeScreen.querySelector('h2').textContent = kr.ui.intro_title;
+    const ps = activeScreen.querySelectorAll('p');
+    if (ps[0]) ps[0].textContent = kr.ui.intro_body1;
+    if (ps[1]) ps[1].textContent = kr.ui.intro_body2;
+    activeScreen.querySelector('.hero-cta').textContent = kr.ui.begin;
+    activeScreen.querySelector('.disclaimer').textContent = kr.ui.intro_disclaimer;
+  }
+  if (id === 'screen-parent-intro') {
+    activeScreen.querySelector('h2').textContent = kr.ui.parent_intro_title;
+    activeScreen.querySelector('p').textContent = kr.ui.parent_intro_body;
+    activeScreen.querySelector('.hero-cta').textContent = kr.ui.start;
+  }
+  if (id === 'screen-transition') {
+    activeScreen.querySelector('h2').textContent = kr.ui.transition_title;
+    activeScreen.querySelector('p').textContent = kr.ui.transition_body;
+    activeScreen.querySelector('.hero-cta').textContent = kr.ui.continue;
+  }
+}
+
+// Patch renderParentQuestion to use Korean
+const _origRenderParent = renderParentQuestion;
+renderParentQuestion = function() {
+  _origRenderParent();
+  if (currentLang !== 'kr') return;
+  const q = parentItems[pIndex];
+  const origIndex = rawParentItems.findIndex(r => r.id === q.id);
+  if (origIndex < 0) return;
+  const krQ = kr.parentItems[origIndex];
+  if (!krQ) return;
+  document.getElementById('pQuestionPrompt').textContent = krQ.prompt;
+  document.getElementById('pQuestionCounter').textContent = kr.ui.question_of(pIndex + 1, parentItems.length);
+  const btns = document.querySelectorAll('#pOptionsList .option-btn');
+  btns.forEach((btn, i) => {
+    const optId = btn.dataset ? btn.dataset.optId : null;
+    // match by position in shuffled options
+    const shuffledOpt = parentItems[pIndex].options[i];
+    const origOpt = rawParentItems[origIndex].options.find(o => o.id === shuffledOpt.id);
+    if (origOpt) {
+      const optIndex = rawParentItems[origIndex].options.indexOf(origOpt);
+      if (krQ.options[optIndex]) btn.textContent = krQ.options[optIndex].text;
+    }
+  });
+  document.getElementById('pNextBtn').textContent = kr.ui.next;
+  document.getElementById('progressSection').textContent = kr.ui.about_child;
+};
+
+const _origRenderChild = renderChildQuestion;
+renderChildQuestion = function() {
+  _origRenderChild();
+  if (currentLang !== 'kr') return;
+  const q = childItems[cIndex];
+  const origIndex = rawChildItems.findIndex(r => r.id === q.id);
+  if (origIndex < 0) return;
+  const krQ = kr.childItems[origIndex];
+  if (!krQ) return;
+  document.getElementById('cQuestionPrompt').textContent = krQ.prompt;
+  document.getElementById('cQuestionCounter').textContent = kr.ui.question_of(cIndex + 1, childItems.length);
+  const btns = document.querySelectorAll('#cOptionsList .option-btn');
+  btns.forEach((btn, i) => {
+    const shuffledOpt = childItems[cIndex].options[i];
+    const origOpt = rawChildItems[origIndex].options.find(o => o.id === shuffledOpt.id);
+    if (origOpt) {
+      const optIndex = rawChildItems[origIndex].options.indexOf(origOpt);
+      if (krQ.options[optIndex]) btn.textContent = krQ.options[optIndex].text;
+    }
+  });
+  document.getElementById('cNextBtn').textContent = kr.ui.next;
+  document.getElementById('calibrationWrap').querySelector('.calibration-label').textContent = kr.ui.how_typical;
+  const calBtns = document.querySelectorAll('.cal-btn');
+  if (calBtns[0]) calBtns[0].textContent = kr.ui.very_typical;
+  if (calBtns[1]) calBtns[1].textContent = kr.ui.somewhat_typical;
+  if (calBtns[2]) calBtns[2].textContent = kr.ui.not_very_typical;
+  document.getElementById('progressSection').textContent = kr.ui.child_answers;
+};
+
+// Patch renderResults to use Korean
+const _origRenderResults = renderResults;
+renderResults = function(scores) {
+  _origRenderResults(scores);
+  if (currentLang !== 'kr') return;
+
+  // Results header
+  document.querySelector('.results-header h2').textContent = kr.ui.results_title;
+  document.querySelector('.results-header p').textContent = kr.ui.results_subtitle;
+
+  // Archetype
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  const sorted = [...traits].sort((a,b) => scores[b] - scores[a]);
+  const archetype = matchArchetype(scores);
+  const krArch = kr.archetypes[archetype.id];
+  if (krArch) {
+    document.querySelector('.archetype-name').textContent = krArch.name;
+    document.querySelector('.archetype-tagline').textContent = krArch.tagline;
+    document.querySelector('.archetype-desc').textContent = krArch.desc;
+  }
+
+  // Trait bars
+  document.querySelector('.trait-bars h3').textContent = kr.ui.five_dimensions;
+  document.querySelectorAll('.trait-row').forEach((row, i) => {
+    const trait = traits[i];
+    const score = Math.round(scores[trait]);
+    const band = getBand(score);
+    const bandKey = bandToKey[band];
+    row.querySelector('.trait-row-name').textContent = kr.traitNames[trait];
+    row.querySelector('.trait-row-plain').textContent = kr.traitPlain[trait];
+    row.querySelector('.trait-row-band').textContent = kr.ui['band_' + bandKey.replace(' ', '_')] || band;
+    row.querySelector('.trait-desc').textContent = kr.traitDesc[trait][isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
+  });
+
+  // Report section
+  document.querySelector('.report-section-header').textContent = kr.ui.full_report;
+  document.querySelectorAll('.accordion-item').forEach((item, i) => {
+    const trait = traits[i];
+    const score = Math.round(scores[trait]);
+    const band = getBand(score);
+    const bandKey = bandToKey[band];
+    const titleKey = trait + '_' + bandKey;
+    const trigger = item.querySelector('.accordion-trigger');
+    trigger.childNodes[0].textContent = kr.reportTitles[titleKey] || trigger.childNodes[0].textContent;
+    trigger.querySelector('.accordion-band').textContent = kr.ui['band_' + bandKey.replace(' ', '_')] || band;
+    const panel = item.querySelector('.accordion-panel');
+    panel.querySelector('.panel-summary').textContent = kr.reportSummaries[titleKey] || panel.querySelector('.panel-summary').textContent;
+    const blockTitles = panel.querySelectorAll('.panel-block-title');
+    if (blockTitles[0]) blockTitles[0].textContent = kr.ui.strengths;
+    if (blockTitles[1]) blockTitles[1].textContent = kr.ui.worth_knowing;
+    if (blockTitles[2]) blockTitles[2].textContent = kr.ui.what_to_do;
+    if (blockTitles[3]) blockTitles[3].textContent = kr.ui.context;
+  });
+
+  // Products
+  document.querySelector('.products-section h3').textContent = kr.ui.supporting_growth;
+  document.querySelector('.products-intro').textContent = kr.ui.products_intro;
+  document.querySelectorAll('.product-card').forEach(card => {
+    const nameEl = card.querySelector('.product-name');
+    const taglineEl = card.querySelector('.product-tagline');
+    const catEl = card.querySelector('.product-tag.category');
+    // Find product id by matching English name
+    const engName = nameEl.textContent;
+    const prod = productsData.find(p => p.name === engName);
+    if (prod && kr.products[prod.id]) {
+      nameEl.textContent = kr.products[prod.id].name;
+      taglineEl.textContent = kr.products[prod.id].tagline;
+      card.querySelector('.product-icon').textContent = kr.ui['cat_' + prod.category] || catEl.textContent;
+      if (catEl) catEl.textContent = kr.ui['cat_' + prod.category] || catEl.textContent;
+    }
+    const ageEl = card.querySelector('.product-tag.age');
+    if (ageEl && prod) ageEl.textContent = kr.ui.ages_prefix + ' ' + prod.age_range;
+  });
+  document.querySelector('.products-cta a').textContent = kr.ui.see_catalog;
+
+  // Premium CTA
+  document.querySelector('.premium-cta h3').textContent = kr.ui.go_deeper_title;
+  document.querySelector('.premium-cta p').textContent = kr.ui.go_deeper_body;
+  document.querySelector('.premium-cta a').textContent = kr.ui.book_consultation;
+
+  // Disclaimer
+  document.querySelector('.results-disclaimer').textContent = kr.ui.results_disclaimer;
+};
+
+// Apply lang to intro on load
+document.addEventListener('DOMContentLoaded', () => {
+  applyLangToCurrentScreen();
+});
+
+// Patch showScreen to re-apply lang
+const _origShowScreen = showScreen;
+showScreen = function(id) {
+  _origShowScreen(id);
+  setTimeout(applyLangToCurrentScreen, 50);
+};
+
 </script>
 </body>
 </html>
