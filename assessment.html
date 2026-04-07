@@ -8,6 +8,7 @@
   <script src="report-content.js"></script>
   <script src="products.js"></script>
   <script src="translations-kr.js"></script>
+  <script src="report-content-kr.js"></script>
   <style>
     * { box-sizing: border-box; }
 
@@ -771,12 +772,15 @@ function renderResults(scores) {
   }, 300);
 
   // Detailed report accordion
+  const isKrLang = currentLang === 'kr';
   let accordionHTML = '';
   traits.forEach((trait, i) => {
     const score = Math.round(scores[trait]);
     const band = getBand(score);
     const bandKey = bandToKey[band];
-    const reportItem = detailedReportData.find(r => r.trait === trait && r.band === bandKey);
+    const reportItem = isKrLang
+      ? detailedReportDataKr.find(r => r.trait === trait && r.band === bandKey)
+      : detailedReportData.find(r => r.trait === trait && r.band === bandKey);
     if (!reportItem) return;
 
     const strengthsHTML = reportItem.strengths.map(s => `<li>${s}</li>`).join('');
@@ -1000,6 +1004,16 @@ renderResults = function(scores) {
     if (blockTitles[1]) blockTitles[1].textContent = kr.ui.worth_knowing;
     if (blockTitles[2]) blockTitles[2].textContent = kr.ui.what_to_do;
     if (blockTitles[3]) blockTitles[3].textContent = kr.ui.context;
+    // Update list items with Korean content
+    const krItem = detailedReportDataKr.find(r => r.trait === trait && r.band === bandKey);
+    if (krItem) {
+      const lists = panel.querySelectorAll('.panel-list');
+      if (lists[0]) lists[0].innerHTML = krItem.strengths.map(s => `<li>${s}</li>`).join('');
+      if (lists[1]) lists[1].innerHTML = krItem.watch_outs.map(s => `<li>${s}</li>`).join('');
+      if (lists[2]) lists[2].innerHTML = krItem.what_to_do.map(s => `<li>${s}</li>`).join('');
+      panel.querySelector('.panel-summary').textContent = krItem.summary;
+      panel.querySelector('.panel-context').textContent = krItem.context;
+    }
   });
 
   // Products
