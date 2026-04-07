@@ -59,11 +59,11 @@ const kr = {
   },
 
   traitPlain: {
-    openness: "먼저 탐색합니다.",
-    conscientiousness: "끝까지 해냅니다.",
-    extraversion: "빠르게 어울립니다.",
-    agreeableness: "분위기를 부드럽게 합니다.",
-    negative_emotionality: "변화를 강하게 느낍니다.",
+    openness: "새로운 것과 다양한 생각에 대한 관심",
+    conscientiousness: "과제를 끝까지 해내고 책임을 지키는 정도",
+    extraversion: "사람들과 어울리고 표현하는 방식",
+    agreeableness: "다른 사람과 협력하고 관계를 유지하는 방식",
+    negative_emotionality: "스트레스와 변화에 대한 감정 반응 정도",
   },
 
   traitDesc: {
@@ -96,42 +96,42 @@ const kr = {
 
   archetypes: {
     curie_style_explorer: {
-      name: "퀴리형 탐구자",
+      name: "탐구자",
       tagline: "호기심과 끈기를 함께 가졌습니다.",
       desc: "새로운 아이디어에 끌리면서도, 배움을 위해 충분히 오래 도전을 붙잡고 있습니다.",
     },
     goodall_style_observer: {
-      name: "구달형 관찰자",
+      name: "관찰자",
       tagline: "조용한 호기심을 가졌습니다.",
       desc: "깊이 탐구하고, 세부 사항을 알아채며, 소란스러운 환경보다 혼자만의 발견을 선호할 수 있습니다.",
     },
     attenborough_style_wonderer: {
-      name: "에튼버러형 탐험가",
+      name: "탐험가",
       tagline: "열정적이고 적극적입니다.",
       desc: "새로움, 이야기, 세상에 대한 공유된 흥분에 끌립니다.",
     },
     rogers_style_harmonizer: {
-      name: "로저스형 조화자",
+      name: "조화자",
       tagline: "따뜻하고 안정적입니다.",
       desc: "긴장을 완화하고, 타인을 배려하며, 관계에 평온함을 가져옵니다.",
     },
     serena_style_finisher: {
-      name: "세레나형 완수자",
+      name: "완수자",
       tagline: "의지가 강하고 결단력이 있습니다.",
       desc: "목표에 집중하고, 장애물을 이겨내며, 쉽게 물러서지 않습니다.",
     },
     earhart_style_bold_starter: {
-      name: "에어하트형 도전자",
+      name: "도전자",
       tagline: "망설임 없이 뛰어듭니다.",
       desc: "새로운 상황에 들어서고, 낯선 것을 시도하며, 너무 깊이 생각하기 전에 먼저 움직입니다.",
     },
     frida_style_intense_creator: {
-      name: "프리다형 창작자",
+      name: "창작자",
       tagline: "상상력이 풍부하고 감정이 깊습니다.",
       desc: "상상력이 넘치고, 표현력이 강하며, 어려움이나 변화를 깊은 강도로 경험합니다.",
     },
     yoyoma_style_connector: {
-      name: "요요마형 연결자",
+      name: "연결자",
       tagline: "따뜻하고 잘 어울립니다.",
       desc: "사람들과 함께하는 것을 즐기고, 빠르게 어울리며, 그룹에 따뜻함을 가져옵니다.",
     },
