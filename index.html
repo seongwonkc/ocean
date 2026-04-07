@@ -256,9 +256,19 @@
       }
     };
 
+    // Apply saved language on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = sessionStorage.getItem('ocean_lang');
+      if (saved && saved !== 'en') {
+        const btn = document.querySelector('#langToggle button[data-lang="' + saved + '"]');
+        if (btn) setLang(saved, btn);
+      }
+    });
+
     function setLang(lang, btn) {
       document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      sessionStorage.setItem('ocean_lang', lang);
       const t = indexTranslations[lang];
       document.getElementById('hero-eyebrow').textContent = t.eyebrow;
       document.getElementById('hero-h1').innerHTML = t.h1;

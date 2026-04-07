@@ -854,6 +854,7 @@ let currentLang = 'en';
 
 function setLang(lang, btn) {
   currentLang = lang;
+  sessionStorage.setItem('ocean_lang', lang);
   document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   // Re-render current screen content if past intro
@@ -1031,8 +1032,17 @@ renderResults = function(scores) {
   document.querySelector('.results-disclaimer').textContent = kr.ui.results_disclaimer;
 };
 
-// Apply lang to intro on load
+// Apply saved language on load
 document.addEventListener('DOMContentLoaded', () => {
+  const saved = sessionStorage.getItem('ocean_lang');
+  if (saved && saved !== 'en') {
+    currentLang = saved;
+    const btn = document.querySelector('#langToggle button[data-lang="' + saved + '"]');
+    if (btn) {
+      document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  }
   applyLangToCurrentScreen();
 });
 
