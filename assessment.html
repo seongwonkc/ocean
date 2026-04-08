@@ -1491,7 +1491,7 @@ function renderRadarChart(childScores, pScores) {
   }
   function poly(scores, invNE) {
     return traits.map((t, i) => {
-      let v = (scores[t] || 50) / 100;
+      let v = (scores[t] ??50) / 100;
       if (t === 'negative_emotionality' && invNE) v = 1 - v;
       const p = toXY(i, v);
       return `${p.x},${p.y}`;
@@ -1518,11 +1518,11 @@ function renderRadarChart(childScores, pScores) {
     ? `<polygon points="${poly(pScores, true)}" fill="rgba(196,133,58,0.18)" stroke="#c4853a" stroke-width="2" stroke-linejoin="round" stroke-dasharray="5,3"/>`
     : '';
   const cDots = traits.map((t, i) => {
-    const p = toXY(i, (childScores[t] || 50) / 100);
+    const p = toXY(i, (childScores[t] ??50) / 100);
     return `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#8baf9a" stroke="white" stroke-width="1.5"/>`;
   }).join('');
   const pDots = hasParent ? traits.map((t, i) => {
-    let v = (pScores[t] || 50) / 100;
+    let v = (pScores[t] ??50) / 100;
     if (t === 'negative_emotionality') v = 1 - v;
     const p = toXY(i, v);
     return `<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#c4853a" stroke="white" stroke-width="1.5"/>`;
@@ -1594,7 +1594,7 @@ function renderParentProfile() {
 
   traitOrder.forEach(trait => {
     const meta  = traitMeta[trait];
-    const raw   = parentScores[trait] || 50;
+    const raw   = parentScores[trait] ??50;
     const disp  = meta.invertDisplay ? (100 - raw) : raw;
     const level = disp >= 56 ? 'high' : disp <= 44 ? 'low' : 'mid';
     const name  = isKr ? meta.nameKr : meta.nameEn;
@@ -1736,7 +1736,7 @@ function renderActivityCards(childScores) {
   const isKr = currentLang === 'kr';
 
   const activities = [
-    { trait:'conscientiousness', score: childScores.conscientiousness || 50,
+    { trait:'conscientiousness', score: childScores.conscientiousness ??50,
       wishKr:'끝까지 해냈으면 해요', wishEn:'I wish my child would see things through',
       labelKr:'성실성 · 끈기', labelEn:'Conscientiousness',
       contextKr:'성실성이 낮은 아이는 의욕이 없는 게 아닙니다 — 지속적 집중을 담당하는 전두엽이 아직 발달 중인 것입니다. 성실성은 청소년기를 거치며 서서히 증가하며, 일관되고 구조화된 환경이 이 발달을 앞당깁니다 (Borghuis et al., 2017; Tetzner et al., 2022). 가장 효과적인 접근은 더 밀어붙이는 것이 아니라 마찰을 줄이고 노력을 눈에 보이게 만드는 것입니다. 결과보다 과정을 인정하는 칭찬은 성향 수준과 무관하게 지속적 행동을 예측합니다 (Dweck, 2006).',
@@ -1754,7 +1754,7 @@ function renderActivityCards(childScores) {
         { title:'Make progress visible', desc:'A sticker chart or checklist lets your child see how far they\'ve come' }
       ]
     },
-    { trait:'openness', score: childScores.openness || 50,
+    { trait:'openness', score: childScores.openness ??50,
       wishKr:'새로운 것도 즐겼으면 해요', wishEn:'I wish my child embraced new things',
       labelKr:'개방성 · 탐구심', labelEn:'Openness',
       contextKr:'특정 활동으로 개방성을 직접 높인다는 증거는 제한적입니다 — 예술 교육이 약간의 효과를 보이지만 연구의 질이 고르지 않습니다 (Grosz et al., 2020). 더 잘 뒷받침되는 것은: 개방성이 낮은 아이는 호기심이 없는 게 아니라 낯선 것에 조심스럽다는 점입니다. 새로움에 대한 압박을 줄이는 따뜻한 양육은 전반적인 성격 발달에 긍정적인 영향을 미칩니다 (Wu & Wang, 2023; Nurhidayati et al., 2024). 목표는 특성을 바꾸는 것이 아니라, 자연스러운 호기심이 발현되지 못하게 막는 마찰을 줄이는 것입니다.',
@@ -1772,7 +1772,7 @@ function renderActivityCards(childScores) {
         { title:'One &rdquo;why&rdquo; a day', desc:'Pick one thing and wonder about it together. Questions are more powerful than explanations' }
       ]
     },
-    { trait:'extraversion', score: childScores.extraversion || 50,
+    { trait:'extraversion', score: childScores.extraversion ??50,
       wishKr:'친구들과 더 잘 어울렸으면 해요', wishEn:'I wish my child connected more easily with others',
       labelKr:'외향성 · 사회적 에너지', labelEn:'Extraversion',
       contextKr:'내향성은 고쳐야 할 문제가 아닙니다. 낮은 외향성은 발달 전반에 걸쳐 안정적이며, 결핍이 아닌 다른 에너지 시스템을 의미합니다 (Borghuis et al., 2017). 여기 제안된 활동들은 아이를 더 외향적으로 만들기 위한 것이 아닙니다 — 내향적인 아이가 에너지를 소진시키는 환경에 반복적으로 놓일 때 쌓이는 사회적 불안을 줄이기 위한 것입니다. 따뜻하고 소통적인 양육은 성향 수준과 무관하게 건강한 사회적 발달과 일관되게 연관됩니다 (Nurhidayati et al., 2024; Wu & Wang, 2023).',
@@ -1790,7 +1790,7 @@ function renderActivityCards(childScores) {
         { title:'Connect through shared interest', desc:'Finding a child with the same niche interest gives them a conversation starter built in' }
       ]
     },
-    { trait:'agreeableness', score: childScores.agreeableness || 50,
+    { trait:'agreeableness', score: childScores.agreeableness ??50,
       wishKr:'다른 사람 마음을 더 알았으면 해요', wishEn:'I wish my child was more aware of others',
       labelKr:'원만성 · 공감', labelEn:'Agreeableness',
       contextKr:'원만성은 아동기와 청소년기를 거치며 가장 일관되게 증가하는 특성 중 하나입니다 (Borghuis et al., 2017; Soto et al., 2011). 따뜻하고 참여적이며 소통적인 양육이 가장 근거가 탄탄한 접근법입니다 — 여러 연구에서 친사회적 발달 및 공감 능력과 연관됩니다 (Nurhidayati et al., 2024; Wu & Wang, 2023). 감정 코칭 — 아이가 자신과 타인의 감정을 인식하고 이름 붙이도록 돕는 것 — 은 공감을 가능하게 하는 정서적 어휘를 확장해 이 과정을 지원합니다.',
@@ -1808,7 +1808,7 @@ function renderActivityCards(childScores) {
         { title:'Reflect feelings first', desc:'When your child is upset, leading with &rdquo;you seem really frustrated&rdquo; teaches them to do the same for others' }
       ]
     },
-    { trait:'negative_emotionality', score: childScores.negative_emotionality || 50,
+    { trait:'negative_emotionality', score: childScores.negative_emotionality ??50,
       wishKr:'감정 기복이 줄었으면 해요', wishEn:'I wish my child managed big feelings more easily',
       labelKr:'감수성 · 정서 조절', labelEn:'Emotional sensitivity',
       contextKr:'높은 감정적 반응성은 신경학적 기반을 가집니다 — 예민한 아이는 과잉 반응하는 게 아니라, 더 정교하게 조율된 시스템으로 반응하는 것입니다. 중요한 점은, 예민한 아이는 부정적 환경과 긍정적 환경 모두에 더 크게 반응한다는 것입니다 — 즉, 지지적인 가정환경이 감수성이 낮은 아이보다 높은 아이에게 더 큰 영향을 미친다는 의미입니다 (Mertens et al., 2022). 감수성은 환경에 따라 변화할 수 있습니다: 역경은 이를 높이고, 안정적이고 지지적인 환경은 시간이 지나며 낮추는 데 도움이 됩니다 (Shiner et al., 2017). 부모님의 침착함은 공동 조절 도구입니다 — 아이의 신경계는 양육자의 신경계와 동조됩니다.',
