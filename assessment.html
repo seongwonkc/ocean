@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -156,6 +156,18 @@
     .trait-track { height: 8px; background: var(--celadon-light); border-radius: 8px; overflow: hidden; }
     .trait-fill { height: 100%; background: var(--celadon); border-radius: 8px; transition: width 1s ease; width: 0%; }
     .trait-desc { font-size: 13px; color: var(--ink-soft); margin-top: 6px; line-height: 1.6; }
+
+    /* ── COMPATIBILITY FLAGS ── */
+    .risk-card {
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 10px;
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: 13px; line-height: 1.65;
+    }
+    .risk-card.hi  { background: #fdf0ef; border-left: 4px solid #c0392b; }
+    .risk-card.med { background: #fef7ec; border-left: 4px solid #e67e22; }
+    .risk-card.ok  { background: #eafbf1; border-left: 4px solid #27ae60; }
+    .risk-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .risk-body strong { display: block; margin-bottom: 4px; font-weight: 600; color: var(--ink); }
 
     /* ── DETAILED REPORT ACCORDION ── */
     .report-section { margin-bottom: 24px; }
@@ -340,7 +352,6 @@
       font-style: italic; margin-top: 24px; line-height: 1.7;
     }
 
-
     /* ── NAV ── */
     .assessment-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
@@ -359,50 +370,12 @@
     .assessment-nav .lang-toggle { position: static; background: none; border: none; padding: 0; backdrop-filter: none; }
     .assessment-wrap { padding-top: 80px; }
 
-
-    /* ── PARENT-CHILD MATCH ── */
-    .parent-child-match {
-      background: var(--cream); border-radius: 20px;
-      padding: 28px; margin-bottom: 24px;
-    }
-    .match-header {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px; font-weight: 400;
-      color: var(--ink); margin-bottom: 8px;
-    }
-    .match-intro {
-      font-size: 14px; color: var(--ink-soft);
-      margin-bottom: 24px; line-height: 1.6; font-style: italic;
-    }
-    .match-row { margin-bottom: 20px; }
-    .match-row-label {
-      font-size: 13px; font-weight: 600;
-      color: var(--ink); margin-bottom: 8px;
-    }
-    .match-bars-wrap { display: flex; flex-direction: column; gap: 6px; }
-    .match-bar-row { display: flex; align-items: center; gap: 10px; }
-    .match-bar-who {
-      font-size: 11px; color: var(--stone);
-      width: 40px; flex-shrink: 0; text-align: right;
-    }
-    .match-track { flex: 1; height: 8px; background: var(--celadon-light); border-radius: 8px; overflow: hidden; }
-    .match-fill-parent { height: 100%; background: var(--amber); border-radius: 8px; transition: width 1s ease; width: 0%; }
-    .match-fill-child { height: 100%; background: var(--celadon); border-radius: 8px; transition: width 1s ease; width: 0%; }
-    .match-gap-label {
-      font-size: 12px; color: var(--stone);
-      margin-top: 4px; font-style: italic;
-    }
-    .match-gap-label.high { color: var(--amber); font-weight: 600; }
-
     /* ── BIRTH YEAR INPUT ── */
-    .birth-year-wrap {
-      margin: 20px 0;
-    }
+    .birth-year-wrap { margin: 20px 0; }
     .birth-year-label {
       font-family: 'Noto Serif KR', serif;
       font-size: 14px; color: var(--ink-soft);
-      display: block; margin-bottom: 10px;
-      text-align: left;
+      display: block; margin-bottom: 10px; text-align: left;
     }
     .birth-year-input {
       width: 100%; padding: 14px 18px;
@@ -417,22 +390,16 @@
     .birth-year-input:focus { border-color: var(--celadon); }
     .age-note {
       font-size: 12px; color: var(--stone);
-      margin-top: 8px; font-style: italic;
-      text-align: center;
+      margin-top: 8px; font-style: italic; text-align: center;
     }
+
     /* ── SKIP CHILD SCREEN ── */
     .skip-child-box {
       background: var(--celadon-pale);
       border: 1px solid var(--celadon-light);
-      border-radius: 14px;
-      padding: 20px;
-      margin: 16px 0;
-      text-align: left;
+      border-radius: 14px; padding: 20px; margin: 16px 0; text-align: left;
     }
-    .skip-child-box p {
-      font-size: 14px; line-height: 1.7;
-      color: var(--ink-soft); margin: 0;
-    }
+    .skip-child-box p { font-size: 14px; line-height: 1.7; color: var(--ink-soft); margin: 0; }
 
     /* ── MOBILE ── */
     @media (max-width: 480px) {
@@ -451,12 +418,11 @@
 </head>
 <body>
 
-
 <nav class="assessment-nav">
   <a href="index.html" class="assessment-nav-logo">OCEAN <span>/</span> 오션</a>
   <div class="lang-toggle" id="langToggle">
-    <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
-    <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
+    <button data-lang="en" onclick="setLang('en', this)">EN</button>
+    <button data-lang="kr" class="active" onclick="setLang('kr', this)">한국어</button>
   </div>
 </nav>
 
@@ -464,7 +430,7 @@
 
   <div class="progress-bar-wrap" id="progressWrap" style="display:none">
     <div class="progress-label">
-      <span id="progressSection">About your child</span>
+      <span id="progressSection">아이에 대해</span>
       <span id="progressCount">1 / 20</span>
     </div>
     <div class="progress-track">
@@ -477,11 +443,10 @@
     <div class="screen-card">
       <h2 id="intro-h2">우리 아이와 나,<br>어디서 엇갈리고 있을까요?</h2>
       <p id="intro-p1">지난 3~6개월 동안 아이의 평소 모습을 떠올리며 답해주세요. 정답은 없습니다.</p>
-      <p id="intro-p2">약 15~20분 소요됩니다. 먼저 부모님이 답하신 후, 아이와 함께 이어가게 됩니다.</p>
+      <p id="intro-p2">약 15~20분 소요됩니다.</p>
       <div class="birth-year-wrap">
         <label class="birth-year-label" id="birth-year-label">아이의 출생연도를 입력해주세요</label>
-        <input type="number" class="birth-year-input" id="birthYearInput"
-          placeholder="예: 2019" />
+        <input type="number" class="birth-year-input" id="birthYearInput" placeholder="예: 2019" />
         <p class="age-note" id="birth-year-note">만 5세~10세 아이를 위한 검사입니다</p>
       </div>
       <button class="hero-cta" onclick="startAssessment()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="intro-btn">시작하기</button>
@@ -500,11 +465,11 @@
 
   <!-- PARENT QUESTION -->
   <div class="screen" id="screen-parent-q">
-    <span class="question-section-label">About your child</span>
+    <span class="question-section-label" id="parent-section-label">아이에 대해</span>
     <div class="question-counter" id="pQuestionCounter"></div>
     <div class="question-prompt" id="pQuestionPrompt"></div>
     <div class="options-list" id="pOptionsList"></div>
-    <button class="next-btn" id="pNextBtn" onclick="nextParentQuestion()">Next</button>
+    <button class="next-btn" id="pNextBtn" onclick="nextParentQuestion()">다음</button>
   </div>
 
   <!-- PARENT SELF ASSESSMENT INTRO -->
@@ -547,19 +512,19 @@
 
   <!-- CHILD QUESTION -->
   <div class="screen" id="screen-child-q">
-    <span class="question-section-label">Read aloud to your child</span>
+    <span class="question-section-label">자녀에게 읽어주세요</span>
     <div class="question-counter" id="cQuestionCounter"></div>
     <div class="question-prompt" id="cQuestionPrompt"></div>
     <div class="options-list" id="cOptionsList"></div>
     <div class="calibration-wrap" id="calibrationWrap" style="display:none">
-      <div class="calibration-label">How typical was that answer for your child?</div>
+      <div class="calibration-label" id="calibration-label">이 답변이 아이에게 얼마나 해당되나요?</div>
       <div class="calibration-options">
-        <button class="cal-btn" onclick="selectCalibration('very_typical', this)">Very typical</button>
-        <button class="cal-btn" onclick="selectCalibration('somewhat_typical', this)">Somewhat typical</button>
-        <button class="cal-btn" onclick="selectCalibration('not_very_typical', this)">Not very typical</button>
+        <button class="cal-btn" onclick="selectCalibration('very_typical', this)" id="cal-very">매우 그렇다</button>
+        <button class="cal-btn" onclick="selectCalibration('somewhat_typical', this)" id="cal-somewhat">어느 정도 그렇다</button>
+        <button class="cal-btn" onclick="selectCalibration('not_very_typical', this)" id="cal-not">별로 그렇지 않다</button>
       </div>
     </div>
-    <button class="next-btn" id="cNextBtn" onclick="nextChildQuestion()">Next</button>
+    <button class="next-btn" id="cNextBtn" onclick="nextChildQuestion()">다음</button>
   </div>
 
   <!-- RESULTS -->
@@ -567,39 +532,40 @@
     <div class="results-wrap">
 
       <div class="results-header">
-        <h2>Your child's profile</h2>
-        <p>Based on your answers and your child's.</p>
+        <h2 id="results-main-title">우리 가족 성격 리포트</h2>
+        <p id="results-main-sub">아이와 부모님의 성향이 어디서 잘 맞고, 어디서 엇갈리는지 보여드립니다</p>
       </div>
 
+      <!-- CHILD ARCHETYPE -->
       <div class="archetype-card" id="archetypeCard"></div>
 
+      <!-- CHILD TRAIT BARS -->
       <div class="trait-bars">
-        <h3>The five dimensions</h3>
+        <h3 id="child-traits-title">아이의 다섯 가지 성격 차원</h3>
         <div id="traitBarsContent"></div>
       </div>
 
       <!-- DETAILED REPORT -->
       <div class="report-section">
-        <div class="report-section-header">Full report</div>
+        <div class="report-section-header" id="full-report-title">상세 리포트</div>
         <div id="accordionContent"></div>
       </div>
 
       <!-- PRODUCTS -->
       <div class="products-section" id="productsSection">
-        <h3>Supporting your child's growth</h3>
-        <p class="products-intro">Every trait can develop with the right materials and environment. These are matched to your child's profile.</p>
+        <h3 id="products-title">아이의 성장을 돕는 것들</h3>
+        <p class="products-intro" id="products-intro-text">모든 특성은 올바른 환경과 도구로 발전할 수 있습니다. 아이의 프로필에 맞춰 선별했습니다.</p>
         <div id="productsContent"></div>
         <div class="products-cta">
-          <a href="index.html#waitlist">See the full OCEAN catalog</a>
+          <a href="index.html#waitlist" id="products-cta-link">오션 전체 카탈로그 보기</a>
         </div>
       </div>
 
-      <!-- PARENT-CHILD MATCH -->
-      <div class="parent-child-match" id="parentChildMatch" style="display:none">
-        <div class="match-header" id="match-header">부모님과 아이의 성향 차이</div>
-        <p class="match-intro" id="match-intro">두 프로필이 만나는 지점을 보여드립니다. 차이가 클수록 서로 다른 방식으로 세상을 경험하고 있다는 뜻입니다.</p>
-        <div id="matchBarsContent"></div>
-      </div>
+      <!-- PARENT PROFILE — rendered by JS -->
+      <div id="parentProfileSection"></div>
+
+      <!-- COMPATIBILITY FLAGS — rendered by JS -->
+      <div id="compatibilitySection" style="margin-bottom:24px"></div>
 
       <!-- JOURNEY CTA -->
       <div class="premium-cta" id="journeyCta">
@@ -609,14 +575,17 @@
         <a href="index.html#waitlist" id="journey-cta-btn">어떤 단계가 맞는지 알아보기 →</a>
       </div>
 
-      <p class="results-disclaimer">This profile is a developmental guidance tool, not a clinical diagnosis or a fixed label. Children's behavior varies by age, setting, sleep, stress, and relationship context.</p>
+      <p class="results-disclaimer" id="results-disclaimer">이 프로필은 발달 지원 도구이며, 임상적 진단이나 고정된 성격 유형이 아닙니다. 아이의 행동은 나이, 환경, 수면, 스트레스, 관계에 따라 달라질 수 있습니다.</p>
 
     </div>
   </div>
 
-</div>
+</div><!-- /.assessment-wrap -->
 
 <script>
+// ─────────────────────────────────────────────
+// UTILITIES
+// ─────────────────────────────────────────────
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -626,8 +595,10 @@ function shuffle(arr) {
   return a;
 }
 
+// ─────────────────────────────────────────────
+// PARENT OBSERVATION QUESTIONS (about child)
+// ─────────────────────────────────────────────
 const rawParentItems = [
-  // OPENNESS (4) — from 최미숙 호기심/창의성 items, adapted to parent observation
   { id:"P1", construct:"openness",
     prompt:"새로운 놀이나 활동을 처음 접할 때, 우리 아이는 보통 어떤가요?",
     promptKr:"새로운 놀이나 활동을 처음 접할 때, 우리 아이는 보통 어떤가요?",
@@ -656,7 +627,6 @@ const rawParentItems = [
       {id:"A", text:"정해진 방법대로 하거나 따라 하는 걸 편해한다", textKr:"정해진 방법대로 하거나 따라 하는 걸 편해한다"},
       {id:"B", text:"자기만의 방식이나 새로운 아이디어로 표현한다", textKr:"자기만의 방식이나 새로운 아이디어로 표현한다"}
     ]},
-  // CONSCIENTIOUSNESS (4) — from 최미숙 성실성 items
   { id:"P5", construct:"conscientiousness",
     prompt:"숙제나 심부름처럼 끝내야 하는 일이 있을 때?",
     promptKr:"숙제나 심부름처럼 끝내야 하는 일이 있을 때?",
@@ -685,7 +655,6 @@ const rawParentItems = [
       {id:"A", text:"빠진 부분이 없는지 다시 확인하는 편이다", textKr:"빠진 부분이 없는지 다시 확인하는 편이다"},
       {id:"B", text:"대충 됐다 싶으면 그냥 넘어가는 편이다", textKr:"대충 됐다 싶으면 그냥 넘어가는 편이다"}
     ]},
-  // EXTRAVERSION (4) — from 최미숙 외향성 items
   { id:"P9", construct:"extraversion",
     prompt:"처음 가는 장소나 처음 만나는 아이들이 있을 때?",
     promptKr:"처음 가는 장소나 처음 만나는 아이들이 있을 때?",
@@ -714,7 +683,6 @@ const rawParentItems = [
       {id:"A", text:"여럿이 함께 노는 걸 더 좋아한다", textKr:"여럿이 함께 노는 걸 더 좋아한다"},
       {id:"B", text:"혼자 또는 한두 명이랑 노는 걸 더 좋아한다", textKr:"혼자 또는 한두 명이랑 노는 걸 더 좋아한다"}
     ]},
-  // AGREEABLENESS (4) — from 최미숙 호감성 items
   { id:"P13", construct:"agreeableness",
     prompt:"친구들과 의견이 부딪혔을 때?",
     promptKr:"친구들과 의견이 부딪혔을 때?",
@@ -743,7 +711,6 @@ const rawParentItems = [
       {id:"A", text:"불만이 있어도 받아들이는 편이다", textKr:"불만이 있어도 받아들이는 편이다"},
       {id:"B", text:"왜 그렇게 됐는지 따지거나 자기 주장을 하는 편이다", textKr:"왜 그렇게 됐는지 따지거나 자기 주장을 하는 편이다"}
     ]},
-  // NEGATIVE EMOTIONALITY (4) — from 최미숙 정서적 안정성 items (reversed)
   { id:"P17", construct:"negative_emotionality",
     prompt:"기대했던 일이 취소되거나 안 됐을 때?",
     promptKr:"기대했던 일이 취소되거나 안 됐을 때?",
@@ -774,8 +741,18 @@ const rawParentItems = [
     ]}
 ];
 
+const parentScoring = {
+  P1:{keyed:"B"},P2:{keyed:"B"},P3:{keyed:"B"},P4:{keyed:"B"},
+  P5:{keyed:"A"},P6:{keyed:"A"},P7:{keyed:"A"},P8:{keyed:"A"},
+  P9:{keyed:"A"},P10:{keyed:"A"},P11:{keyed:"A"},P12:{keyed:"A"},
+  P13:{keyed:"A"},P14:{keyed:"A"},P15:{keyed:"A"},P16:{keyed:"A"},
+  P17:{keyed:"B"},P18:{keyed:"B"},P19:{keyed:"B"},P20:{keyed:"B"}
+};
+
+// ─────────────────────────────────────────────
+// CHILD SELF-REPORT QUESTIONS
+// ─────────────────────────────────────────────
 const rawChildItems = [
-  // OPENNESS — adapted from 최미숙 개방성 + 김복환 개방성
   { id:"C1", construct:"openness",
     prompt:"새 미술 도구 상자를 받았어요. 뭐가 제일 재미있을 것 같아요?",
     promptKr:"새 미술 도구 상자를 받았어요. 뭐가 제일 재미있을 것 같아요?",
@@ -792,7 +769,6 @@ const rawChildItems = [
       {id:"2", text:"나중에 생각나면 물어봐요", textKr:"나중에 생각나면 물어봐요"},
       {id:"3", text:"잘 안 물어보는 편이에요", textKr:"잘 안 물어보는 편이에요"}
     ]},
-  // CONSCIENTIOUSNESS — from 최미숙 성실성 + 김복환 성실성
   { id:"C3", construct:"conscientiousness",
     prompt:"뭔가를 만들다가 어려워졌어요. 제일 먼저 어떻게 할 것 같아요?",
     promptKr:"뭔가를 만들다가 어려워졌어요. 제일 먼저 어떻게 할 것 같아요?",
@@ -809,7 +785,6 @@ const rawChildItems = [
       {id:"2", text:"조금 놀다가 해요", textKr:"조금 놀다가 해요"},
       {id:"3", text:"최대한 미뤄요", textKr:"최대한 미뤄요"}
     ]},
-  // EXTRAVERSION — from 최미숙 외향성 + 김복환 외향성
   { id:"C5", construct:"extraversion",
     prompt:"아무도 모르는 놀이터에 갔어요. 뭘 할 것 같아요?",
     promptKr:"아무도 모르는 놀이터에 갔어요. 뭘 할 것 같아요?",
@@ -826,7 +801,6 @@ const rawChildItems = [
       {id:"2", text:"한두 명이랑 이야기하기", textKr:"한두 명이랑 이야기하기"},
       {id:"3", text:"조용한 놀이 찾기", textKr:"조용한 놀이 찾기"}
     ]},
-  // AGREEABLENESS — from 최미숙 호감성
   { id:"C7", construct:"agreeableness",
     prompt:"게임 중에 다른 아이가 슬퍼 보여요. 어떻게 할 것 같아요?",
     promptKr:"게임 중에 다른 아이가 슬퍼 보여요. 어떻게 할 것 같아요?",
@@ -843,7 +817,6 @@ const rawChildItems = [
       {id:"2", text:"왜 내가 지금 가져야 하는지 설명해요", textKr:"왜 내가 지금 가져야 하는지 설명해요"},
       {id:"3", text:"다른 것을 고르러 가요", textKr:"다른 것을 고르러 가요"}
     ]},
-  // NEGATIVE EMOTIONALITY — from 최미숙 정서적 안정성 (child-friendly)
   { id:"C9", construct:"negative_emotionality",
     prompt:"열심히 만든 게 실수로 망가졌어요.",
     promptKr:"열심히 만든 게 실수로 망가졌어요.",
@@ -862,14 +835,6 @@ const rawChildItems = [
     ]}
 ];
 
-const parentScoring = {
-  P1:{keyed:"B"},P2:{keyed:"B"},P3:{keyed:"B"},P4:{keyed:"B"},
-  P5:{keyed:"A"},P6:{keyed:"A"},P7:{keyed:"A"},P8:{keyed:"A"},
-  P9:{keyed:"A"},P10:{keyed:"A"},P11:{keyed:"A"},P12:{keyed:"A"},
-  P13:{keyed:"A"},P14:{keyed:"A"},P15:{keyed:"A"},P16:{keyed:"A"},
-  P17:{keyed:"B"},P18:{keyed:"B"},P19:{keyed:"B"},P20:{keyed:"B"}
-};
-
 const childScoring = {
   C1:{1:0.0,2:1.0,3:0.5},C2:{1:0.0,2:1.0,3:1.0},
   C3:{1:1.0,2:0.5,3:0.0},C4:{1:1.0,2:0.5,3:0.5},
@@ -880,6 +845,138 @@ const childScoring = {
 
 const calibrationMultipliers = { very_typical:1.0, somewhat_typical:0.7, not_very_typical:0.4 };
 
+// ─────────────────────────────────────────────
+// PARENT SELF-ASSESSMENT QUESTIONS (15 items, A/B)
+// ─────────────────────────────────────────────
+const rawParentSelfItems = [
+  // ── NEGATIVE EMOTIONALITY (4) — A = high NE (reactive) ───────────────────
+  { id:"PS1", construct:"negative_emotionality",
+    prompt:"When your plans change unexpectedly, which is more typical?",
+    promptKr:"계획이 갑자기 바뀌었을 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I feel unsettled for a while before I can move on",          textKr:"한동안 마음이 불편하다가 넘어가는 편이다" },
+      { id:"B", text:"I adjust fairly quickly and get on with it",                 textKr:"비교적 빠르게 적응하고 계속 나아가는 편이다" }
+    ]},
+  { id:"PS2", construct:"negative_emotionality",
+    prompt:"After a disagreement or criticism, which is more like you?",
+    promptKr:"갈등이나 비판을 받은 후, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I tend to replay it and take time to let it go",             textKr:"계속 마음에 걸리고 털어내는 데 시간이 걸린다" },
+      { id:"B", text:"I take note and move on without dwelling on it",             textKr:"새겨두되 크게 붙잡지 않고 넘어가는 편이다" }
+    ]},
+  { id:"PS3", construct:"negative_emotionality",
+    prompt:"When there are a lot of demands on you at once, which is more typical?",
+    promptKr:"한꺼번에 많은 요구가 쏟아질 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I feel the pressure and it shows in my mood or behavior",    textKr:"압박이 느껴지고 기분이나 행동에 티가 나는 편이다" },
+      { id:"B", text:"I stay mostly steady even when things pile up",              textKr:"일이 쌓여도 대체로 안정된 상태를 유지하는 편이다" }
+    ]},
+  { id:"PS4", construct:"negative_emotionality",
+    prompt:"Thinking about everyday life in general, which fits you better?",
+    promptKr:"평소 일상생활 전반을 생각할 때, 나에게 더 잘 맞는 것은?",
+    options:[
+      { id:"A", text:"My emotional state shifts noticeably depending on what's happening",  textKr:"상황에 따라 감정 상태가 눈에 띄게 달라지는 편이다" },
+      { id:"B", text:"My emotional state stays fairly even from day to day",               textKr:"하루하루 감정 상태가 큰 변화 없이 비교적 일정한 편이다" }
+    ]},
+  // ── AGREEABLENESS (4) — A = high AG ──────────────────────────────────────
+  { id:"PS5", construct:"agreeableness",
+    prompt:"When you disagree with someone, which is more typical?",
+    promptKr:"누군가와 의견이 다를 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I look for a middle ground rather than push my position",    textKr:"내 주장을 밀기보다 중간 지점을 찾으려 하는 편이다" },
+      { id:"B", text:"I tend to hold my position and make my case clearly",        textKr:"내 입장을 분명하게 말하고 지키는 편이다" }
+    ]},
+  { id:"PS6", construct:"agreeableness",
+    prompt:"When someone around you is having a hard time, which is more like you?",
+    promptKr:"주변 사람이 힘들어할 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I naturally want to step in and help, even without being asked",     textKr:"부탁받지 않아도 자연스럽게 나서서 돕고 싶어진다" },
+      { id:"B", text:"I give them space and help when they actually ask for it",           textKr:"공간을 주고, 실제로 부탁을 받으면 돕는 편이다" }
+    ]},
+  { id:"PS7", construct:"agreeableness",
+    prompt:"In conversations where you see things differently, which is more typical?",
+    promptKr:"생각이 다른 대화에서, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I mostly listen and try to understand the other person's view",   textKr:"주로 듣고 상대방의 관점을 이해하려 노력하는 편이다" },
+      { id:"B", text:"I steer the conversation toward what I think is right",           textKr:"내가 옳다고 생각하는 방향으로 대화를 이끌려는 편이다" }
+    ]},
+  { id:"PS8", construct:"agreeableness",
+    prompt:"In group situations — work, community, anywhere — which fits you better?",
+    promptKr:"직장이나 모임 등 그룹 상황에서, 나에게 더 잘 맞는 것은?",
+    options:[
+      { id:"A", text:"I tend to keep things smooth and avoid friction",            textKr:"분위기를 부드럽게 유지하고 마찰을 피하는 편이다" },
+      { id:"B", text:"I tend to say what needs to be said even if it causes friction", textKr:"마찰이 생기더라도 필요한 말을 하는 편이다" }
+    ]},
+  // ── CONSCIENTIOUSNESS (4) — A = high CO ──────────────────────────────────
+  { id:"PS9", construct:"conscientiousness",
+    prompt:"When you take on a task or commitment, which is more typical?",
+    promptKr:"어떤 일이나 약속을 맡았을 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I plan it out and follow through reliably",                  textKr:"계획을 세우고 신뢰할 수 있게 끝까지 해내는 편이다" },
+      { id:"B", text:"I start and adapt as I go, sometimes leaving things open",   textKr:"시작하고 진행하면서 맞춰가고, 열어두는 경우도 있다" }
+    ]},
+  { id:"PS10", construct:"conscientiousness",
+    prompt:"When you say you'll do something, which fits you better?",
+    promptKr:"뭔가를 하겠다고 말했을 때, 나에게 더 잘 맞는 것은?",
+    options:[
+      { id:"A", text:"I follow through — I rarely cancel or change course",        textKr:"대부분 끝까지 지킨다 — 취소하거나 방향을 바꾸는 경우가 드물다" },
+      { id:"B", text:"I try to, but I adjust when things come up",                 textKr:"지키려 하지만, 상황이 생기면 조정하는 편이다" }
+    ]},
+  { id:"PS11", construct:"conscientiousness",
+    prompt:"When you're working on something that takes sustained effort, which is more like you?",
+    promptKr:"꾸준한 노력이 필요한 일을 할 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I keep going until it's done, even when motivation dips",    textKr:"의욕이 줄더라도 끝날 때까지 계속 해나가는 편이다" },
+      { id:"B", text:"I move on when my interest shifts to something else",        textKr:"다른 것에 흥미가 생기면 그쪽으로 넘어가는 편이다" }
+    ]},
+  { id:"PS12", construct:"conscientiousness",
+    prompt:"With your personal spaces and responsibilities, which fits better?",
+    promptKr:"개인 공간과 책임 관리에 있어, 나에게 더 잘 맞는 것은?",
+    options:[
+      { id:"A", text:"I keep things organized — I like knowing where things stand",   textKr:"정돈된 상태를 유지한다 — 상황이 파악되어 있는 것을 좋아한다" },
+      { id:"B", text:"I'm organized enough, but I don't stress about tidiness",       textKr:"어느 정도 정리되어 있으면 충분하고, 깔끔함에 크게 연연하지 않는다" }
+    ]},
+  // ── EXTRAVERSION (2) — A = high EX ───────────────────────────────────────
+  { id:"PS13", construct:"extraversion",
+    prompt:"After a full day of being around a lot of people, which is more typical?",
+    promptKr:"하루 종일 많은 사람들과 함께한 후, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I feel energized — I could keep going",                      textKr:"에너지가 더 생긴다 — 계속할 수 있을 것 같다" },
+      { id:"B", text:"I feel drained — I need quiet time to recharge",             textKr:"기운이 빠진다 — 혼자만의 조용한 시간이 필요하다" }
+    ]},
+  { id:"PS14", construct:"extraversion",
+    prompt:"In new social situations — a party, a work event, a new group — which is more like you?",
+    promptKr:"파티, 행사, 새 모임 같은 낯선 사회적 상황에서, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I introduce myself and get involved fairly quickly",          textKr:"비교적 빠르게 먼저 인사하고 어울리는 편이다" },
+      { id:"B", text:"I hang back and observe before I start engaging",             textKr:"먼저 지켜보다가 천천히 참여하는 편이다" }
+    ]},
+  // ── OPENNESS (1) — A = high OP ────────────────────────────────────────────
+  { id:"PS15", construct:"openness",
+    prompt:"When you come across an idea or way of doing something unfamiliar, which is more typical?",
+    promptKr:"익숙하지 않은 아이디어나 방식을 접했을 때, 나는 보통 어떤가요?",
+    options:[
+      { id:"A", text:"I'm curious and want to explore it further",                 textKr:"흥미롭게 느껴지고 더 탐구해보고 싶어진다" },
+      { id:"B", text:"I prefer what's proven and familiar unless there's a clear reason to change", textKr:"바꿀 이유가 명확하지 않으면 검증된 익숙한 방식을 선호한다" }
+    ]}
+];
+
+const parentSelfScoring = {
+  // NE: A = reactive (high NE), B = stable (low NE)
+  PS1:{keyed:"A"}, PS2:{keyed:"A"}, PS3:{keyed:"A"}, PS4:{keyed:"A"},
+  // AG: A = agreeable (high AG), B = direct (low AG)
+  PS5:{keyed:"A"}, PS6:{keyed:"A"}, PS7:{keyed:"A"}, PS8:{keyed:"A"},
+  // CO: A = conscientious (high CO), B = flexible (low CO)
+  PS9:{keyed:"A"}, PS10:{keyed:"A"}, PS11:{keyed:"A"}, PS12:{keyed:"A"},
+  // EX: A = extraverted (high EX), B = introverted (low EX)
+  PS13:{keyed:"A"}, PS14:{keyed:"A"},
+  // OP: A = open (high OP), B = conventional (low OP)
+  PS15:{keyed:"A"}
+};
+
+// ─────────────────────────────────────────────
+// TRAIT DISPLAY DATA
+// ─────────────────────────────────────────────
 const traitDescriptions = {
   openness:{ name:"Openness to Experience", plain:"Explores first.", higher:"More likely to seek novelty, imagination, and experimentation.", balanced:"Comfortable with both familiar routines and new possibilities.", lower:"More likely to prefer clarity, routine, and familiar ways of doing things." },
   conscientiousness:{ name:"Conscientiousness", plain:"Finishes and tracks.", higher:"More likely to finish, track, check, and follow through.", balanced:"Can be responsible and organized, but varies by interest or context.", lower:"More likely to shift attention quickly and benefit from external structure." },
@@ -900,18 +997,12 @@ const archetypes = [
   { id:"flexible_adapter", name:"Flexible Adapter", nameKr:"세종대왕형 적응자", tagline:"Balanced across settings.", taglineKr:"상황에 따라 유연하게 대처합니다.", desc:"Shows situational flexibility rather than one dominant pattern.", descKr:"하나의 두드러진 패턴보다 상황에 따른 유연성을 보입니다.", logic:{all:"balanced"}, character:"chiu" }
 ];
 
-const characterImages = { chiu:"images/chiu.png", osol:"images/osol.png", epa:"images/epa.png", aru:"images/aru.png", nuri:"images/nuri.png" };
-
 const archetypeImages = {
-  curie_style_explorer:    "images/inventor.png",
-  goodall_style_observer:  "images/doctor.png",
-  attenborough_style_wonderer: "images/writer.png",
-  rogers_style_harmonizer: "images/tvhost.png",
-  serena_style_finisher:   "images/soccer.png",
-  earhart_style_bold_starter: "images/director.png",
-  frida_style_intense_creator: "images/musician.png",
-  yoyoma_style_connector:  "images/painter.png",
-  flexible_adapter:        "images/king.png",
+  curie_style_explorer:"images/inventor.png", goodall_style_observer:"images/doctor.png",
+  attenborough_style_wonderer:"images/writer.png", rogers_style_harmonizer:"images/tvhost.png",
+  serena_style_finisher:"images/soccer.png", earhart_style_bold_starter:"images/director.png",
+  frida_style_intense_creator:"images/musician.png", yoyoma_style_connector:"images/painter.png",
+  flexible_adapter:"images/king.png"
 };
 
 const interpretationBands = [
@@ -919,41 +1010,74 @@ const interpretationBands = [
   {min:45,max:55,label:"Balanced"},{min:56,max:75,label:"Somewhat higher"},
   {min:76,max:100,label:"Higher"}
 ];
+const bandToKey = { "Lower":"lower","Somewhat lower":"lower","Balanced":"balanced","Somewhat higher":"higher","Higher":"higher" };
 
-const bandToKey = { "Lower":"lower", "Somewhat lower":"lower", "Balanced":"balanced", "Somewhat higher":"higher", "Higher":"higher" };
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let parentItems     = shuffle(rawParentItems).map(q => ({ ...q, options: shuffle(q.options) }));
+let childItems      = shuffle(rawChildItems).map(q => ({ ...q, options: shuffle(q.options) }));
+let parentSelfItems = [...rawParentSelfItems];
 
-let parentItems = shuffle(rawParentItems).map(q => ({ ...q, options: shuffle(q.options) }));
-let childItems = shuffle(rawChildItems).map(q => ({ ...q, options: shuffle(q.options) }));
-
-let pIndex = 0, cIndex = 0;
-let pAnswers = {}, cAnswers = {}, cCalibrations = {};
+let pIndex = 0, cIndex = 0, psIndex = 0;
+let pAnswers = {}, cAnswers = {}, cCalibrations = {}, psAnswers = {};
+let parentScores = {};
+let lastChildScores = {};
 let selectedOption = null, selectedCal = null;
+let skipChildQuestions = false;
 
+// ─────────────────────────────────────────────
+// SCREEN NAVIGATION
+// ─────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  setTimeout(applyLangToCurrentScreen, 50);
 }
 
-function startAssessment() { showScreen('screen-parent-intro'); }
+function startAssessment() {
+  const val = parseInt(document.getElementById('birthYearInput').value);
+  const currentYear = new Date().getFullYear();
+  if (!val || val < 2014 || val > currentYear) {
+    alert(currentLang === 'kr' ? '올바른 출생연도를 입력해주세요 (만 5세~10세)' : 'Please enter a valid birth year for a child aged 5–10.');
+    return;
+  }
+  const age = currentYear - val;
+  skipChildQuestions = age < 8;
+  showScreen('screen-parent-intro');
+}
 
 function showParentQuestions() {
   document.getElementById('progressWrap').style.display = 'block';
   pIndex = 0; renderParentQuestion(); showScreen('screen-parent-q');
 }
 
+function showParentSelfQuestions() {
+  psIndex = 0; psAnswers = {};
+  renderParentSelfQuestion(); showScreen('screen-parent-self-q');
+  document.getElementById('progressWrap').style.display = 'block';
+}
+
 function showChildQuestions() {
   cIndex = 0; renderChildQuestion(); showScreen('screen-child-q');
 }
 
+// ─────────────────────────────────────────────
+// PARENT OBSERVATION RENDERING
+// ─────────────────────────────────────────────
 function renderParentQuestion() {
   const q = parentItems[pIndex];
-  document.getElementById('pQuestionCounter').textContent = `Question ${pIndex + 1} of ${parentItems.length}`;
-  document.getElementById('pQuestionPrompt').textContent = currentLang === 'kr' ? (q.promptKr || q.prompt) : q.prompt;
+  const isKr = currentLang === 'kr';
+  document.getElementById('pQuestionCounter').textContent = isKr
+    ? `${pIndex + 1} / ${parentItems.length}`
+    : `Question ${pIndex + 1} of ${parentItems.length}`;
+  document.getElementById('pQuestionPrompt').textContent = isKr ? (q.promptKr || q.prompt) : q.prompt;
   const list = document.getElementById('pOptionsList');
   list.innerHTML = '';
   q.options.forEach(opt => {
     const btn = document.createElement('button');
-    btn.className = 'option-btn'; btn.textContent = opt.text;
+    btn.className = 'option-btn';
+    btn.textContent = isKr ? (opt.textKr || opt.text) : opt.text;
     btn.onclick = () => selectParentOption(opt.id, btn);
     list.appendChild(btn);
   });
@@ -972,541 +1096,22 @@ function nextParentQuestion() {
   if (!selectedOption) return;
   pAnswers[parentItems[pIndex].id] = selectedOption;
   pIndex++;
-  if (pIndex < parentItems.length) { renderParentQuestion(); }
-  else { showScreen('screen-transition'); document.getElementById('progressWrap').style.display = 'none'; }
-}
-
-function renderChildQuestion() {
-  const q = childItems[cIndex];
-  document.getElementById('cQuestionCounter').textContent = `Question ${cIndex + 1} of ${childItems.length}`;
-  document.getElementById('cQuestionPrompt').textContent = q.prompt;
-  const list = document.getElementById('cOptionsList');
-  list.innerHTML = '';
-  q.options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn'; btn.textContent = opt.text;
-    btn.onclick = () => selectChildOption(opt.id, btn);
-    list.appendChild(btn);
-  });
-  document.getElementById('calibrationWrap').style.display = 'none';
-  document.getElementById('cNextBtn').classList.remove('visible');
-  selectedOption = null; selectedCal = null;
-  document.getElementById('progressWrap').style.display = 'block';
-  updateProgress('child', cIndex, childItems.length);
-}
-
-function selectChildOption(optId, btn) {
-  document.querySelectorAll('#cOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected'); selectedOption = optId;
-  document.getElementById('calibrationWrap').style.display = 'block';
-}
-
-function selectCalibration(calId, btn) {
-  document.querySelectorAll('.cal-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected'); selectedCal = calId;
-  if (selectedOption) document.getElementById('cNextBtn').classList.add('visible');
-}
-
-function nextChildQuestion() {
-  if (!selectedOption || !selectedCal) return;
-  cAnswers[childItems[cIndex].id] = selectedOption;
-  cCalibrations[childItems[cIndex].id] = selectedCal;
-  cIndex++;
-  if (cIndex < childItems.length) { renderChildQuestion(); }
-  else { document.getElementById('progressWrap').style.display = 'none'; calculateAndShowResults(); }
-}
-
-function updateProgress(section, index, total) {
-  document.getElementById('progressSection').textContent = section === 'parent' ? 'About your child' : 'Your child answers';
-  document.getElementById('progressCount').textContent = `${index + 1} / ${total}`;
-  document.getElementById('progressFill').style.width = ((index / total) * 100) + '%';
-}
-
-function calculateAndShowResults() {
-  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
-  const scores = {};
-  traits.forEach(trait => {
-    const pItems = rawParentItems.filter(q => q.construct === trait);
-    let pRaw = 0;
-    pItems.forEach(q => { if (pAnswers[q.id] === parentScoring[q.id].keyed) pRaw++; });
-    const pScore = (pRaw / pItems.length) * 100;
-    if (skipChildQuestions) {
-      // Under 8: 100% parent observation
-      scores[trait] = pScore;
-    } else {
-      const cItems = rawChildItems.filter(q => q.construct === trait);
-      let cRaw = 0;
-      cItems.forEach(q => {
-        const optScore = childScoring[q.id][parseInt(cAnswers[q.id])] || 0;
-        const calMult = calibrationMultipliers[cCalibrations[q.id]] || 1.0;
-        cRaw += optScore * calMult;
-      });
-      const cScore = (cRaw / cItems.length) * 100;
-      scores[trait] = (pScore * 0.7) + (cScore * 0.3);
-    }
-  });
-  renderResults(scores);
-}
-
-function getBand(score) {
-  for (const band of interpretationBands) {
-    if (score >= band.min && score <= band.max) return band.label;
-  }
-  return 'Balanced';
-}
-
-function isHigh(s) { return s >= 56; }
-function isLow(s) { return s <= 44; }
-
-function matchArchetype(scores) {
-  for (const arch of archetypes) {
-    if (arch.logic.all === 'balanced') continue;
-    let matches = true;
-    for (const [trait, level] of Object.entries(arch.logic)) {
-      const s = scores[trait];
-      if (level === 'high' && !isHigh(s)) { matches = false; break; }
-      if (level === 'low' && !isLow(s)) { matches = false; break; }
-      if (level === 'low_to_balanced' && isHigh(s)) { matches = false; break; }
-      if (level === 'balanced_to_high' && isLow(s)) { matches = false; break; }
-    }
-    if (matches) return arch;
-  }
-  return archetypes.find(a => a.id === 'flexible_adapter');
-}
-
-function renderResults(scores) {
-  showScreen('screen-results');
-  const archetype = matchArchetype(scores);
-
-  // Archetype card
-  const isKr = currentLang === 'kr';
-  document.getElementById('archetypeCard').innerHTML = `
-    <div class="archetype-character">
-      <img src="${archetypeImages[archetype.id] || characterImages[archetype.character]}" alt="${archetype.id}" onerror="this.style.display='none'" />
-    </div>
-    <div class="archetype-name">${isKr ? archetype.nameKr : archetype.name}</div>
-    <div class="archetype-tagline">${isKr ? archetype.taglineKr : archetype.tagline}</div>
-    <div class="archetype-desc">${isKr ? archetype.descKr : archetype.desc}</div>
-  `;
-
-  // Trait bars
-  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
-  let barsHTML = '';
-  traits.forEach(trait => {
-    const score = Math.round(scores[trait]);
-    const band = getBand(score);
-    const desc = traitDescriptions[trait];
-    const descText = desc[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
-    barsHTML += `
-      <div class="trait-row">
-        <div class="trait-row-header">
-          <div class="trait-row-left">
-            <span class="trait-row-name">${desc.name}</span>
-            <span class="trait-row-plain">${desc.plain}</span>
-          </div>
-          <span class="trait-row-band">${band}</span>
-        </div>
-        <div class="trait-track">
-          <div class="trait-fill" data-score="${score}" style="width:0%"></div>
-        </div>
-        <div class="trait-desc">${descText}</div>
-      </div>`;
-  });
-  document.getElementById('traitBarsContent').innerHTML = barsHTML;
-  setTimeout(() => {
-    document.querySelectorAll('.trait-fill').forEach(el => { el.style.width = el.dataset.score + '%'; });
-  }, 300);
-
-  // Detailed report accordion
-  const isKrLang = currentLang === 'kr';
-  let accordionHTML = '';
-  traits.forEach((trait, i) => {
-    const score = Math.round(scores[trait]);
-    const band = getBand(score);
-    const bandKey = bandToKey[band];
-    const reportItem = isKrLang
-      ? detailedReportDataKr.find(r => r.trait === trait && r.band === bandKey)
-      : detailedReportData.find(r => r.trait === trait && r.band === bandKey);
-    if (!reportItem) return;
-
-    const strengthsHTML = reportItem.strengths.map(s => `<li>${s}</li>`).join('');
-    const watchoutsHTML = reportItem.watch_outs.map(s => `<li>${s}</li>`).join('');
-    const whatHTML = reportItem.what_to_do.map(s => `<li>${s}</li>`).join('');
-
-    accordionHTML += `
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)" data-index="${i}">
-          <span>${reportItem.title}</span>
-          <span class="accordion-trigger-right">
-            <span class="accordion-band">${band}</span>
-            <span class="accordion-arrow">&#9660;</span>
-          </span>
-        </button>
-        <div class="accordion-panel">
-          <p class="panel-summary">${reportItem.summary}</p>
-          <div class="panel-block">
-            <span class="panel-block-title">Strengths</span>
-            <ul class="panel-list">${strengthsHTML}</ul>
-          </div>
-          <div class="panel-block">
-            <span class="panel-block-title">Worth knowing</span>
-            <ul class="panel-list">${watchoutsHTML}</ul>
-          </div>
-          <div class="panel-block">
-            <span class="panel-block-title">What to do</span>
-            <ul class="panel-list">${whatHTML}</ul>
-          </div>
-          <div class="panel-block">
-            <span class="panel-block-title">Context</span>
-            <div class="panel-context">${reportItem.context}</div>
-          </div>
-        </div>
-      </div>`;
-  });
-  document.getElementById('accordionContent').innerHTML = accordionHTML;
-
-  // Products
-  const recommended = getProductsForTraits(scores);
-  let productsHTML = '';
-  recommended.forEach(p => {
-    productsHTML += `
-      <div class="product-card">
-        <div class="product-icon">${categoryLabels[p.category]}</div>
-        <div class="product-info">
-          <div class="product-name">${p.name}</div>
-          <div class="product-tagline">${p.tagline}</div>
-          <div class="product-meta">
-            <span class="product-tag category">${categoryLabels[p.category]}</span>
-            <span class="product-tag age">Ages ${p.age_range}</span>
-          </div>
-        </div>
-      </div>`;
-  });
-  document.getElementById('productsContent').innerHTML = productsHTML;
-
-  // Parent-child match bars
-  if (Object.keys(parentScores).length > 0) {
-    const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
-    const traitLabels = {
-      openness: { en: 'Openness', kr: '개방성' },
-      conscientiousness: { en: 'Conscientiousness', kr: '성실성' },
-      extraversion: { en: 'Extraversion', kr: '외향성' },
-      agreeableness: { en: 'Agreeableness', kr: '친화성' },
-      negative_emotionality: { en: 'Sensitivity', kr: '감수성' }
-    };
-    const isKr = currentLang === 'kr';
-    let matchHTML = '';
-    traits.forEach(trait => {
-      const pScore = Math.round(parentScores[trait]);
-      const cScore = Math.round(scores[trait]);
-      const gap = Math.abs(pScore - cScore);
-      const isHighGap = gap > 30;
-      const label = isKr ? traitLabels[trait].kr : traitLabels[trait].en;
-      const gapText = isKr
-        ? (isHighGap ? `차이 ${gap}점 — 서로 다른 방식으로 경험할 수 있습니다` : `차이 ${gap}점`)
-        : (isHighGap ? `Gap: ${gap} pts — may experience this very differently` : `Gap: ${gap} pts`);
-      matchHTML += `
-        <div class="match-row">
-          <div class="match-row-label">${label}</div>
-          <div class="match-bars-wrap">
-            <div class="match-bar-row">
-              <span class="match-bar-who">${isKr ? '부모' : 'You'}</span>
-              <div class="match-track"><div class="match-fill-parent" data-score="${pScore}" style="width:0%"></div></div>
-            </div>
-            <div class="match-bar-row">
-              <span class="match-bar-who">${isKr ? '아이' : 'Child'}</span>
-              <div class="match-track"><div class="match-fill-child" data-score="${cScore}" style="width:0%"></div></div>
-            </div>
-          </div>
-          <div class="match-gap-label ${isHighGap ? 'high' : ''}">${gapText}</div>
-        </div>`;
-    });
-    document.getElementById('matchBarsContent').innerHTML = matchHTML;
-    document.getElementById('parentChildMatch').style.display = 'block';
-    setTimeout(() => {
-      document.querySelectorAll('.match-fill-parent').forEach(el => { el.style.width = el.dataset.score + '%'; });
-      document.querySelectorAll('.match-fill-child').forEach(el => { el.style.width = el.dataset.score + '%'; });
-    }, 400);
-
-    // Update match section labels for Korean
-    if (isKr) {
-      document.getElementById('match-header').textContent = '부모님과 아이의 성향 차이';
-      document.getElementById('match-intro').textContent = '두 프로필이 만나는 지점입니다. 차이가 클수록 서로 다른 방식으로 세상을 경험하고 있다는 뜻입니다.';
-    } else {
-      document.getElementById('match-header').textContent = 'Where your personalities diverge';
-      document.getElementById('match-intro').textContent = 'The bigger the gap, the more differently you and your child experience the same situations.';
-    }
-  }
-
-  // Journey CTA language
-  const isKrCta = currentLang === 'kr';
-  if (!isKrCta) {
-    document.getElementById('journey-cta-h3').textContent = "You don't have to stop here.";
-    document.getElementById('journey-cta-p1').innerHTML = "Some parents find the report is enough.<br>Some go deeper with an expert.<br>Some bring OCEAN into their child's daily life.";
-    document.getElementById('journey-cta-p2').textContent = "OCEAN is there at every depth.";
-    document.getElementById('journey-cta-btn').textContent = "Find out which step is right for you →";
-  }
-
-}
-
-function toggleAccordion(btn) {
-  const panel = btn.nextElementSibling;
-  const isOpen = panel.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
-  document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
-  // Open this one if it was closed
-  if (!isOpen) {
-    panel.classList.add('open');
-    btn.classList.add('open');
-    setTimeout(() => { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+  if (pIndex < parentItems.length) {
+    renderParentQuestion();
+  } else {
+    document.getElementById('progressWrap').style.display = 'none';
+    showScreen('screen-parent-self-intro');
   }
 }
 
-// ── LANGUAGE SYSTEM ──
-let currentLang = 'en';
-
-function setLang(lang, btn) {
-  currentLang = lang;
-  sessionStorage.setItem('ocean_lang', lang);
-  document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  // Re-render current screen content if past intro
-  applyLangToCurrentScreen();
-}
-
-function t(key) {
-  if (currentLang === 'kr' && kr && kr.ui[key]) return kr.ui[key];
-  return null; // fall back to existing English
-}
-
-function applyLangToCurrentScreen() {
-  if (currentLang !== 'kr') return;
-  if (typeof kr === 'undefined') return;
-  const activeScreen = document.querySelector('.screen.active');
-  if (!activeScreen) return;
-  const id = activeScreen.id;
-
-  if (id === 'screen-intro') {
-    activeScreen.querySelector('h2').textContent = kr.ui.intro_title;
-    const ps = activeScreen.querySelectorAll('p');
-    if (ps[0]) ps[0].textContent = kr.ui.intro_body1;
-    if (ps[1]) ps[1].textContent = kr.ui.intro_body2;
-    activeScreen.querySelector('.hero-cta').textContent = kr.ui.begin;
-    activeScreen.querySelector('.disclaimer').textContent = kr.ui.intro_disclaimer;
-  }
-  if (id === 'screen-parent-intro') {
-    activeScreen.querySelector('h2').textContent = kr.ui.parent_intro_title;
-    activeScreen.querySelector('p').textContent = kr.ui.parent_intro_body;
-    activeScreen.querySelector('.hero-cta').textContent = kr.ui.start;
-  }
-  if (id === 'screen-transition') {
-    activeScreen.querySelector('h2').textContent = kr.ui.transition_title;
-    activeScreen.querySelector('p').textContent = kr.ui.transition_body;
-    activeScreen.querySelector('.hero-cta').textContent = kr.ui.continue;
-  }
-}
-
-// Patch renderParentQuestion to use Korean
-// New questions have promptKr and textKr built in — use those directly
-const _origRenderParent = renderParentQuestion;
-renderParentQuestion = function() {
-  _origRenderParent();
-  if (currentLang !== 'kr') return;
-  if (typeof kr === 'undefined') return;
-  const q = parentItems[pIndex];
-  // Use promptKr directly from question data
-  if (q.promptKr) {
-    document.getElementById('pQuestionPrompt').textContent = q.promptKr;
-  }
-  document.getElementById('pQuestionCounter').textContent = kr.ui.question_of(pIndex + 1, parentItems.length);
-  // Use textKr directly from option data
-  const btns = document.querySelectorAll('#pOptionsList .option-btn');
-  btns.forEach((btn, i) => {
-    const shuffledOpt = parentItems[pIndex].options[i];
-    if (shuffledOpt && shuffledOpt.textKr) btn.textContent = shuffledOpt.textKr;
-  });
-  document.getElementById('pNextBtn').textContent = kr.ui.next;
-  document.getElementById('progressSection').textContent = kr.ui.about_child;
-};
-
-const _origRenderChild = renderChildQuestion;
-renderChildQuestion = function() {
-  _origRenderChild();
-  if (currentLang !== 'kr') return;
-  const q = childItems[cIndex];
-  const origIndex = rawChildItems.findIndex(r => r.id === q.id);
-  if (origIndex < 0) return;
-  const krQ = kr.childItems[origIndex];
-  if (!krQ) return;
-  document.getElementById('cQuestionPrompt').textContent = krQ.prompt;
-  document.getElementById('cQuestionCounter').textContent = kr.ui.question_of(cIndex + 1, childItems.length);
-  const btns = document.querySelectorAll('#cOptionsList .option-btn');
-  btns.forEach((btn, i) => {
-    const shuffledOpt = childItems[cIndex].options[i];
-    const origOpt = rawChildItems[origIndex].options.find(o => o.id === shuffledOpt.id);
-    if (origOpt) {
-      const optIndex = rawChildItems[origIndex].options.indexOf(origOpt);
-      if (krQ.options[optIndex]) btn.textContent = krQ.options[optIndex].text;
-    }
-  });
-  document.getElementById('cNextBtn').textContent = kr.ui.next;
-  document.getElementById('calibrationWrap').querySelector('.calibration-label').textContent = kr.ui.how_typical;
-  const calBtns = document.querySelectorAll('.cal-btn');
-  if (calBtns[0]) calBtns[0].textContent = kr.ui.very_typical;
-  if (calBtns[1]) calBtns[1].textContent = kr.ui.somewhat_typical;
-  if (calBtns[2]) calBtns[2].textContent = kr.ui.not_very_typical;
-  document.getElementById('progressSection').textContent = kr.ui.child_answers;
-};
-
-// Patch renderResults to use Korean
-const _origRenderResults = renderResults;
-renderResults = function(scores) {
-  _origRenderResults(scores);
-  if (currentLang !== 'kr') return;
-  if (typeof kr === 'undefined') return;
-
-  // Results header
-  document.querySelector('.results-header h2').textContent = kr.ui.results_title;
-  document.querySelector('.results-header p').textContent = kr.ui.results_subtitle;
-
-  // Archetype
-  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
-  const sorted = [...traits].sort((a,b) => scores[b] - scores[a]);
-  const archetype = matchArchetype(scores);
-  const krArch = kr.archetypes[archetype.id];
-  if (krArch) {
-    document.querySelector('.archetype-name').textContent = krArch.name;
-    document.querySelector('.archetype-tagline').textContent = krArch.tagline;
-    document.querySelector('.archetype-desc').textContent = krArch.desc;
-  }
-
-  // Trait bars
-  document.querySelector('.trait-bars h3').textContent = kr.ui.five_dimensions;
-  document.querySelectorAll('.trait-row').forEach((row, i) => {
-    const trait = traits[i];
-    const score = Math.round(scores[trait]);
-    const band = getBand(score);
-    const bandKey = bandToKey[band];
-    row.querySelector('.trait-row-name').textContent = kr.traitNames[trait];
-    row.querySelector('.trait-row-plain').textContent = kr.traitPlain[trait];
-    row.querySelector('.trait-row-band').textContent = kr.ui['band_' + bandKey.replace(' ', '_')] || band;
-    row.querySelector('.trait-desc').textContent = kr.traitDesc[trait][isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
-  });
-
-  // Report section
-  document.querySelector('.report-section-header').textContent = kr.ui.full_report;
-  document.querySelectorAll('.accordion-item').forEach((item, i) => {
-    const trait = traits[i];
-    const score = Math.round(scores[trait]);
-    const band = getBand(score);
-    const bandKey = bandToKey[band];
-    const titleKey = trait + '_' + bandKey;
-    const trigger = item.querySelector('.accordion-trigger');
-    trigger.querySelector('span:first-child').textContent = kr.reportTitles[titleKey] || trigger.querySelector('span:first-child').textContent;
-    trigger.querySelector('.accordion-band').textContent = kr.ui['band_' + bandKey.replace(' ', '_')] || band;
-    const panel = item.querySelector('.accordion-panel');
-    panel.querySelector('.panel-summary').textContent = kr.reportSummaries[titleKey] || panel.querySelector('.panel-summary').textContent;
-    const blockTitles = panel.querySelectorAll('.panel-block-title');
-    if (blockTitles[0]) blockTitles[0].textContent = kr.ui.strengths;
-    if (blockTitles[1]) blockTitles[1].textContent = kr.ui.worth_knowing;
-    if (blockTitles[2]) blockTitles[2].textContent = kr.ui.what_to_do;
-    if (blockTitles[3]) blockTitles[3].textContent = kr.ui.context;
-    // Update list items with Korean content
-    const krItem = detailedReportDataKr.find(r => r.trait === trait && r.band === bandKey);
-    if (krItem) {
-      const lists = panel.querySelectorAll('.panel-list');
-      if (lists[0]) lists[0].innerHTML = krItem.strengths.map(s => `<li>${s}</li>`).join('');
-      if (lists[1]) lists[1].innerHTML = krItem.watch_outs.map(s => `<li>${s}</li>`).join('');
-      if (lists[2]) lists[2].innerHTML = krItem.what_to_do.map(s => `<li>${s}</li>`).join('');
-      panel.querySelector('.panel-summary').textContent = krItem.summary;
-      panel.querySelector('.panel-context').textContent = krItem.context;
-    }
-  });
-
-  // Products
-  document.querySelector('.products-section h3').textContent = kr.ui.supporting_growth;
-  document.querySelector('.products-intro').textContent = kr.ui.products_intro;
-  document.querySelectorAll('.product-card').forEach(card => {
-    const nameEl = card.querySelector('.product-name');
-    const taglineEl = card.querySelector('.product-tagline');
-    const catEl = card.querySelector('.product-tag.category');
-    // Find product id by matching English name
-    const engName = nameEl.textContent;
-    const prod = productsData.find(p => p.name === engName);
-    if (prod && kr.products[prod.id]) {
-      nameEl.textContent = kr.products[prod.id].name;
-      taglineEl.textContent = kr.products[prod.id].tagline;
-      card.querySelector('.product-icon').textContent = kr.ui['cat_' + prod.category] || catEl.textContent;
-      if (catEl) catEl.textContent = kr.ui['cat_' + prod.category] || catEl.textContent;
-    }
-    const ageEl = card.querySelector('.product-tag.age');
-    if (ageEl && prod) ageEl.textContent = kr.ui.ages_prefix + ' ' + prod.age_range;
-  });
-  document.querySelector('.products-cta a').textContent = kr.ui.see_catalog;
-
-  // Premium CTA
-  document.querySelector('.premium-cta h3').textContent = kr.ui.go_deeper_title;
-  document.querySelector('.premium-cta p').textContent = kr.ui.go_deeper_body;
-  document.querySelector('.premium-cta a').textContent = kr.ui.book_consultation;
-
-  // Disclaimer
-  document.querySelector('.results-disclaimer').textContent = kr.ui.results_disclaimer;
-};
-
-// Apply saved language on load
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = sessionStorage.getItem('ocean_lang');
-  if (saved && saved !== 'en') {
-    currentLang = saved;
-    const btn = document.querySelector('#langToggle button[data-lang="' + saved + '"]');
-    if (btn) {
-      document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-  }
-  applyLangToCurrentScreen();
-});
-
-// Patch showScreen to re-apply lang
-const _origShowScreen = showScreen;
-showScreen = function(id) {
-  _origShowScreen(id);
-  setTimeout(applyLangToCurrentScreen, 50);
-};
-
-
-// ── PARENT SELF ASSESSMENT ──
-const rawParentSelfItems = [
-  { id:"PS1", construct:"openness", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I prefer doing familiar things in familiar ways",textKr:"익숙한 방식으로 익숙한 일을 하는 것을 선호한다"},{id:"B",text:"I seek out new experiences and ideas",textKr:"새로운 경험과 아이디어를 찾아 나서는 편이다"}] },
-  { id:"PS2", construct:"conscientiousness", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I follow through on tasks and keep things organized",textKr:"맡은 일을 끝까지 해내고 체계적으로 관리하는 편이다"},{id:"B",text:"I go with the flow and tend to leave things open-ended",textKr:"흐름에 따르고 일을 열어두는 편이다"}] },
-  { id:"PS3", construct:"extraversion", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I feel energized being around other people",textKr:"사람들과 함께할 때 에너지가 생긴다"},{id:"B",text:"I feel drained after socializing and need quiet time",textKr:"사람들과 어울린 후 피곤하고 조용한 시간이 필요하다"}] },
-  { id:"PS4", construct:"agreeableness", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I prioritize keeping harmony and making others comfortable",textKr:"조화를 유지하고 상대방을 편하게 하는 것을 우선시한다"},{id:"B",text:"I prioritize honesty and standing by my position",textKr:"솔직함과 자신의 입장을 지키는 것을 우선시한다"}] },
-  { id:"PS5", construct:"negative_emotionality", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I tend to stay calm and recover quickly from setbacks",textKr:"어려운 상황에서도 침착함을 유지하고 빠르게 회복하는 편이다"},{id:"B",text:"I tend to feel things strongly and take time to settle",textKr:"감정을 강하게 느끼고 안정을 찾는 데 시간이 걸리는 편이다"}] }
-];
-
-const parentSelfScoring = {
-  PS1:{keyed:"B"}, PS2:{keyed:"A"}, PS3:{keyed:"A"}, PS4:{keyed:"A"}, PS5:{keyed:"B"}
-};
-
-let parentSelfItems = [...rawParentSelfItems];
-let psIndex = 0;
-let psAnswers = {};
-let parentScores = {};
-
-function showParentSelfQuestions() {
-  psIndex = 0;
-  psAnswers = {};
-  renderParentSelfQuestion();
-  showScreen('screen-parent-self-q');
-  document.getElementById('progressWrap').style.display = 'block';
-}
-
+// ─────────────────────────────────────────────
+// PARENT SELF RENDERING
+// ─────────────────────────────────────────────
 function renderParentSelfQuestion() {
   const q = parentSelfItems[psIndex];
   const isKr = currentLang === 'kr';
   document.getElementById('psQuestionCounter').textContent = isKr
-    ? kr.ui.question_of(psIndex + 1, parentSelfItems.length)
+    ? `${psIndex + 1} / ${parentSelfItems.length}`
     : `Question ${psIndex + 1} of ${parentSelfItems.length}`;
   document.getElementById('psQuestionPrompt').textContent = isKr ? q.promptKr : q.prompt;
   const list = document.getElementById('psOptionsList');
@@ -1525,8 +1130,7 @@ function renderParentSelfQuestion() {
 
 function selectParentSelfOption(optId, btn) {
   document.querySelectorAll('#psOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selectedOption = optId;
+  btn.classList.add('selected'); selectedOption = optId;
   document.getElementById('psNextBtn').classList.add('visible');
 }
 
@@ -1557,97 +1161,538 @@ function calculateParentScores() {
   });
 }
 
-// Patch updateProgress to handle parent_self section
-const _origUpdateProgress = updateProgress;
-updateProgress = function(section, index, total) {
-  if (section === 'parent_self') {
-    const isKr = currentLang === 'kr';
-    document.getElementById('progressSection').textContent = isKr ? '부모님 자신에 대해' : 'About yourself';
-    document.getElementById('progressCount').textContent = `${index + 1} / ${total}`;
-    document.getElementById('progressFill').style.width = ((index / total) * 100) + '%';
-    return;
-  }
-  _origUpdateProgress(section, index, total);
-};
+// ─────────────────────────────────────────────
+// CHILD RENDERING
+// ─────────────────────────────────────────────
+function renderChildQuestion() {
+  const q = childItems[cIndex];
+  const isKr = currentLang === 'kr';
+  document.getElementById('cQuestionCounter').textContent = isKr
+    ? `${cIndex + 1} / ${childItems.length}`
+    : `Question ${cIndex + 1} of ${childItems.length}`;
+  document.getElementById('cQuestionPrompt').textContent = isKr ? (q.promptKr || q.prompt) : q.prompt;
+  const list = document.getElementById('cOptionsList');
+  list.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = isKr ? (opt.textKr || opt.text) : opt.text;
+    btn.onclick = () => selectChildOption(opt.id, btn);
+    list.appendChild(btn);
+  });
+  document.getElementById('calibrationWrap').style.display = 'none';
+  document.getElementById('cNextBtn').classList.remove('visible');
+  selectedOption = null; selectedCal = null;
+  document.getElementById('progressWrap').style.display = 'block';
+  updateProgress('child', cIndex, childItems.length);
+}
 
-// startAssessment defined earlier with age gate logic
+function selectChildOption(optId, btn) {
+  document.querySelectorAll('#cOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedOption = optId;
+  document.getElementById('calibrationWrap').style.display = 'block';
+}
 
-// Patch nextParentQuestion to go to parent-self-intro after parent questions
-const _origNextParentQ = nextParentQuestion;
-nextParentQuestion = function() {
-  if (!selectedOption) return;
-  pAnswers[parentItems[pIndex].id] = selectedOption;
-  pIndex++;
-  if (pIndex < parentItems.length) {
-    renderParentQuestion();
+function selectCalibration(calId, btn) {
+  document.querySelectorAll('.cal-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedCal = calId;
+  if (selectedOption) document.getElementById('cNextBtn').classList.add('visible');
+}
+
+function nextChildQuestion() {
+  if (!selectedOption || !selectedCal) return;
+  cAnswers[childItems[cIndex].id] = selectedOption;
+  cCalibrations[childItems[cIndex].id] = selectedCal;
+  cIndex++;
+  if (cIndex < childItems.length) {
+    renderChildQuestion();
   } else {
     document.getElementById('progressWrap').style.display = 'none';
-    showScreen('screen-parent-self-intro');
+    calculateAndShowResults();
   }
-};
+}
 
+// ─────────────────────────────────────────────
+// PROGRESS
+// ─────────────────────────────────────────────
+function updateProgress(section, index, total) {
+  const isKr = currentLang === 'kr';
+  const labels = {
+    parent:      isKr ? '아이에 대해'       : 'About your child',
+    parent_self: isKr ? '부모님 자신에 대해' : 'About yourself',
+    child:       isKr ? '자녀가 답합니다'    : 'Your child answers'
+  };
+  document.getElementById('progressSection').textContent = labels[section] || '';
+  document.getElementById('progressCount').textContent = `${index + 1} / ${total}`;
+  document.getElementById('progressFill').style.width = ((index / total) * 100) + '%';
+}
 
-// Patch applyLangToCurrentScreen for new screens
-const _origApplyLang = applyLangToCurrentScreen;
-applyLangToCurrentScreen = function() {
-  if (typeof kr === 'undefined') return;
-  _origApplyLang();
-  if (currentLang !== 'kr') {
-    // Apply English to new screens
-    const introH = document.getElementById('intro-h2');
-    if (introH) introH.innerHTML = "Where are you and your child<br>missing each other?";
-    const introP1 = document.getElementById('intro-p1');
-    if (introP1) introP1.textContent = "Answer based on your child's usual behavior over the past 3–6 months. There are no right or wrong answers.";
-    const introP2 = document.getElementById('intro-p2');
-    if (introP2) introP2.textContent = "Takes about 15–20 minutes. You'll go first, then invite your child for a few questions.";
-    const introBtn = document.getElementById('intro-btn');
-    if (introBtn) introBtn.textContent = "Let's begin";
-    const introDisclaimer = document.getElementById('intro-disclaimer');
-    if (introDisclaimer) introDisclaimer.textContent = "This profile is a developmental guidance tool, not a diagnosis or a fixed label.";
-    const pselfH = document.getElementById('pself-intro-h2');
-    if (pselfH) pselfH.textContent = "Now: a few questions about you";
-    const pselfP = document.getElementById('pself-intro-p');
-    if (pselfP) pselfP.textContent = "OCEAN looks at both profiles together. Understanding where you and your child align — and where you don't — is the whole point.";
-    const pselfBtn = document.getElementById('pself-intro-btn');
-    if (pselfBtn) pselfBtn.textContent = "Continue";
-    const pselfLabel = document.getElementById('pself-section-label');
-    if (pselfLabel) pselfLabel.textContent = "About yourself";
-    const psNextBtn = document.getElementById('psNextBtn');
-    if (psNextBtn) psNextBtn.textContent = "Next";
-    const transH = document.getElementById('transition-h2');
-    if (transH) transH.textContent = "Now invite your child";
-    const transP = document.getElementById('transition-p');
-    if (transP) transP.textContent = "Read the next prompts aloud and let your child choose. After each one, you'll tell us whether that answer was typical for them.";
-    const transBtn = document.getElementById('transition-btn');
-    if (transBtn) transBtn.textContent = "Continue";
-    const parentIntroH = document.getElementById('parent-intro-h2');
-    if (parentIntroH) parentIntroH.textContent = "First: just you";
-    const parentIntroP = document.getElementById('parent-intro-p');
-    if (parentIntroP) parentIntroP.textContent = "Choose the option that sounds more like your child most of the time. Go with your first honest impression.";
-    const parentIntroBtn = document.getElementById('parent-intro-btn');
-    if (parentIntroBtn) parentIntroBtn.textContent = "Start";
-    return;
+// ─────────────────────────────────────────────
+// SCORING
+// ─────────────────────────────────────────────
+function calculateAndShowResults() {
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  const scores = {};
+  traits.forEach(trait => {
+    const pItems = rawParentItems.filter(q => q.construct === trait);
+    let pRaw = 0;
+    pItems.forEach(q => { if (pAnswers[q.id] === parentScoring[q.id].keyed) pRaw++; });
+    const pScore = (pRaw / pItems.length) * 100;
+    if (skipChildQuestions) {
+      scores[trait] = pScore;
+    } else {
+      const cItems = rawChildItems.filter(q => q.construct === trait);
+      let cRaw = 0;
+      cItems.forEach(q => {
+        const optScore = childScoring[q.id][parseInt(cAnswers[q.id])] || 0;
+        const calMult = calibrationMultipliers[cCalibrations[q.id]] || 1.0;
+        cRaw += optScore * calMult;
+      });
+      const cScore = (cRaw / cItems.length) * 100;
+      scores[trait] = (pScore * 0.7) + (cScore * 0.3);
+    }
+  });
+  renderResults(scores);
+}
+
+function getBand(score) {
+  for (const band of interpretationBands) {
+    if (score >= band.min && score <= band.max) return band.label;
   }
-  // Korean
+  return 'Balanced';
+}
+function isHigh(s) { return s >= 56; }
+function isLow(s)  { return s <= 44; }
+
+function matchArchetype(scores) {
+  for (const arch of archetypes) {
+    if (arch.logic.all === 'balanced') continue;
+    let matches = true;
+    for (const [trait, level] of Object.entries(arch.logic)) {
+      const s = scores[trait];
+      if (level === 'high' && !isHigh(s)) { matches = false; break; }
+      if (level === 'low'  && !isLow(s))  { matches = false; break; }
+    }
+    if (matches) return arch;
+  }
+  return archetypes.find(a => a.id === 'flexible_adapter');
+}
+
+// ─────────────────────────────────────────────
+// PARENT PROFILE RENDERER
+// ─────────────────────────────────────────────
+function renderParentProfile() {
+  const section = document.getElementById('parentProfileSection');
+  if (!section || Object.keys(parentScores).length === 0) return;
+  const isKr = currentLang === 'kr';
+
+  const traitMeta = {
+    negative_emotionality: {
+      nameKr:'정서적 안정성', nameEn:'Emotional Stability', invertDisplay:true,
+      descKr:{ high:'감정 기복이 적고 일관된 정서 환경을 제공합니다', mid:'대체로 안정적이나 특정 상황에서 감정적으로 반응할 수 있습니다', low:'감정 기복이 있어 일관된 정서 환경을 만들기 어려울 수 있습니다' },
+      descEn:{ high:'Emotionally steady — your child has a consistent baseline to rely on', mid:'Generally stable, with some reactivity in high-pressure moments', low:'Emotional variability may make consistency harder during stressful parenting moments' }
+    },
+    agreeableness: {
+      nameKr:'원만성', nameEn:'Agreeableness', invertDisplay:false,
+      descKr:{ high:'따뜻하고 공감적인 양육 환경을 제공합니다', mid:'상황에 따라 다양한 공감 반응을 보입니다', low:'직접적이고 솔직한 편이며 공감 표현이 상대적으로 적습니다' },
+      descEn:{ high:'Warm and empathic — strong emotional base for your child', mid:'Empathic responses vary by situation', low:'Direct and honest — warm expression may benefit from more intentional practice' }
+    },
+    conscientiousness: {
+      nameKr:'성실성', nameEn:'Conscientiousness', invertDisplay:false,
+      descKr:{ high:'예측 가능하고 구조화된 환경을 제공합니다', mid:'어느 정도 일관성이 있으나 상황에 따라 달라집니다', low:'유연하고 즉흥적이지만 일과의 일관성이 낮을 수 있습니다' },
+      descEn:{ high:'Structured and predictable — stability your child can count on', mid:'Reasonably consistent, with situational variability', low:'Flexible and spontaneous — routine and follow-through may need deliberate effort' }
+    },
+    extraversion: {
+      nameKr:'외향성', nameEn:'Extraversion', invertDisplay:false,
+      descKr:{ high:'활동적이고 사회적인 자극을 즐깁니다', mid:'상황에 따라 활동성을 조절합니다', low:'조용하고 안정된 환경을 선호합니다' },
+      descEn:{ high:'Energetic and social — brings activity and stimulation', mid:'Adapts energy levels to context', low:'Quiet and calm — prefers understated environments' }
+    },
+    openness: {
+      nameKr:'개방성', nameEn:'Openness', invertDisplay:false,
+      descKr:{ high:'새로운 경험과 아이디어에 열려 있습니다', mid:'익숙함과 새로움 사이에서 균형을 잡습니다', low:'검증된 방식과 익숙한 환경을 선호합니다' },
+      descEn:{ high:'Open to new experiences — supports your child\'s exploration', mid:'Balances familiarity and novelty', low:'Prefers proven approaches — stability over experimentation' }
+    }
+  };
+
+  const traitOrder = ['negative_emotionality','agreeableness','conscientiousness','extraversion','openness'];
+  let html = `<div class="trait-bars"><h3>${isKr ? '부모님 성격 프로파일' : 'Your personality profile'}</h3>`;
+
+  traitOrder.forEach(trait => {
+    const meta  = traitMeta[trait];
+    const raw   = parentScores[trait] || 50;
+    const disp  = meta.invertDisplay ? (100 - raw) : raw;
+    const level = disp >= 56 ? 'high' : disp <= 44 ? 'low' : 'mid';
+    const name  = isKr ? meta.nameKr : meta.nameEn;
+    const desc  = isKr ? meta.descKr[level] : meta.descEn[level];
+    const band  = disp >= 76 ? (isKr?'높음':'Higher') :
+                  disp >= 56 ? (isKr?'다소 높음':'Somewhat higher') :
+                  disp >= 45 ? (isKr?'중간':'Balanced') :
+                  disp >= 25 ? (isKr?'다소 낮음':'Somewhat lower') :
+                               (isKr?'낮음':'Lower');
+    html += `<div class="trait-row">
+      <div class="trait-row-header">
+        <div class="trait-row-left"><span class="trait-row-name">${name}</span></div>
+        <span class="trait-row-band">${band}</span>
+      </div>
+      <div class="trait-track">
+        <div class="trait-fill" data-score="${disp}" style="width:0%;background:var(--amber)"></div>
+      </div>
+      <div class="trait-desc">${desc}</div>
+    </div>`;
+  });
+
+  html += '</div>';
+  section.innerHTML = html;
+  setTimeout(() => {
+    section.querySelectorAll('.trait-fill').forEach(el => { el.style.width = el.dataset.score + '%'; });
+  }, 700);
+}
+
+// ─────────────────────────────────────────────
+// COMPATIBILITY FLAGS RENDERER
+// ─────────────────────────────────────────────
+function renderCompatibilityFlags(childScores) {
+  const section = document.getElementById('compatibilitySection');
+  if (!section || Object.keys(parentScores).length === 0) return;
+  const isKr = currentLang === 'kr';
+
+  const cNE = childScores.negative_emotionality || 50;
+  const cEX = childScores.extraversion          || 50;
+  const cOP = childScores.openness              || 50;
+  const pNE = parentScores.negative_emotionality || 50;
+  const pAG = parentScores.agreeableness         || 50;
+  const pCO = parentScores.conscientiousness     || 50;
+  const pEX = parentScores.extraversion          || 50;
+  const pOP = parentScores.openness              || 50;
+
+  const flags = [];
+
+  if (cNE > 60 && pAG < 40) flags.push({
+    level:'hi', icon:'⚠️',
+    titleKr:'감정 지지 부족',
+    titleEn:'Emotional scaffolding gap',
+    bodyKr:'아이는 감정 기복이 강한 편인데, 부모님의 공감적 반응이 낮습니다. 아이가 속상할 때 충분한 정서적 지지를 받지 못하면 불안이 심화될 수 있습니다.',
+    bodyEn:'Your child feels things intensely, and your natural style is more direct than empathic. Without emotional scaffolding during hard moments, anxiety can quietly build.',
+    tipKr:'아이가 화가 났을 때 "왜 그러니"보다 "많이 속상했겠다"로 시작해보세요.',
+    tipEn:'Try leading with "that sounds really hard" before offering solutions or redirection.'
+  });
+
+  if (cNE > 60 && pCO < 40) flags.push({
+    level:'hi', icon:'⚠️',
+    titleKr:'환경 불안정 위험',
+    titleEn:'Environmental instability risk',
+    bodyKr:'예민한 아이에게 예측 가능한 일과는 안전감의 기초입니다. 일관성이 낮은 환경은 아이의 불안을 서서히 높일 수 있습니다.',
+    bodyEn:'Sensitive children rely on predictable routines for a sense of safety. An inconsistent environment can quietly amplify your child\'s anxiety over time.',
+    tipKr:'취침 시간 하나만 먼저 고정해보세요. 단 하나의 예측 가능한 닻이 큰 차이를 만듭니다.',
+    tipEn:'Fix one daily anchor first — consistent bedtime is the single highest-impact routine.'
+  });
+
+  if (cNE > 60 && pNE > 60) flags.push({
+    level:'hi', icon:'⚠️',
+    titleKr:'감정 증폭 패턴',
+    titleEn:'Emotional amplification loop',
+    bodyKr:'아이와 부모님 모두 감정 반응이 강한 편입니다. 한쪽이 흔들리면 다른 쪽도 함께 흔들리는 상호 증폭 패턴이 생길 수 있습니다.',
+    bodyEn:'Both you and your child have strong emotional reactivity. When one person escalates, the other tends to follow — creating cycles that are hard to exit.',
+    tipKr:'"5분 후에 이야기하자"는 규칙을 갈등 전에 미리 정해두세요.',
+    tipEn:'Agree on a "5-minute rule" during calm moments: either person can call a pause before continuing.'
+  });
+
+  if (cEX < 35 && pEX > 65) flags.push({
+    level:'med', icon:'💛',
+    titleKr:'에너지 수준 차이',
+    titleEn:'Energy level mismatch',
+    bodyKr:'아이는 조용한 환경과 혼자만의 시간을 필요로 하는데, 부모님은 활동적이고 사회적인 자극을 즐기는 편입니다. 아이가 과자극 상태에 놓이기 쉽습니다.',
+    bodyEn:'Your child recharges in quiet while you energize through activity. Extended social situations may leave your child overstimulated and withdrawn.',
+    tipKr:'사교 활동 후 아이에게 30분의 혼자 시간을 보장해주세요.',
+    tipEn:'Build in 30 minutes of solo time after social activities — treat it as non-negotiable recovery, not a reward.'
+  });
+
+  if (cOP > 65 && pOP < 35) flags.push({
+    level:'med', icon:'💛',
+    titleKr:'탐색 방식 차이',
+    titleEn:'Exploration style gap',
+    bodyKr:'아이는 새로운 방식과 아이디어를 탐구하고 싶어하지만, 부모님은 익숙하고 검증된 방법을 선호합니다. 아이의 탐색 욕구가 제한될 수 있습니다.',
+    bodyEn:'Your child has a strong drive to explore and experiment, while you prefer what\'s reliable and proven. The child\'s curiosity can feel disruptive from your vantage point.',
+    tipKr:'일주일에 한 번, 아이가 선택하는 활동을 판단 없이 따라가보세요.',
+    tipEn:'Once a week, let your child pick the activity and follow their lead without redirecting.'
+  });
+
+  const sectionTitle = isKr ? '관계 역동 분석' : 'Relationship dynamics';
+  const subtitle = isKr
+    ? '두 성격이 만나는 지점에서 생기는 패턴입니다. 차이가 항상 위험은 아니고, 유사성이 항상 강점도 아닙니다.'
+    : 'Patterns that emerge where two personalities meet. Difference isn\'t always risk. Similarity isn\'t always strength.';
+
+  let html = `<div class="report-section">
+    <div class="report-section-header">${sectionTitle}</div>
+    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;font-style:italic">${subtitle}</p>`;
+
+  if (flags.length === 0) {
+    html += `<div class="risk-card ok">
+      <div class="risk-icon">✅</div>
+      <div class="risk-body">
+        <strong>${isKr ? '주요 갈등 패턴이 발견되지 않았습니다' : 'No major friction patterns detected'}</strong>
+        ${isKr ? '두 프로파일 사이에서 높은 위험 조합이 나타나지 않았습니다. 아래 상세 리포트에서 각 특성이 일상에서 어떻게 나타나는지 확인해보세요.' : 'No high-risk trait combinations found between your profiles. See the full report below for how individual traits show up day-to-day.'}
+      </div>
+    </div>`;
+  } else {
+    flags.forEach(f => {
+      html += `<div class="risk-card ${f.level}">
+        <div class="risk-icon">${f.icon}</div>
+        <div class="risk-body">
+          <strong>${isKr ? f.titleKr : f.titleEn}</strong>
+          ${isKr ? f.bodyKr : f.bodyEn}
+          <div style="margin-top:10px;font-size:12px;color:var(--ink-soft)">
+            <em>${isKr ? '💡 도움이 되는 것:' : '💡 What helps:'}</em> ${isKr ? f.tipKr : f.tipEn}
+          </div>
+        </div>
+      </div>`;
+    });
+  }
+
+  // Premium lock placeholder
+  html += `<div style="margin-top:20px;background:var(--cream);border-radius:14px;padding:24px;text-align:center;border:1px dashed var(--celadon-light)">
+    <div style="font-size:22px;margin-bottom:8px">🔒</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:8px">${isKr ? '더 깊이 들어가기' : 'Go deeper'}</div>
+    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:16px">${isKr ? '각 특성 조합이 실제 일상에서 어떻게 나타나는지, 연령대별 대화법, 전문가가 검토한 맞춤 전략을 확인하세요.' : 'See how each trait combination plays out day-to-day, with age-specific conversation guides and expert-reviewed strategies.'}</p>
+    <a href="index.html#waitlist" style="display:inline-block;background:var(--celadon);color:var(--white);padding:12px 28px;border-radius:40px;font-family:'Noto Serif KR',serif;font-size:14px;font-weight:600;text-decoration:none">${isKr ? '전체 리포트 받기 →' : 'Get the full report →'}</a>
+  </div>`;
+
+  html += '</div>';
+  section.innerHTML = html;
+}
+
+// ─────────────────────────────────────────────
+// MAIN RESULTS RENDERER
+// ─────────────────────────────────────────────
+function renderResults(scores) {
+  lastChildScores = scores;
+  showScreen('screen-results');
+
+  const isKr = currentLang === 'kr';
+  const archetype = matchArchetype(scores);
+
+  // Header
+  document.getElementById('results-main-title').textContent = isKr ? '우리 가족 성격 리포트' : 'Your family personality report';
+  document.getElementById('results-main-sub').textContent   = isKr
+    ? '아이와 부모님의 성향이 어디서 잘 맞고, 어디서 엇갈리는지 보여드립니다'
+    : 'Where you and your child align — and where you diverge.';
+
+  // Archetype card
+  document.getElementById('archetypeCard').innerHTML = `
+    <div class="archetype-character">
+      <img src="${archetypeImages[archetype.id]}" alt="${archetype.id}" onerror="this.style.display='none'" />
+    </div>
+    <div class="archetype-name">${isKr ? archetype.nameKr : archetype.name}</div>
+    <div class="archetype-tagline">${isKr ? archetype.taglineKr : archetype.tagline}</div>
+    <div class="archetype-desc">${isKr ? archetype.descKr : archetype.desc}</div>
+  `;
+
+  // Child trait bars
+  document.getElementById('child-traits-title').textContent = isKr ? '아이의 다섯 가지 성격 차원' : 'The five dimensions';
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  let barsHTML = '';
+  traits.forEach(trait => {
+    const score = Math.round(scores[trait]);
+    const band  = getBand(score);
+    const desc  = traitDescriptions[trait];
+    const descText = desc[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
+    const bandKr = band === 'Higher' ? '높음' : band === 'Somewhat higher' ? '다소 높음' :
+                   band === 'Balanced' ? '중간' : band === 'Somewhat lower' ? '다소 낮음' : '낮음';
+    barsHTML += `
+      <div class="trait-row">
+        <div class="trait-row-header">
+          <div class="trait-row-left">
+            <span class="trait-row-name">${isKr ? {openness:'개방성',conscientiousness:'성실성',extraversion:'외향성',agreeableness:'원만성',negative_emotionality:'감수성'}[trait] : desc.name}</span>
+            <span class="trait-row-plain">${isKr ? '' : desc.plain}</span>
+          </div>
+          <span class="trait-row-band">${isKr ? bandKr : band}</span>
+        </div>
+        <div class="trait-track">
+          <div class="trait-fill" data-score="${score}" style="width:0%"></div>
+        </div>
+        <div class="trait-desc">${descText}</div>
+      </div>`;
+  });
+  document.getElementById('traitBarsContent').innerHTML = barsHTML;
+  setTimeout(() => {
+    document.querySelectorAll('#traitBarsContent .trait-fill').forEach(el => { el.style.width = el.dataset.score + '%'; });
+  }, 300);
+
+  // Detailed report accordion
+  document.getElementById('full-report-title').textContent = isKr ? '상세 리포트' : 'Full report';
+  let accordionHTML = '';
+  traits.forEach((trait, i) => {
+    const score   = Math.round(scores[trait]);
+    const band    = getBand(score);
+    const bandKey = bandToKey[band];
+    const reportItem = isKr
+      ? (typeof detailedReportDataKr !== 'undefined' ? detailedReportDataKr.find(r => r.trait === trait && r.band === bandKey) : null)
+      : (typeof detailedReportData   !== 'undefined' ? detailedReportData.find(r   => r.trait === trait && r.band === bandKey) : null);
+    if (!reportItem) return;
+    const strengthsHTML  = reportItem.strengths.map(s => `<li>${s}</li>`).join('');
+    const watchoutsHTML  = reportItem.watch_outs.map(s => `<li>${s}</li>`).join('');
+    const whatHTML       = reportItem.what_to_do.map(s => `<li>${s}</li>`).join('');
+    const bandKr = band === 'Higher' ? '높음' : band === 'Somewhat higher' ? '다소 높음' :
+                   band === 'Balanced' ? '중간' : band === 'Somewhat lower' ? '다소 낮음' : '낮음';
+    accordionHTML += `
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <span>${reportItem.title}</span>
+          <span class="accordion-trigger-right">
+            <span class="accordion-band">${isKr ? bandKr : band}</span>
+            <span class="accordion-arrow">&#9660;</span>
+          </span>
+        </button>
+        <div class="accordion-panel">
+          <p class="panel-summary">${reportItem.summary}</p>
+          <div class="panel-block">
+            <span class="panel-block-title">${isKr ? '강점' : 'Strengths'}</span>
+            <ul class="panel-list">${strengthsHTML}</ul>
+          </div>
+          <div class="panel-block">
+            <span class="panel-block-title">${isKr ? '알아두면 좋은 것' : 'Worth knowing'}</span>
+            <ul class="panel-list">${watchoutsHTML}</ul>
+          </div>
+          <div class="panel-block">
+            <span class="panel-block-title">${isKr ? '도움이 되는 것' : 'What to do'}</span>
+            <ul class="panel-list">${whatHTML}</ul>
+          </div>
+          <div class="panel-block">
+            <span class="panel-block-title">${isKr ? '맥락' : 'Context'}</span>
+            <div class="panel-context">${reportItem.context}</div>
+          </div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('accordionContent').innerHTML = accordionHTML;
+
+  // Products
+  document.getElementById('products-title').textContent      = isKr ? '아이의 성장을 돕는 것들'     : 'Supporting your child\'s growth';
+  document.getElementById('products-intro-text').textContent = isKr ? '모든 특성은 올바른 환경과 도구로 발전할 수 있습니다.' : 'Every trait can develop with the right materials and environment.';
+  document.getElementById('products-cta-link').textContent   = isKr ? '오션 전체 카탈로그 보기'       : 'See the full OCEAN catalog';
+
+  if (typeof getProductsForTraits !== 'undefined') {
+    const recommended = getProductsForTraits(scores);
+    let productsHTML = '';
+    recommended.forEach(p => {
+      productsHTML += `
+        <div class="product-card">
+          <div class="product-icon">${typeof categoryLabels !== 'undefined' ? categoryLabels[p.category] : p.category}</div>
+          <div class="product-info">
+            <div class="product-name">${p.name}</div>
+            <div class="product-tagline">${p.tagline}</div>
+            <div class="product-meta">
+              <span class="product-tag category">${p.category}</span>
+              <span class="product-tag age">${isKr ? '나이 ' : 'Ages '}${p.age_range}</span>
+            </div>
+          </div>
+        </div>`;
+    });
+    document.getElementById('productsContent').innerHTML = productsHTML;
+  }
+
+  // Journey CTA
+  document.getElementById('journey-cta-h3').textContent  = isKr ? '여기서 멈추지 않아도 됩니다.'     : 'You don\'t have to stop here.';
+  document.getElementById('journey-cta-btn').textContent = isKr ? '어떤 단계가 맞는지 알아보기 →'   : 'Find out which step is right for you →';
+
+  // Parent profile + compatibility (rendered after brief delay so child bars animate first)
+  setTimeout(() => {
+    renderParentProfile();
+    renderCompatibilityFlags(scores);
+  }, 400);
+}
+
+// ─────────────────────────────────────────────
+// ACCORDION
+// ─────────────────────────────────────────────
+function toggleAccordion(btn) {
+  const panel  = btn.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
+  if (!isOpen) {
+    panel.classList.add('open');
+    btn.classList.add('open');
+    setTimeout(() => { btn.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 100);
+  }
+}
+
+// ─────────────────────────────────────────────
+// LANGUAGE
+// ─────────────────────────────────────────────
+let currentLang = 'kr';
+
+function setLang(lang, btn) {
+  currentLang = lang;
+  sessionStorage.setItem('ocean_lang', lang);
+  document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyLangToCurrentScreen();
+}
+
+function applyLangToCurrentScreen() {
+  const isKr = currentLang === 'kr';
   const activeScreen = document.querySelector('.screen.active');
   if (!activeScreen) return;
   const id = activeScreen.id;
+
+  if (id === 'screen-intro') {
+    document.getElementById('intro-h2').innerHTML        = isKr ? '우리 아이와 나,<br>어디서 엇갈리고 있을까요?' : 'Where are you and your child<br>missing each other?';
+    document.getElementById('intro-p1').textContent      = isKr ? '지난 3~6개월 동안 아이의 평소 모습을 떠올리며 답해주세요. 정답은 없습니다.' : 'Answer based on your child\'s usual behavior over the past 3–6 months. No right or wrong answers.';
+    document.getElementById('intro-p2').textContent      = isKr ? '약 15~20분 소요됩니다.' : 'Takes about 15–20 minutes.';
+    document.getElementById('birth-year-label').textContent = isKr ? '아이의 출생연도를 입력해주세요' : 'Enter your child\'s birth year';
+    document.getElementById('birth-year-note').textContent  = isKr ? '만 5세~10세 아이를 위한 검사입니다' : 'Designed for children aged 5–10';
+    document.getElementById('intro-btn').textContent     = isKr ? '시작하기' : 'Let\'s begin';
+    document.getElementById('intro-disclaimer').textContent = isKr ? '이 프로필은 발달 지원 도구이며, 진단이나 고정된 성격 유형이 아닙니다.' : 'This profile is a developmental guidance tool, not a diagnosis or a fixed label.';
+  }
+  if (id === 'screen-parent-intro') {
+    document.getElementById('parent-intro-h2').textContent  = isKr ? '먼저 부모님만'   : 'First: just you';
+    document.getElementById('parent-intro-p').textContent   = isKr ? '아이에게 평소 더 잘 맞는 보기를 골라주세요. 처음 떠오르는 솔직한 인상으로 선택해 주세요.' : 'Choose the option that sounds more like your child most of the time. Go with your first honest impression.';
+    document.getElementById('parent-intro-btn').textContent = isKr ? '시작' : 'Start';
+  }
   if (id === 'screen-parent-self-intro') {
-    activeScreen.querySelector('h2').textContent = '이번엔 부모님 자신에 대해';
-    activeScreen.querySelector('p').textContent = '오션은 아이만 보지 않습니다. 부모님의 성향도 함께 봐야 어디서 엇갈리는지 알 수 있어요.';
-    activeScreen.querySelector('.hero-cta').textContent = kr.ui.continue;
+    document.getElementById('pself-intro-h2').textContent  = isKr ? '이번엔 부모님 자신에 대해' : 'Now: a few questions about you';
+    document.getElementById('pself-intro-p').textContent   = isKr ? '오션은 아이만 보지 않습니다. 부모님의 성향도 함께 봐야 어디서 엇갈리는지 알 수 있어요.' : 'OCEAN looks at both profiles together. Understanding where you and your child align — and where you don\'t — is the whole point.';
+    document.getElementById('pself-intro-btn').textContent = isKr ? '계속하기' : 'Continue';
+  }
+  if (id === 'screen-transition') {
+    document.getElementById('transition-h2').textContent  = isKr ? '이제 자녀를 불러주세요' : 'Now invite your child';
+    document.getElementById('transition-p').textContent   = isKr ? '다음 문항들을 자녀에게 읽어주시고, 자녀가 직접 고르게 해주세요.' : 'Read the next prompts aloud and let your child choose.';
+    document.getElementById('transition-btn').textContent = isKr ? '계속하기' : 'Continue';
   }
   if (id === 'screen-skip-child') {
-    activeScreen.querySelector('h2').textContent = '부모님 관찰만으로 분석합니다';
-    activeScreen.querySelector('.skip-child-box p').textContent = '만 8세 미만 아이의 경우, 자기 보고식 답변보다 부모님의 관찰이 훨씬 더 정확합니다. 발달심리 연구에서도 10세 이전에는 부모 관찰 데이터가 더 신뢰롭다고 밝히고 있어요. 부모님이 답해주신 내용을 바탕으로 프로필을 만들어드립니다.';
-    activeScreen.querySelector('.hero-cta').textContent = '결과 보기';
+    document.getElementById('skip-h2').textContent = isKr ? '부모님 관찰만으로 분석합니다' : 'Analysis based on your observations';
+    document.getElementById('skip-p').textContent  = isKr ? '만 8세 미만 아이의 경우, 자기 보고식 답변보다 부모님의 관찰이 훨씬 더 정확합니다.' : 'For children under 8, parent observation is more reliable than child self-report. We\'ll build the profile from your answers.';
+    document.getElementById('skip-btn').textContent = isKr ? '결과 보기' : 'See results';
   }
   if (id === 'screen-parent-self-q') {
-    document.getElementById('pself-section-label').textContent = '부모님 자신에 대해';
-    document.getElementById('psNextBtn').textContent = kr.ui.next;
+    document.getElementById('pself-section-label').textContent = isKr ? '부모님 자신에 대해' : 'About yourself';
+    document.getElementById('psNextBtn').textContent = isKr ? '다음' : 'Next';
   }
-};
+  if (id === 'screen-parent-q') {
+    document.getElementById('parent-section-label').textContent = isKr ? '아이에 대해' : 'About your child';
+    document.getElementById('pNextBtn').textContent = isKr ? '다음' : 'Next';
+  }
+  if (id === 'screen-child-q') {
+    document.getElementById('cNextBtn').textContent = isKr ? '다음' : 'Next';
+    document.getElementById('calibration-label').textContent = isKr ? '이 답변이 아이에게 얼마나 해당되나요?' : 'How typical was that answer for your child?';
+    document.getElementById('cal-very').textContent     = isKr ? '매우 그렇다'       : 'Very typical';
+    document.getElementById('cal-somewhat').textContent = isKr ? '어느 정도 그렇다'   : 'Somewhat typical';
+    document.getElementById('cal-not').textContent      = isKr ? '별로 그렇지 않다'   : 'Not very typical';
+  }
+}
 
+// Init language on load
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = sessionStorage.getItem('ocean_lang');
+  if (saved) {
+    currentLang = saved;
+    document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+    const btn = document.querySelector(`#langToggle button[data-lang="${saved}"]`);
+    if (btn) btn.classList.add('active');
+  }
+  applyLangToCurrentScreen();
+});
 </script>
 </body>
 </html>
