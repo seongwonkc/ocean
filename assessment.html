@@ -1642,7 +1642,7 @@ function renderCompatibilityFlags(childScores) {
 
   const flags = [];
 
-  if (cNE > 60 && pAG < 40) flags.push({
+  if (cNE > 55 && pAG < 50) flags.push({
     level:'hi', icon:'⚠️',
     titleKr:'감정 지지 부족', titleEn:'Emotional scaffolding gap',
     bodyKr:'아이는 감정 기복이 강한 편인데, 부모님의 공감적 반응이 낮습니다. 아이가 속상할 때 충분한 정서적 지지를 받지 못하면 불안이 심화될 수 있습니다.',
@@ -1651,7 +1651,7 @@ function renderCompatibilityFlags(childScores) {
     tipEn:'Try leading with "that sounds really hard" before offering solutions or redirection.'
   });
 
-  if (cNE > 60 && pCO < 40) flags.push({
+  if (cNE > 55 && pCO < 50) flags.push({
     level:'hi', icon:'⚠️',
     titleKr:'환경 불안정 위험', titleEn:'Environmental instability risk',
     bodyKr:'예민한 아이에게 예측 가능한 일과는 안전감의 기초입니다. 일관성이 낮은 환경은 아이의 불안을 서서히 높일 수 있습니다.',
@@ -1660,7 +1660,7 @@ function renderCompatibilityFlags(childScores) {
     tipEn:'Fix one daily anchor first — consistent bedtime is the single highest-impact routine.'
   });
 
-  if (cNE > 60 && pNE > 60) flags.push({
+  if (cNE > 55 && pNE > 55) flags.push({
     level:'hi', icon:'⚠️',
     titleKr:'감정 증폭 패턴', titleEn:'Emotional amplification loop',
     bodyKr:'아이와 부모님 모두 감정 반응이 강한 편입니다. 한쪽이 흔들리면 다른 쪽도 함께 흔들리는 상호 증폭 패턴이 생길 수 있습니다.',
@@ -1669,7 +1669,7 @@ function renderCompatibilityFlags(childScores) {
     tipEn:'Agree on a "5-minute rule" during calm moments: either person can call a pause before continuing.'
   });
 
-  if (cEX < 35 && pEX > 65) flags.push({
+  if (cEX < 45 && pEX >= 50) flags.push({
     level:'med', icon:'💛',
     titleKr:'에너지 수준 차이', titleEn:'Energy level mismatch',
     bodyKr:'아이는 조용한 환경과 혼자만의 시간을 필요로 하는데, 부모님은 활동적이고 사회적인 자극을 즐기는 편입니다. 아이가 과자극 상태에 놓이기 쉽습니다.',
@@ -1678,7 +1678,7 @@ function renderCompatibilityFlags(childScores) {
     tipEn:'Build in 30 minutes of solo time after social activities — treat it as non-negotiable recovery, not a reward.'
   });
 
-  if (cOP > 65 && pOP < 35) flags.push({
+  if (cOP > 55 && pOP < 50) flags.push({
     level:'med', icon:'💛',
     titleKr:'탐색 방식 차이', titleEn:'Exploration style gap',
     bodyKr:'아이는 새로운 방식과 아이디어를 탐구하고 싶어하지만, 부모님은 익숙하고 검증된 방법을 선호합니다. 아이의 탐색 욕구가 제한될 수 있습니다.',
