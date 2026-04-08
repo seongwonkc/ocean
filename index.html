@@ -3,161 +3,621 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OCEAN / 오션 — Every child contains multitudes.</title>
-  <meta name="description" content="OCEAN is a Korean children's IP built on the Big Five personality framework. Five spirit children, one family, one warm world." />
+  <title>OCEAN / 오션 — 우리 아이와 나, 어디서 엇갈리고 있을까요?</title>
+  <meta name="description" content="부모와 아이의 성향 차이를 찾아드립니다. Big Five 기반 부모-자녀 소통 시스템." />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(247,243,236,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .nav.scrolled { border-color: var(--celadon-light); }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); letter-spacing: 0.04em; }
+    .nav-logo span { color: var(--celadon); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .lang-toggle { position: static; background: none; border: none; padding: 0; backdrop-filter: none; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 120px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(139,175,154,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(196,133,58,0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 12px; font-weight: 400;
+      color: var(--celadon);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--celadon-light);
+      border-radius: 16px;
+      padding: 32px 40px;
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto 32px;
+      text-align: left;
+      opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+    .checklist-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .checklist-title .label {
+      display: block;
+      font-size: 11px; font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .checklist-items { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .checklist-items li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; line-height: 1.6;
+      color: var(--ink-soft);
+    }
+    .checklist-items li::before {
+      content: '';
+      width: 18px; height: 18px; min-width: 18px;
+      border: 1.5px solid var(--celadon);
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+
+    .hero-hook {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; color: var(--stone);
+      margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.6s ease 0.35s forwards;
+    }
+    .hero-hook strong { color: var(--celadon); font-weight: 600; }
+
+    .hero-reframe {
+      max-width: 480px;
+      margin: 0 auto 40px;
+      opacity: 0; animation: fadeUp 0.6s ease 0.45s forwards;
+    }
+    .hero-reframe p {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 17px; line-height: 1.8;
+      color: var(--ink);
+    }
+    .hero-reframe p + p { margin-top: 8px; }
+    .hero-reframe .highlight {
+      color: var(--moss); font-weight: 600;
+      border-bottom: 2px solid var(--celadon-light);
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--celadon);
+      color: var(--white);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; font-weight: 600;
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(139,175,154,0.35);
+      opacity: 0; animation: fadeUp 0.6s ease 0.55s forwards;
+    }
+    .hero-cta:hover { background: var(--moss); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,175,154,0.45); }
+    .hero-cta-sub {
+      display: block; margin-top: 12px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 12px; color: var(--stone);
+      opacity: 0; animation: fadeUp 0.6s ease 0.65s forwards;
+    }
+
+    /* ── WHY MBTI ── */
+    .why-mbti {
+      padding: 100px 24px;
+      background: var(--white);
+    }
+    .why-mbti-inner {
+      max-width: 700px; margin: 0 auto;
+      text-align: center;
+    }
+    .section-label {
+      display: inline-block;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 11px; font-weight: 400;
+      color: var(--amber);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .why-mbti h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--ink); line-height: 1.25;
+      margin-bottom: 32px;
+    }
+    .why-mbti h2 em { font-style: italic; color: var(--celadon); }
+    .why-mbti-body {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px; line-height: 1.9;
+      color: var(--ink-soft);
+      text-align: left;
+    }
+    .why-mbti-body p + p { margin-top: 16px; }
+    .why-mbti-body strong { color: var(--ink); font-weight: 600; }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 100px 24px;
+      background: var(--cream);
+    }
+    .how-inner { max-width: 800px; margin: 0 auto; }
+    .how h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--ink); text-align: center;
+      margin-bottom: 60px;
+    }
+    .how-steps { display: flex; flex-direction: column; gap: 0; }
+    .how-step {
+      display: grid; grid-template-columns: 64px 1fr;
+      gap: 24px; padding: 32px 0;
+      border-bottom: 1px solid var(--celadon-light);
+      align-items: start;
+    }
+    .how-step:last-child { border-bottom: none; }
+    .how-step-num {
+      width: 48px; height: 48px;
+      border: 2px solid var(--celadon);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; color: var(--celadon);
+      flex-shrink: 0;
+    }
+    .how-step-content h3 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 17px; font-weight: 700;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .how-step-content p {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; line-height: 1.8;
+      color: var(--ink-soft);
+    }
+
+    /* ── JOURNEY ── */
+    .journey {
+      padding: 100px 24px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .journey-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .journey .section-label { color: var(--amber-light); }
+    .journey h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--white); margin-bottom: 16px;
+    }
+    .journey-intro {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px; line-height: 1.9;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 56px;
+    }
+    .journey-steps { display: flex; flex-direction: column; gap: 0; text-align: left; }
+    .journey-step {
+      display: grid; grid-template-columns: 40px 1fr;
+      gap: 20px; padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      align-items: start;
+    }
+    .journey-step:last-child { border-bottom: none; }
+    .journey-step-icon {
+      font-size: 22px; margin-top: 2px;
+    }
+    .journey-step-text h3 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .journey-step-text p {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 14px; line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+    }
+    .journey-cta {
+      display: inline-block; margin-top: 48px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 14px; font-weight: 600;
+      padding: 14px 36px; border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .journey-cta:hover { border-color: var(--celadon); color: var(--celadon); }
+
+    /* ── CHARACTERS ── */
+    .characters {
+      padding: 100px 24px;
+      background: var(--white);
+    }
+    .characters-inner { max-width: 900px; margin: 0 auto; }
+    .characters h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--ink); text-align: center;
+      margin-bottom: 12px;
+    }
+    .characters-sub {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; color: var(--stone);
+      text-align: center; margin-bottom: 56px;
+    }
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+    }
+    .character-card {
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .character-card:hover { transform: translateY(-4px); }
+    .character-image {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--celadon-pale);
+      margin-bottom: 14px;
+    }
+    .character-image img { width: 100%; height: 100%; object-fit: cover; }
+    .character-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px; color: var(--ink);
+    }
+    .character-name-kr {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 13px; color: var(--stone);
+      margin-bottom: 6px;
+    }
+    .character-desc {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 12px; line-height: 1.6;
+      color: var(--stone);
+    }
+
+    /* ── SCIENCE ── */
+    .science {
+      padding: 100px 24px;
+      background: var(--celadon-pale);
+    }
+    .science-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .science h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--ink); margin-bottom: 32px;
+    }
+    .science-body {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; line-height: 1.9;
+      color: var(--ink-soft); text-align: left;
+    }
+    .science-body p + p { margin-top: 16px; }
+    .science-stat {
+      display: flex; gap: 40px;
+      margin-top: 48px; padding-top: 40px;
+      border-top: 1px solid var(--celadon-light);
+      justify-content: center; flex-wrap: wrap;
+    }
+    .science-stat-item { text-align: center; }
+    .science-stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px; color: var(--celadon);
+      display: block; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .science-stat-label {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 12px; color: var(--stone);
+      line-height: 1.5;
+    }
+
+    /* ── WAITLIST ── */
+    .waitlist {
+      padding: 100px 24px;
+      background: var(--cream);
+      text-align: center;
+    }
+    .waitlist-inner { max-width: 520px; margin: 0 auto; }
+    .waitlist h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 44px);
+      color: var(--ink); margin-bottom: 16px;
+    }
+    .waitlist-desc {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; line-height: 1.8;
+      color: var(--ink-soft); margin-bottom: 40px;
+    }
+    .waitlist-form { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .waitlist-form input[type="email"] {
+      flex: 1; min-width: 220px;
+      padding: 14px 20px;
+      border: 1.5px solid var(--celadon-light);
+      border-radius: 50px;
+      background: var(--white);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 14px; color: var(--ink);
+      outline: none; transition: border-color 0.2s;
+    }
+    .waitlist-form input[type="email"]:focus { border-color: var(--celadon); }
+    .waitlist-form button {
+      padding: 14px 32px; border-radius: 50px;
+      background: var(--celadon); color: var(--white);
+      border: none; cursor: pointer;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 14px; font-weight: 600;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .waitlist-form button:hover { background: var(--moss); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 24px;
+      background: var(--ink);
+      text-align: center;
+    }
+    footer p {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 12px; color: rgba(255,255,255,0.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 680px) {
+      .nav { padding: 16px 20px; }
+      .checklist { padding: 24px 20px; }
+      .characters-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .characters-grid .character-card:nth-child(4),
+      .characters-grid .character-card:nth-child(5) { grid-column: span 1; }
+      .how-step { grid-template-columns: 48px 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- LANGUAGE TOGGLE -->
-  <div class="lang-toggle" id="langToggle">
-    <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
-    <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
-  </div>
+  <!-- NAV -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-logo">OCEAN <span>/</span> 오션</div>
+    <div class="nav-right">
+      <div class="lang-toggle" id="langToggle">
+        <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
+        <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
+      </div>
+    </div>
+  </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-image">
-      <img src="images/hero.png" alt="The world of OCEAN" onerror="this.style.display='none'" />
-      <span class="placeholder-text">hero.png</span>
+    <p class="hero-eyebrow" id="hero-eyebrow">부모로서의 나 마주보기</p>
+
+    <div class="checklist">
+      <div class="checklist-title">
+        <span class="label" id="checklist-label">당신의 고민은 무엇인가요?</span>
+      </div>
+      <ul class="checklist-items" id="checklist-items">
+        <li id="c1">아이와 매일 같은 싸움을 반복하고 있다.</li>
+        <li id="c2">열심히 하는데 왜 이렇게 안 통하는지 모르겠다.</li>
+        <li id="c3">아이가 왜 그러는지, 진짜 이유를 알고 싶다.</li>
+        <li id="c4">지금 내 방식이 맞는 건지 확신이 없다.</li>
+      </ul>
     </div>
-    <p class="hero-eyebrow" id="hero-eyebrow">A children's IP rooted in Korean mythology &amp; the Big Five</p>
-    <h1 id="hero-h1">Every child<br>contains <em>multitudes.</em></h1>
-    <p class="hero-subtitle" id="hero-subtitle">OCEAN helps you understand yours.</p>
-    <a href="assessment.html" class="hero-cta" id="hero-cta">Take the Free Assessment</a>
+
+    <p class="hero-hook" id="hero-hook">하나라도 해당된다면, <strong>오션이 도움이 될 수 있습니다.</strong></p>
+
+    <div class="hero-reframe">
+      <p id="reframe1">아이의 문제가 아닐 수 있습니다.</p>
+      <p id="reframe2">부모와 아이, 서로 다른 성향이 부딪히고 있는 걸 수 있어요.</p>
+      <p id="reframe3"><span class="highlight" id="reframe3-highlight">오션은 그 부딪히는 지점을 정확히 짚어드립니다.</span></p>
+    </div>
+
+    <a href="assessment.html" class="hero-cta" id="hero-cta">무료 검사 시작하기 →</a>
+    <span class="hero-cta-sub" id="hero-cta-sub">15분 · 무료 · 즉시 결과 확인</span>
   </section>
 
-  <!-- CONCEPT -->
-  <section class="concept">
-    <span class="section-label fade-in" id="concept-label">The Science</span>
-    <h2 class="fade-in" id="concept-h2">MBTI is fun. But it wasn't built to grow.</h2>
-    <div class="concept-divider fade-in"></div>
-    <p class="fade-in" id="concept-p1">You've probably seen your child's MBTI floating around. It's fun — but it wasn't designed for children, and it wasn't designed to change.</p>
-    <p class="fade-in" id="concept-p2">OCEAN is built on the Big Five — the most rigorously tested personality framework in psychology. Unlike MBTI, Big Five traits are measurable, developmentally meaningful, and most importantly: <strong>they can grow.</strong></p>
-    <p class="fade-in" id="concept-p3">We didn't build OCEAN to label your child. We built it to help you see them more clearly.</p>
-  </section>
-
-  <!-- CHARACTERS -->
-  <section class="characters" id="characters">
-    <div class="characters-header">
-      <span class="section-label fade-in" id="chars-label">The Characters</span>
-      <h2 class="fade-in" id="chars-h2">Five children. Five spirits. One family.</h2>
-      <p class="fade-in" id="chars-sub">Meet the world of OCEAN.</p>
-    </div>
-
-    <div class="characters-grid">
-      <div class="character-card fade-in">
-        <div class="character-image">
-          <img src="images/osol.png" alt="Osol" onerror="this.style.display='none'" />
-        </div>
-        <div class="character-name">Osol</div>
-        <div class="character-name-kr">오솔</div>
-        <span class="character-age" id="osol-age">Age 8</span>
-        <p class="character-desc" id="osol-desc">Always mid-thought, mid-wonder, mid-everything.</p>
+  <!-- WHY NOT MBTI -->
+  <section class="why-mbti">
+    <div class="why-mbti-inner">
+      <span class="section-label fade-in" id="why-label">왜 MBTI가 아닌가요?</span>
+      <h2 class="fade-in" id="why-h2">MBTI는 <em>나를</em> 설명합니다.<br>오션은 <em>우리 사이를</em> 설명합니다.</h2>
+      <div class="why-mbti-body fade-in">
+        <p id="why-p1">MBTI, 재미있죠. 근데 우리 아이한테 쓰기엔 한계가 있습니다. 유형으로 나누는 순간, 아이는 그 틀 안에 갇혀버립니다.</p>
+        <p id="why-p2">오션은 Big Five — 50년간 검증된 발달심리학의 프레임워크를 바탕으로 합니다. 유형이 아니라 <strong>성향의 정도</strong>를 봅니다. 그리고 성향은 자랄 수 있습니다.</p>
+        <p id="why-p3">더 중요한 것은, 오션은 아이만 보지 않습니다. 부모의 성향도 함께 봅니다. 두 성향이 만나는 지점 — 거기서 갈등이 생기고, 거기서 이해가 시작됩니다.</p>
       </div>
-      <div class="character-card fade-in">
-        <div class="character-image">
-          <img src="images/chiu.png" alt="Chiu" onerror="this.style.display='none'" />
-        </div>
-        <div class="character-name">Chiu</div>
-        <div class="character-name-kr">치우</div>
-        <span class="character-age" id="chiu-age">Age 9</span>
-        <p class="character-desc" id="chiu-desc">The one who was already ready before you asked.</p>
-      </div>
-      <div class="character-card fade-in">
-        <div class="character-image">
-          <img src="images/epa.png" alt="Epa" onerror="this.style.display='none'" />
-        </div>
-        <div class="character-name">Epa</div>
-        <div class="character-name-kr">이파</div>
-        <span class="character-age" id="epa-age">Age 6</span>
-        <p class="character-desc" id="epa-desc">First through the door, loudest in the room, last to leave.</p>
-      </div>
-
-      <div class="character-card fade-in">
-        <div class="character-image">
-          <img src="images/aru.png" alt="Aru" onerror="this.style.display='none'" />
-        </div>
-        <div class="character-name">Aru</div>
-        <div class="character-name-kr">아루</div>
-        <span class="character-age" id="aru-age">Age 7</span>
-        <p class="character-desc" id="aru-desc">Knows how everyone's feeling before they do.</p>
-      </div>
-
-      <div class="character-card fade-in">
-        <div class="character-image">
-          <img src="images/nuri.png" alt="Nuri" onerror="this.style.display='none'" />
-        </div>
-        <div class="character-name">Nuri</div>
-        <div class="character-name-kr">누리</div>
-        <span class="character-age" id="nuri-age">Age 5</span>
-        <p class="character-desc" id="nuri-desc">Feels everything. Misses nothing.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORLD -->
-  <section class="world" id="world">
-    <div class="world-image fade-in">
-      <img src="images/world.png" alt="The world of OCEAN" onerror="this.style.display='none'" />
-      <span class="placeholder-text">world.png</span>
-    </div>
-    <div class="world-text">
-      <span class="section-label fade-in" id="world-label">The World</span>
-      <h2 class="fade-in" id="world-h2">A warm house at the edge of somewhere familiar.</h2>
-      <p class="fade-in" id="world-p1">Five children, different ages, different spirits — same family. A place where a mountain spirit thinks nothing of sitting next to a fox.</p>
-      <p class="fade-in" id="world-p2">Where the loudest voice and the quietest one need each other more than either will admit.</p>
     </div>
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="why" id="why">
-    <div class="why-inner">
-      <span class="section-label fade-in" id="why-label">How It Works</span>
-      <h2 class="fade-in" id="why-h2">From first insight to lasting growth.</h2>
-
-      <div class="why-grid">
-        <div class="why-item fade-in">
-          <div class="why-number">01</div>
-          <h3 id="why1-h">Free Assessment</h3>
-          <p id="why1-p">Big Five test for children, delivered in warm character-coded language parents immediately understand.</p>
+  <section class="how">
+    <div class="how-inner">
+      <span class="section-label fade-in" id="how-label" style="display:block;text-align:center;margin-bottom:12px;">이렇게 작동합니다</span>
+      <h2 class="fade-in" id="how-h2">검사부터 변화까지</h2>
+      <div class="how-steps">
+        <div class="how-step fade-in">
+          <div class="how-step-num">1</div>
+          <div class="how-step-content">
+            <h3 id="how1-h">부모와 아이가 함께 검사합니다</h3>
+            <p id="how1-p">15분 안에 완료됩니다. 부모가 먼저 답하고, 아이와 함께 이어갑니다. 정답은 없습니다.</p>
+          </div>
         </div>
-        <div class="why-item fade-in">
-          <div class="why-number">02</div>
-          <h3 id="why2-h">Premium Consultation</h3>
-          <p id="why2-p">Full professional report with child psychology specialist. Science-backed, parent-facing.</p>
+        <div class="how-step fade-in">
+          <div class="how-step-num">2</div>
+          <div class="how-step-content">
+            <h3 id="how2-h">성향 차이 지점을 분석합니다</h3>
+            <p id="how2-p">오션은 아이의 Big Five 프로필과 부모의 프로필을 함께 분석합니다. 어디서 잘 맞고, 어디서 엇갈리는지를 구체적으로 보여드립니다.</p>
+          </div>
         </div>
-        <div class="why-item fade-in">
-          <div class="why-number">03</div>
-          <h3 id="why3-h">Learning Products</h3>
-          <p id="why3-p">Personalized books and 학습지 tied to your child's actual profile. Traits are improvable — we show parents how.</p>
-        </div>
-        <div class="why-item fade-in">
-          <div class="why-number">04</div>
-          <h3 id="why4-h">OCEAN Education</h3>
-          <p id="why4-p">Long-term: an OCEAN-model early education program built around the Big Five framework.</p>
+        <div class="how-step fade-in">
+          <div class="how-step-num">3</div>
+          <div class="how-step-content">
+            <h3 id="how3-h">왜 부딪히는지, 어떻게 다가가면 되는지</h3>
+            <p id="how3-p">단순한 유형 설명이 아닙니다. 이 아이에게, 이 부모에게, 지금 이 순간에 맞는 소통 방법을 알려드립니다.</p>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <p class="why-quote fade-in" id="why-quote">"Every child can grow. We help parents see exactly where."</p>
+  <!-- JOURNEY / TIERS -->
+  <section class="journey">
+    <div class="journey-inner">
+      <span class="section-label fade-in" id="journey-label">필요한 만큼, 원하는 깊이로</span>
+      <h2 class="fade-in" id="journey-h2">무료 검사로 시작합니다.</h2>
+      <p class="journey-intro fade-in" id="journey-intro">거기서 뭘 발견하느냐에 따라, 다음 단계가 달라집니다.</p>
+      <div class="journey-steps">
+        <div class="journey-step fade-in">
+          <div class="journey-step-icon">◎</div>
+          <div class="journey-step-text">
+            <h3 id="j1-h">어떤 부모는 리포트만으로도 충분합니다.</h3>
+            <p id="j1-p">성향 분석과 소통 가이드만으로도 "아, 그래서 그랬구나"를 경험하는 부모님들이 있습니다.</p>
+          </div>
+        </div>
+        <div class="journey-step fade-in">
+          <div class="journey-step-icon">◎</div>
+          <div class="journey-step-text">
+            <h3 id="j2-h">어떤 부모는 전문가와 함께 더 깊이 들어갑니다.</h3>
+            <p id="j2-p">오션 전문 상담사와의 1:1 코칭을 통해, 리포트를 실제 대화와 육아로 연결합니다.</p>
+          </div>
+        </div>
+        <div class="journey-step fade-in">
+          <div class="journey-step-icon">◎</div>
+          <div class="journey-step-text">
+            <h3 id="j3-h">어떤 부모는 아이의 일상 안으로 직접 들어오는 걸 선택합니다.</h3>
+            <p id="j3-p">오션은 그 모든 깊이에 함께합니다.</p>
+          </div>
+        </div>
+      </div>
+      <a href="#waitlist" class="journey-cta fade-in" id="journey-cta">어떤 단계가 맞는지 알아보기 →</a>
+    </div>
+  </section>
+
+  <!-- CHARACTERS -->
+  <section class="characters">
+    <div class="characters-inner">
+      <span class="section-label fade-in" id="chars-label" style="display:block;text-align:center;margin-bottom:12px;">The Characters</span>
+      <h2 class="fade-in" id="chars-h2">다섯 아이. 다섯 기운. 하나의 가족.</h2>
+      <p class="characters-sub fade-in" id="chars-sub">오션의 다섯 캐릭터는 Big Five의 다섯 성향을 담고 있습니다. 우리 아이의 모습이 어딘가에 있을 거예요.</p>
+      <div class="characters-grid">
+        <div class="character-card fade-in">
+          <div class="character-image"><img src="images/chiu.png" alt="Chiu" onerror="this.style.display='none'" /></div>
+          <div class="character-name">Chiu</div>
+          <div class="character-name-kr">치우</div>
+          <p class="character-desc" id="chiu-desc">시키기도 전에 이미 다 해놓은 아이.</p>
+        </div>
+        <div class="character-card fade-in">
+          <div class="character-image"><img src="images/osol.png" alt="Osol" onerror="this.style.display='none'" /></div>
+          <div class="character-name">Osol</div>
+          <div class="character-name-kr">오솔</div>
+          <p class="character-desc" id="osol-desc">맨날 딴 생각하는 것 같은데, 사실 제일 많이 생각하는 아이.</p>
+        </div>
+        <div class="character-card fade-in">
+          <div class="character-image"><img src="images/epa.png" alt="Epa" onerror="this.style.display='none'" /></div>
+          <div class="character-name">Epa</div>
+          <div class="character-name-kr">이파</div>
+          <p class="character-desc" id="epa-desc">어디서든 제일 먼저 친구 사귀는 아이.</p>
+        </div>
+        <div class="character-card fade-in">
+          <div class="character-image"><img src="images/aru.png" alt="Aru" onerror="this.style.display='none'" /></div>
+          <div class="character-name">Aru</div>
+          <div class="character-name-kr">아루</div>
+          <p class="character-desc" id="aru-desc">아무 말 안 해도 눈치채는 아이.</p>
+        </div>
+        <div class="character-card fade-in">
+          <div class="character-image"><img src="images/nuri.png" alt="Nuri" onerror="this.style.display='none'" /></div>
+          <div class="character-name">Nuri</div>
+          <div class="character-name-kr">누리</div>
+          <p class="character-desc" id="nuri-desc">별것 아닌 것에 가장 크게 감동받는 아이.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCIENCE -->
+  <section class="science">
+    <div class="science-inner">
+      <span class="section-label fade-in" id="sci-label">과학적 배경</span>
+      <h2 class="fade-in" id="sci-h2">검증된 프레임워크</h2>
+      <div class="science-body fade-in">
+        <p id="sci-p1">Big Five는 전 세계 50년 발달심리 연구의 기반입니다. 국내 유아 대상 연구에서도 만 3세부터 측정 가능한 것으로 검증되었습니다.</p>
+        <p id="sci-p2">오션은 그 과학을 부모가 쓸 수 있는 언어로 바꿉니다. 어렵지 않습니다. 복잡하지 않습니다. 우리 아이를 조금 더 선명하게 볼 수 있을 뿐입니다.</p>
+      </div>
+      <div class="science-stat fade-in">
+        <div class="science-stat-item">
+          <span class="science-stat-num">50+</span>
+          <span class="science-stat-label" id="stat1">년간 검증된<br>발달심리 연구</span>
+        </div>
+        <div class="science-stat-item">
+          <span class="science-stat-num">5</span>
+          <span class="science-stat-label" id="stat2">가지 성향으로<br>아이를 이해합니다</span>
+        </div>
+        <div class="science-stat-item">
+          <span class="science-stat-num">15분</span>
+          <span class="science-stat-label" id="stat3">검사 완료<br>즉시 결과 확인</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- WAITLIST -->
   <section class="waitlist" id="waitlist">
-    <h2 class="fade-in" id="waitlist-h2">Be the first to know.</h2>
-    <p class="waitlist-desc fade-in" id="waitlist-desc">OCEAN is coming. Join the waitlist and we'll reach out when we launch.</p>
-
-    <div class="waitlist-tabs fade-in">
-      <button class="active" id="tab-parent">I'm a Parent</button>
-      <button id="tab-investor">I'm an Investor</button>
+    <div class="waitlist-inner">
+      <span class="section-label fade-in" id="wl-label">가장 먼저 만나보세요</span>
+      <h2 class="fade-in" id="wl-h2">오션이 곧 찾아옵니다.</h2>
+      <p class="waitlist-desc fade-in" id="wl-desc">지금 사전 신청하시면 런칭 소식을 가장 먼저 전해드립니다.</p>
+      <form class="waitlist-form fade-in" name="waitlist" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="waitlist" />
+        <input type="email" name="email" id="wl-email" placeholder="이메일 주소를 입력해주세요" required />
+        <button type="submit" id="wl-btn">사전 신청하기</button>
+      </form>
     </div>
-
-    <form class="waitlist-form fade-in" name="waitlist" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="waitlist" />
-      <input type="email" name="email" id="email-input" placeholder="Your email address" required />
-      <button type="submit" id="submit-btn">Join Waitlist</button>
-    </form>
   </section>
 
   <!-- FOOTER -->
@@ -167,92 +627,200 @@
 
   <script src="translations-kr.js"></script>
   <script>
+    // ── NAV SCROLL ──
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
     // ── SCROLL ANIMATIONS ──
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // ── LANGUAGE TOGGLE ──
-    const indexTranslations = {
+    // ── LANGUAGE ──
+    const t = {
       en: {
-        eyebrow: "A children's IP rooted in Korean mythology & the Big Five",
-        h1: "Every child<br>contains <em>multitudes.</em>",
-        subtitle: "OCEAN helps you understand yours.",
-        cta: "Take the Free Assessment",
-        concept_label: "The Science",
-        concept_h2: "MBTI is fun. But it wasn't built to grow.",
-        concept_p1: "You've probably seen your child's MBTI floating around. It's fun — but it wasn't designed for children, and it wasn't designed to change.",
-        concept_p2: "OCEAN is built on the Big Five — the most rigorously tested personality framework in psychology. Unlike MBTI, Big Five traits are measurable, developmentally meaningful, and most importantly: <strong>they can grow.</strong>",
-        concept_p3: "We didn't build OCEAN to label your child. We built it to help you see them more clearly.",
+        eyebrow: "Facing yourself as a parent",
+        checklist_label: "What's on your mind?",
+        c1: "You keep having the same fight with your child every day.",
+        c2: "You're trying hard, but nothing seems to get through.",
+        c3: "You want to understand why your child really acts this way.",
+        c4: "You're not sure your approach is working.",
+        hook: "If any of these sound familiar, <strong>OCEAN can help.</strong>",
+        reframe1: "It may not be your child's problem.",
+        reframe2: "It may be two different personalities colliding.",
+        reframe3: "<span class='highlight'>OCEAN pinpoints exactly where — and why.</span>",
+        cta: "Take the Free Assessment →",
+        cta_sub: "15 min · Free · Instant results",
+        why_label: "Why not MBTI?",
+        why_h2: "MBTI explains <em>you</em>.<br>OCEAN explains <em>the space between you.</em>",
+        why_p1: "MBTI is fun. But it has real limits when it comes to children. The moment you assign a type, your child gets locked into a box.",
+        why_p2: "OCEAN is built on Big Five — the most rigorously tested framework in developmental psychology. It measures degrees of trait, not types. And traits can grow.",
+        why_p3: "More importantly, OCEAN doesn't just look at your child. It looks at both of you. The point where your personalities meet — that's where conflict starts, and where understanding begins.",
+        how_label: "How it works",
+        how_h2: "From assessment to change",
+        how1_h: "Parent and child take the assessment together",
+        how1_p: "Completed in 15 minutes. The parent answers first, then continues with the child. There are no right answers.",
+        how2_h: "We map where your personalities diverge",
+        how2_p: "OCEAN analyzes both profiles side by side — showing exactly where you're aligned, and where you're missing each other.",
+        how3_h: "Why you clash, and how to connect",
+        how3_p: "Not generic type descriptions. Specific guidance for this child, this parent, this moment.",
+        journey_label: "As deep as you need",
+        journey_h2: "It starts with a free assessment.",
+        journey_intro: "Where you go from there depends on what you find.",
+        j1_h: "Some parents find the report is enough.",
+        j1_p: "The profile and communication guide alone give many parents that 'oh, so that's why' moment.",
+        j2_h: "Some go deeper with an expert.",
+        j2_p: "1:1 coaching with an OCEAN specialist — translating the report into real conversations and parenting decisions.",
+        j3_h: "Some bring OCEAN into their child's daily life.",
+        j3_p: "OCEAN is there at every depth.",
+        journey_cta: "Find out which step is right for you →",
         chars_label: "The Characters",
         chars_h2: "Five children. Five spirits. One family.",
-        chars_sub: "Meet the world of OCEAN.",
-        chiu_age: "Age 9", chiu_desc: "The one who was already ready before you asked.",
-        osol_age: "Age 8", osol_desc: "Always mid-thought, mid-wonder, mid-everything.",
-        epa_age: "Age 6", epa_desc: "First through the door, loudest in the room, last to leave.",
-        aru_age: "Age 7", aru_desc: "Knows how everyone's feeling before they do.",
-        nuri_age: "Age 5", nuri_desc: "Feels everything. Misses nothing.",
-        world_label: "The World",
-        world_h2: "A warm house at the edge of somewhere familiar.",
-        world_p1: "Five children, different ages, different spirits — same family. A place where a mountain spirit thinks nothing of sitting next to a fox.",
-        world_p2: "Where the loudest voice and the quietest one need each other more than either will admit.",
-        why_label: "How It Works",
-        why_h2: "From first insight to lasting growth.",
-        why1_h: "Free Assessment", why1_p: "Big Five test for children, delivered in warm character-coded language parents immediately understand.",
-        why2_h: "Premium Consultation", why2_p: "Full professional report with child psychology specialist. Science-backed, parent-facing.",
-        why3_h: "Learning Products", why3_p: "Personalized books and 학습지 tied to your child's actual profile. Traits are improvable — we show parents how.",
-        why4_h: "OCEAN Education", why4_p: "Long-term: an OCEAN-model early education program built around the Big Five framework.",
-        why_quote: '"Every child can grow. We help parents see exactly where."',
-        waitlist_h2: "Be the first to know.",
-        waitlist_desc: "OCEAN is coming. Join the waitlist and we'll reach out when we launch.",
-        tab_parent: "I'm a Parent",
-        tab_investor: "I'm an Investor",
-        email_placeholder: "Your email address",
-        submit: "Join Waitlist",
+        chars_sub: "Each of the five OCEAN characters embodies one of the Big Five traits. Somewhere in here, you'll see your child.",
+        chiu_desc: "The one who was already done before you asked.",
+        osol_desc: "Always daydreaming — but actually thinking harder than anyone.",
+        epa_desc: "First one to make friends, wherever they go.",
+        aru_desc: "Knows how you're feeling before you say a word.",
+        nuri_desc: "Moved by things no one else even notices.",
+        sci_label: "The Science",
+        sci_h2: "A validated framework",
+        sci_p1: "Big Five is the foundation of 50 years of developmental psychology research worldwide. Korean studies have confirmed it is measurable from age 3.",
+        sci_p2: "OCEAN translates that science into language parents can actually use. No jargon. No complexity. Just a clearer view of your child.",
+        stat1: "years of validated\ndevelopmental research",
+        stat2: "traits that explain\nhow your child moves through the world",
+        stat3: "to complete\ninstant results",
+        wl_label: "Be the first to know",
+        wl_h2: "OCEAN is coming.",
+        wl_desc: "Join the waitlist and we'll reach out when we launch.",
+        wl_email: "Your email address",
+        wl_btn: "Join Waitlist",
         footer: "© 2025 OCEAN / 오션. All rights reserved.",
       },
       kr: {
-        eyebrow: "한국 신화와 Big Five를 담은 어린이 IP",
-        h1: "우리 아이,<br>왜 그랬을까요?",
-        subtitle: "오션이 함께 찾아드립니다.",
-        cta: "무료 검사 시작하기",
-        concept_label: "과학적 배경",
-        concept_h2: "MBTI, 재미있죠. 근데 뭔가 아쉽지 않으셨나요?",
-        concept_p1: "MBTI, 재미있죠. 근데 솔직히 우리 아이한테 딱 맞는 것 같으면서도… 뭔가 아쉬울 때 있지 않으셨나요?",
-        concept_p2: "오션은 Big Five — 심리학에서 가장 오랫동안 검증된 성격 모델을 바탕으로 만들었어요. MBTI와 다른 점이 하나 있어요. Big Five는 변해요. <strong>자랄 수 있어요.</strong> 우리 아이와 함께요.",
-        concept_p3: "라벨을 붙이려는 게 아니에요. 부모님이 우리 아이를 조금 더 선명하게 볼 수 있도록 만들었습니다.",
+        eyebrow: "부모로서의 나 마주보기",
+        checklist_label: "당신의 고민은 무엇인가요?",
+        c1: "아이와 매일 같은 싸움을 반복하고 있다.",
+        c2: "열심히 하는데 왜 이렇게 안 통하는지 모르겠다.",
+        c3: "아이가 왜 그러는지, 진짜 이유를 알고 싶다.",
+        c4: "지금 내 방식이 맞는 건지 확신이 없다.",
+        hook: "하나라도 해당된다면, <strong>오션이 도움이 될 수 있습니다.</strong>",
+        reframe1: "아이의 문제가 아닐 수 있습니다.",
+        reframe2: "부모와 아이, 서로 다른 성향이 부딪히고 있는 걸 수 있어요.",
+        reframe3: "<span class='highlight'>오션은 그 부딪히는 지점을 정확히 짚어드립니다.</span>",
+        cta: "무료 검사 시작하기 →",
+        cta_sub: "15분 · 무료 · 즉시 결과 확인",
+        why_label: "왜 MBTI가 아닌가요?",
+        why_h2: "MBTI는 <em>나를</em> 설명합니다.<br>오션은 <em>우리 사이를</em> 설명합니다.",
+        why_p1: "MBTI, 재미있죠. 근데 우리 아이한테 쓰기엔 한계가 있습니다. 유형으로 나누는 순간, 아이는 그 틀 안에 갇혀버립니다.",
+        why_p2: "오션은 Big Five — 50년간 검증된 발달심리학의 프레임워크를 바탕으로 합니다. 유형이 아니라 성향의 정도를 봅니다. 그리고 성향은 자랄 수 있습니다.",
+        why_p3: "더 중요한 것은, 오션은 아이만 보지 않습니다. 부모의 성향도 함께 봅니다. 두 성향이 만나는 지점 — 거기서 갈등이 생기고, 거기서 이해가 시작됩니다.",
+        how_label: "이렇게 작동합니다",
+        how_h2: "검사부터 변화까지",
+        how1_h: "부모와 아이가 함께 검사합니다",
+        how1_p: "15분 안에 완료됩니다. 부모가 먼저 답하고, 아이와 함께 이어갑니다. 정답은 없습니다.",
+        how2_h: "성향 차이 지점을 분석합니다",
+        how2_p: "오션은 아이의 Big Five 프로필과 부모의 프로필을 함께 분석합니다. 어디서 잘 맞고, 어디서 엇갈리는지를 구체적으로 보여드립니다.",
+        how3_h: "왜 부딪히는지, 어떻게 다가가면 되는지",
+        how3_p: "단순한 유형 설명이 아닙니다. 이 아이에게, 이 부모에게, 지금 이 순간에 맞는 소통 방법을 알려드립니다.",
+        journey_label: "필요한 만큼, 원하는 깊이로",
+        journey_h2: "무료 검사로 시작합니다.",
+        journey_intro: "거기서 뭘 발견하느냐에 따라, 다음 단계가 달라집니다.",
+        j1_h: "어떤 부모는 리포트만으로도 충분합니다.",
+        j1_p: "성향 분석과 소통 가이드만으로도 '아, 그래서 그랬구나'를 경험하는 부모님들이 있습니다.",
+        j2_h: "어떤 부모는 전문가와 함께 더 깊이 들어갑니다.",
+        j2_p: "오션 전문 상담사와의 1:1 코칭을 통해, 리포트를 실제 대화와 육아로 연결합니다.",
+        j3_h: "어떤 부모는 아이의 일상 안으로 직접 들어오는 걸 선택합니다.",
+        j3_p: "오션은 그 모든 깊이에 함께합니다.",
+        journey_cta: "어떤 단계가 맞는지 알아보기 →",
         chars_label: "캐릭터",
-        chars_h2: "다섯 아이. 다섯 기운. 그런데 왜 이렇게 다 다를까요?",
-        chars_sub: "오션의 세계를 만나보세요.",
-        chiu_age: "9살", chiu_desc: "시키기도 전에 이미 다 해놓은 아이.",
-        osol_age: "8살", osol_desc: "맨날 딴 생각하는 것 같은데, 사실 제일 많이 생각하는 아이.",
-        epa_age: "6살", epa_desc: "어디서든 제일 먼저 친구 사귀는 아이.",
-        aru_age: "7살", aru_desc: "아무 말 안 해도 눈치채는 아이.",
-        nuri_age: "5살", nuri_desc: "별것 아닌 것에 가장 크게 감동받는 아이.",
-        world_label: "세계관",
-        world_h2: "어딘가 낯익은 곳, 따뜻한 집 한 채.",
-        world_p1: "나이도 다르고 기운도 다른 다섯 아이가 함께 살아요. 산신령이 여우 옆에 앉는 게 전혀 이상하지 않은 곳.",
-        world_p2: "제일 시끄러운 아이와 제일 조용한 아이가 사실 서로 제일 필요한 곳. 오션의 집은 그런 곳이에요.",
-        why_label: "이렇게 작동합니다",
-        why_h2: "첫 번째 인사이트부터 지속적인 성장까지.",
-        why1_h: "무료 검사", why1_p: "부모님이 바로 이해할 수 있는 따뜻한 언어로 전달하는 아이를 위한 Big Five 검사.",
-        why2_h: "프리미엄 상담", why2_p: "아동심리 전문가와의 심층 상담. 과학적 근거, 부모님 눈높이에 맞게.",
-        why3_h: "학습 콘텐츠", why3_p: "우리 아이 성향에 맞춘 책과 학습지. Big Five는 키울 수 있습니다.",
-        why4_h: "오션 교육", why4_p: "Big Five 철학을 담은 유아 교육 프로그램. 오션의 장기 비전입니다.",
-        why_quote: '"모든 아이는 성장할 수 있습니다. 오션이 그 방향을 보여드립니다."',
-        waitlist_h2: "가장 먼저 만나보세요.",
-        waitlist_desc: "오션이 곧 찾아옵니다. 사전 신청하시면 런칭 소식을 제일 먼저 전해드릴게요.",
-        tab_parent: "부모입니다",
-        tab_investor: "투자자/파트너입니다",
-        email_placeholder: "이메일 주소를 입력해주세요",
-        submit: "사전 신청하기",
+        chars_h2: "다섯 아이. 다섯 기운. 하나의 가족.",
+        chars_sub: "오션의 다섯 캐릭터는 Big Five의 다섯 성향을 담고 있습니다. 우리 아이의 모습이 어딘가에 있을 거예요.",
+        chiu_desc: "시키기도 전에 이미 다 해놓은 아이.",
+        osol_desc: "맨날 딴 생각하는 것 같은데, 사실 제일 많이 생각하는 아이.",
+        epa_desc: "어디서든 제일 먼저 친구 사귀는 아이.",
+        aru_desc: "아무 말 안 해도 눈치채는 아이.",
+        nuri_desc: "별것 아닌 것에 가장 크게 감동받는 아이.",
+        sci_label: "과학적 배경",
+        sci_h2: "검증된 프레임워크",
+        sci_p1: "Big Five는 전 세계 50년 발달심리 연구의 기반입니다. 국내 유아 대상 연구에서도 만 3세부터 측정 가능한 것으로 검증되었습니다.",
+        sci_p2: "오션은 그 과학을 부모가 쓸 수 있는 언어로 바꿉니다. 어렵지 않습니다. 복잡하지 않습니다. 우리 아이를 조금 더 선명하게 볼 수 있을 뿐입니다.",
+        stat1: "년간 검증된\n발달심리 연구",
+        stat2: "가지 성향으로\n아이를 이해합니다",
+        stat3: "검사 완료\n즉시 결과 확인",
+        wl_label: "가장 먼저 만나보세요",
+        wl_h2: "오션이 곧 찾아옵니다.",
+        wl_desc: "지금 사전 신청하시면 런칭 소식을 가장 먼저 전해드립니다.",
+        wl_email: "이메일 주소를 입력해주세요",
+        wl_btn: "사전 신청하기",
         footer: "© 2025 OCEAN / 오션. All rights reserved.",
       }
     };
+
+    function setLang(lang, btn) {
+      document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      sessionStorage.setItem('ocean_lang', lang);
+      const l = t[lang];
+      document.getElementById('hero-eyebrow').textContent = l.eyebrow;
+      document.getElementById('checklist-label').textContent = l.checklist_label;
+      document.getElementById('c1').textContent = l.c1;
+      document.getElementById('c2').textContent = l.c2;
+      document.getElementById('c3').textContent = l.c3;
+      document.getElementById('c4').textContent = l.c4;
+      document.getElementById('hero-hook').innerHTML = l.hook;
+      document.getElementById('reframe1').textContent = l.reframe1;
+      document.getElementById('reframe2').textContent = l.reframe2;
+      document.getElementById('reframe3').innerHTML = l.reframe3;
+      document.getElementById('hero-cta').textContent = l.cta;
+      document.getElementById('hero-cta-sub').textContent = l.cta_sub;
+      document.getElementById('why-label').textContent = l.why_label;
+      document.getElementById('why-h2').innerHTML = l.why_h2;
+      document.getElementById('why-p1').textContent = l.why_p1;
+      document.getElementById('why-p2').textContent = l.why_p2;
+      document.getElementById('why-p3').textContent = l.why_p3;
+      document.getElementById('how-label').textContent = l.how_label;
+      document.getElementById('how-h2').textContent = l.how_h2;
+      document.getElementById('how1-h').textContent = l.how1_h;
+      document.getElementById('how1-p').textContent = l.how1_p;
+      document.getElementById('how2-h').textContent = l.how2_h;
+      document.getElementById('how2-p').textContent = l.how2_p;
+      document.getElementById('how3-h').textContent = l.how3_h;
+      document.getElementById('how3-p').textContent = l.how3_p;
+      document.getElementById('journey-label').textContent = l.journey_label;
+      document.getElementById('journey-h2').textContent = l.journey_h2;
+      document.getElementById('journey-intro').textContent = l.journey_intro;
+      document.getElementById('j1-h').textContent = l.j1_h;
+      document.getElementById('j1-p').textContent = l.j1_p;
+      document.getElementById('j2-h').textContent = l.j2_h;
+      document.getElementById('j2-p').textContent = l.j2_p;
+      document.getElementById('j3-h').textContent = l.j3_h;
+      document.getElementById('j3-p').textContent = l.j3_p;
+      document.getElementById('journey-cta').textContent = l.journey_cta;
+      document.getElementById('chars-label').textContent = l.chars_label;
+      document.getElementById('chars-h2').textContent = l.chars_h2;
+      document.getElementById('chars-sub').textContent = l.chars_sub;
+      document.getElementById('chiu-desc').textContent = l.chiu_desc;
+      document.getElementById('osol-desc').textContent = l.osol_desc;
+      document.getElementById('epa-desc').textContent = l.epa_desc;
+      document.getElementById('aru-desc').textContent = l.aru_desc;
+      document.getElementById('nuri-desc').textContent = l.nuri_desc;
+      document.getElementById('sci-label').textContent = l.sci_label;
+      document.getElementById('sci-h2').textContent = l.sci_h2;
+      document.getElementById('sci-p1').textContent = l.sci_p1;
+      document.getElementById('sci-p2').textContent = l.sci_p2;
+      document.getElementById('stat1').textContent = l.stat1;
+      document.getElementById('stat2').textContent = l.stat2;
+      document.getElementById('stat3').textContent = l.stat3;
+      document.getElementById('wl-label').textContent = l.wl_label;
+      document.getElementById('wl-h2').textContent = l.wl_h2;
+      document.getElementById('wl-desc').textContent = l.wl_desc;
+      document.getElementById('wl-email').placeholder = l.wl_email;
+      document.getElementById('wl-btn').textContent = l.wl_btn;
+      document.getElementById('footer-text').textContent = l.footer;
+    }
 
     // Apply saved language on load
     document.addEventListener('DOMContentLoaded', () => {
@@ -260,59 +828,10 @@
       if (saved && saved !== 'en') {
         const btn = document.querySelector('#langToggle button[data-lang="' + saved + '"]');
         if (btn) setLang(saved, btn);
+      } else {
+        setLang('kr', document.querySelector('#langToggle button[data-lang="kr"]'));
       }
     });
-
-    function setLang(lang, btn) {
-      document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      sessionStorage.setItem('ocean_lang', lang);
-      const t = indexTranslations[lang];
-      document.getElementById('hero-eyebrow').textContent = t.eyebrow;
-      document.getElementById('hero-h1').innerHTML = t.h1;
-      document.getElementById('hero-subtitle').textContent = t.subtitle;
-      document.getElementById('hero-cta').textContent = t.cta;
-      document.getElementById('concept-label').textContent = t.concept_label;
-      document.getElementById('concept-h2').textContent = t.concept_h2;
-      document.getElementById('concept-p1').textContent = t.concept_p1;
-      document.getElementById('concept-p2').innerHTML = t.concept_p2;
-      document.getElementById('concept-p3').textContent = t.concept_p3;
-      document.getElementById('chars-label').textContent = t.chars_label;
-      document.getElementById('chars-h2').textContent = t.chars_h2;
-      document.getElementById('chars-sub').textContent = t.chars_sub;
-      document.getElementById('chiu-age').textContent = t.chiu_age;
-      document.getElementById('chiu-desc').textContent = t.chiu_desc;
-      document.getElementById('osol-age').textContent = t.osol_age;
-      document.getElementById('osol-desc').textContent = t.osol_desc;
-      document.getElementById('epa-age').textContent = t.epa_age;
-      document.getElementById('epa-desc').textContent = t.epa_desc;
-      document.getElementById('aru-age').textContent = t.aru_age;
-      document.getElementById('aru-desc').textContent = t.aru_desc;
-      document.getElementById('nuri-age').textContent = t.nuri_age;
-      document.getElementById('nuri-desc').textContent = t.nuri_desc;
-      document.getElementById('world-label').textContent = t.world_label;
-      document.getElementById('world-h2').textContent = t.world_h2;
-      document.getElementById('world-p1').textContent = t.world_p1;
-      document.getElementById('world-p2').textContent = t.world_p2;
-      document.getElementById('why-label').textContent = t.why_label;
-      document.getElementById('why-h2').textContent = t.why_h2;
-      document.getElementById('why1-h').textContent = t.why1_h;
-      document.getElementById('why1-p').textContent = t.why1_p;
-      document.getElementById('why2-h').textContent = t.why2_h;
-      document.getElementById('why2-p').textContent = t.why2_p;
-      document.getElementById('why3-h').textContent = t.why3_h;
-      document.getElementById('why3-p').textContent = t.why3_p;
-      document.getElementById('why4-h').textContent = t.why4_h;
-      document.getElementById('why4-p').textContent = t.why4_p;
-      document.getElementById('why-quote').textContent = t.why_quote;
-      document.getElementById('waitlist-h2').textContent = t.waitlist_h2;
-      document.getElementById('waitlist-desc').textContent = t.waitlist_desc;
-      document.getElementById('tab-parent').textContent = t.tab_parent;
-      document.getElementById('tab-investor').textContent = t.tab_investor;
-      document.getElementById('email-input').placeholder = t.email_placeholder;
-      document.getElementById('submit-btn').textContent = t.submit;
-      document.getElementById('footer-text').textContent = t.footer;
-    }
   </script>
 </body>
 </html>
