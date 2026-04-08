@@ -340,6 +340,100 @@
       font-style: italic; margin-top: 24px; line-height: 1.7;
     }
 
+
+    /* ── NAV ── */
+    .assessment-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 28px;
+      background: rgba(247,243,236,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--celadon-light);
+    }
+    .assessment-nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px; color: var(--ink);
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .assessment-nav-logo span { color: var(--celadon); }
+    .assessment-nav .lang-toggle { position: static; background: none; border: none; padding: 0; backdrop-filter: none; }
+    .assessment-wrap { padding-top: 80px; }
+
+
+    /* ── PARENT-CHILD MATCH ── */
+    .parent-child-match {
+      background: var(--cream); border-radius: 20px;
+      padding: 28px; margin-bottom: 24px;
+    }
+    .match-header {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; font-weight: 400;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .match-intro {
+      font-size: 14px; color: var(--ink-soft);
+      margin-bottom: 24px; line-height: 1.6; font-style: italic;
+    }
+    .match-row { margin-bottom: 20px; }
+    .match-row-label {
+      font-size: 13px; font-weight: 600;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .match-bars-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .match-bar-row { display: flex; align-items: center; gap: 10px; }
+    .match-bar-who {
+      font-size: 11px; color: var(--stone);
+      width: 40px; flex-shrink: 0; text-align: right;
+    }
+    .match-track { flex: 1; height: 8px; background: var(--celadon-light); border-radius: 8px; overflow: hidden; }
+    .match-fill-parent { height: 100%; background: var(--amber); border-radius: 8px; transition: width 1s ease; width: 0%; }
+    .match-fill-child { height: 100%; background: var(--celadon); border-radius: 8px; transition: width 1s ease; width: 0%; }
+    .match-gap-label {
+      font-size: 12px; color: var(--stone);
+      margin-top: 4px; font-style: italic;
+    }
+    .match-gap-label.high { color: var(--amber); font-weight: 600; }
+
+    /* ── BIRTH YEAR INPUT ── */
+    .birth-year-wrap {
+      margin: 20px 0;
+    }
+    .birth-year-label {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 14px; color: var(--ink-soft);
+      display: block; margin-bottom: 10px;
+      text-align: left;
+    }
+    .birth-year-input {
+      width: 100%; padding: 14px 18px;
+      border: 1.5px solid var(--celadon-light);
+      border-radius: 12px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px; color: var(--ink);
+      background: var(--white);
+      outline: none; transition: border-color 0.2s;
+      text-align: center; letter-spacing: 0.1em;
+    }
+    .birth-year-input:focus { border-color: var(--celadon); }
+    .age-note {
+      font-size: 12px; color: var(--stone);
+      margin-top: 8px; font-style: italic;
+      text-align: center;
+    }
+    /* ── SKIP CHILD SCREEN ── */
+    .skip-child-box {
+      background: var(--celadon-pale);
+      border: 1px solid var(--celadon-light);
+      border-radius: 14px;
+      padding: 20px;
+      margin: 16px 0;
+      text-align: left;
+    }
+    .skip-child-box p {
+      font-size: 14px; line-height: 1.7;
+      color: var(--ink-soft); margin: 0;
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 480px) {
       .assessment-wrap { padding: 24px 16px; justify-content: flex-start; padding-top: 48px; }
@@ -357,10 +451,14 @@
 </head>
 <body>
 
-<div class="lang-toggle" id="langToggle">
-  <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
-  <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
-</div>
+
+<nav class="assessment-nav">
+  <a href="index.html" class="assessment-nav-logo">OCEAN <span>/</span> 오션</a>
+  <div class="lang-toggle" id="langToggle">
+    <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
+    <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
+  </div>
+</nav>
 
 <div class="assessment-wrap">
 
@@ -377,20 +475,26 @@
   <!-- INTRO -->
   <div class="screen active" id="screen-intro">
     <div class="screen-card">
-      <h2>A quick guided conversation</h2>
-      <p>Answer based on your child's usual behavior over the past 3–6 months. There are no right or wrong answers.</p>
-      <p>Takes about 15–20 minutes. You'll go first, then invite your child for a few questions.</p>
-      <button class="hero-cta" onclick="startAssessment()" style="border:none;cursor:pointer;width:100%;margin-top:8px">Let's begin</button>
-      <p class="disclaimer">This profile is a developmental guidance tool, not a diagnosis or a fixed label.</p>
+      <h2 id="intro-h2">우리 아이와 나,<br>어디서 엇갈리고 있을까요?</h2>
+      <p id="intro-p1">지난 3~6개월 동안 아이의 평소 모습을 떠올리며 답해주세요. 정답은 없습니다.</p>
+      <p id="intro-p2">약 15~20분 소요됩니다. 먼저 부모님이 답하신 후, 아이와 함께 이어가게 됩니다.</p>
+      <div class="birth-year-wrap">
+        <label class="birth-year-label" id="birth-year-label">아이의 출생연도를 입력해주세요</label>
+        <input type="number" class="birth-year-input" id="birthYearInput"
+          placeholder="예: 2018" min="2015" max="2020" />
+        <p class="age-note" id="birth-year-note">만 5세~10세 (2015~2020년생)</p>
+      </div>
+      <button class="hero-cta" onclick="startAssessment()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="intro-btn">시작하기</button>
+      <p class="disclaimer" id="intro-disclaimer">이 프로필은 발달 지원 도구이며, 진단이나 고정된 성격 유형이 아닙니다.</p>
     </div>
   </div>
 
   <!-- PARENT INTRO -->
   <div class="screen" id="screen-parent-intro">
     <div class="screen-card">
-      <h2>First: just you</h2>
-      <p>Choose the option that sounds more like your child most of the time. Go with your first honest impression.</p>
-      <button class="hero-cta" onclick="showParentQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px">Start</button>
+      <h2 id="parent-intro-h2">먼저 부모님만</h2>
+      <p id="parent-intro-p">아이에게 평소 더 잘 맞는 보기를 골라주세요. 처음 떠오르는 솔직한 인상으로 선택해 주세요.</p>
+      <button class="hero-cta" onclick="showParentQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="parent-intro-btn">시작</button>
     </div>
   </div>
 
@@ -403,12 +507,41 @@
     <button class="next-btn" id="pNextBtn" onclick="nextParentQuestion()">Next</button>
   </div>
 
+  <!-- PARENT SELF ASSESSMENT INTRO -->
+  <div class="screen" id="screen-parent-self-intro">
+    <div class="screen-card">
+      <h2 id="pself-intro-h2">이번엔 부모님 자신에 대해</h2>
+      <p id="pself-intro-p">오션은 아이만 보지 않습니다. 부모님의 성향도 함께 봐야 어디서 엇갈리는지 알 수 있어요. 몇 가지만 더 답해주세요.</p>
+      <button class="hero-cta" onclick="showParentSelfQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="pself-intro-btn">계속하기</button>
+    </div>
+  </div>
+
+  <!-- PARENT SELF QUESTIONS -->
+  <div class="screen" id="screen-parent-self-q">
+    <span class="question-section-label" id="pself-section-label">부모님 자신에 대해</span>
+    <div class="question-counter" id="psQuestionCounter"></div>
+    <div class="question-prompt" id="psQuestionPrompt"></div>
+    <div class="options-list" id="psOptionsList"></div>
+    <button class="next-btn" id="psNextBtn" onclick="nextParentSelfQuestion()">다음</button>
+  </div>
+
   <!-- TRANSITION -->
   <div class="screen" id="screen-transition">
     <div class="screen-card">
-      <h2>Now invite your child</h2>
-      <p>Read the next prompts aloud and let your child choose. After each one, you'll tell us whether that answer was typical for them.</p>
-      <button class="hero-cta" onclick="showChildQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px">Continue</button>
+      <h2 id="transition-h2">이제 자녀를 불러주세요</h2>
+      <p id="transition-p">다음 문항들을 자녀에게 읽어주시고, 자녀가 직접 고르게 해주세요. 각 답변 후, 그 답이 자녀에게 얼마나 해당되는지 알려주세요.</p>
+      <button class="hero-cta" onclick="showChildQuestions()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="transition-btn">계속하기</button>
+    </div>
+  </div>
+
+  <!-- SKIP CHILD SCREEN (under 8) -->
+  <div class="screen" id="screen-skip-child">
+    <div class="screen-card">
+      <h2 id="skip-h2">부모님 관찰만으로 분석합니다</h2>
+      <div class="skip-child-box">
+        <p id="skip-p">만 8세 미만 아이의 경우, 자기 보고식 답변보다 부모님의 관찰이 훨씬 더 정확합니다. 발달심리 연구에서도 10세 이전에는 부모 관찰 데이터가 더 신뢰롭다고 밝히고 있어요. 부모님이 답해주신 내용을 바탕으로 프로필을 만들어드립니다.</p>
+      </div>
+      <button class="hero-cta" onclick="calculateAndShowResults()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="skip-btn">결과 보기</button>
     </div>
   </div>
 
@@ -461,11 +594,19 @@
         </div>
       </div>
 
-      <!-- PREMIUM CTA -->
-      <div class="premium-cta">
-        <h3>Want to go deeper?</h3>
-        <p>Book a session with a child psychology specialist who can walk through these results with you in detail.</p>
-        <a href="index.html#waitlist">Book a consultation</a>
+      <!-- PARENT-CHILD MATCH -->
+      <div class="parent-child-match" id="parentChildMatch" style="display:none">
+        <div class="match-header" id="match-header">부모님과 아이의 성향 차이</div>
+        <p class="match-intro" id="match-intro">두 프로필이 만나는 지점을 보여드립니다. 차이가 클수록 서로 다른 방식으로 세상을 경험하고 있다는 뜻입니다.</p>
+        <div id="matchBarsContent"></div>
+      </div>
+
+      <!-- JOURNEY CTA -->
+      <div class="premium-cta" id="journeyCta">
+        <h3 id="journey-cta-h3">여기서 멈추지 않아도 됩니다.</h3>
+        <p id="journey-cta-p1">어떤 부모는 이 리포트만으로도 충분합니다.<br>어떤 부모는 전문가와 함께 더 깊이 들어갑니다.<br>어떤 부모는 아이의 일상 안으로 직접 들어오는 걸 선택합니다.</p>
+        <p id="journey-cta-p2" style="font-size:13px;opacity:0.6;margin-bottom:24px;">오션은 그 모든 깊이에 함께합니다.</p>
+        <a href="index.html#waitlist" id="journey-cta-btn">어떤 단계가 맞는지 알아보기 →</a>
       </div>
 
       <p class="results-disclaimer">This profile is a developmental guidance tool, not a clinical diagnosis or a fixed label. Children's behavior varies by age, setting, sleep, stress, and relationship context.</p>
@@ -486,39 +627,239 @@ function shuffle(arr) {
 }
 
 const rawParentItems = [
-  { id:"P1", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Likes doing familiar activities in familiar ways"},{id:"B",text:"Wants to try new activities even without knowing much about them"}] },
-  { id:"P2", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Uses toys and materials for their usual purpose"},{id:"B",text:"Uses toys and materials in unusual or made-up ways"}] },
-  { id:"P3", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Prefers stories they already understand"},{id:"B",text:"Likes stories with surprising or unusual ideas"}] },
-  { id:"P4", construct:"openness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Wants clear directions before starting"},{id:"B",text:"Starts exploring and figures things out while doing it"}] },
-  { id:"P5", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Starts a small task and usually sees it through"},{id:"B",text:"Starts a small task but often shifts to something else"}] },
-  { id:"P6", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Keeps track of their belongings without many reminders"},{id:"B",text:"Often needs reminders about their belongings"}] },
-  { id:"P7", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Likes finishing one thing before moving to the next"},{id:"B",text:"Moves between activities depending on interest"}] },
-  { id:"P8", construct:"conscientiousness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Notices when something was skipped or missed"},{id:"B",text:"Is satisfied once the main part is done"}] },
-  { id:"P9", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Usually starts talking or joining first"},{id:"B",text:"Usually watches first and joins later"}] },
-  { id:"P10", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Seems energized after being with other kids"},{id:"B",text:"Seems to need quiet time after being with other kids"}] },
-  { id:"P11", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Speaks up easily in groups"},{id:"B",text:"Speaks more once comfortable"}] },
-  { id:"P12", construct:"extraversion", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Chooses group play when both options are available"},{id:"B",text:"Chooses solo play when both options are available"}] },
-  { id:"P13", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Adjusts to keep things smooth with others"},{id:"B",text:"Pushes back when they think something should be different"}] },
-  { id:"P14", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Quickly notices when someone feels left out"},{id:"B",text:"Stays focused on what they are doing unless someone points it out"}] },
-  { id:"P15", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Offers help on their own"},{id:"B",text:"Usually helps once asked"}] },
-  { id:"P16", construct:"agreeableness", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"During disagreements, tends to soften or step back"},{id:"B",text:"During disagreements, tends to hold their position"}] },
-  { id:"P17", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Settles fairly quickly after disappointment"},{id:"B",text:"Stays upset for a while after disappointment"}] },
-  { id:"P18", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Walks into new situations fairly easily"},{id:"B",text:"Hesitates in new situations"}] },
-  { id:"P19", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Handles correction without much visible upset"},{id:"B",text:"Reacts strongly to correction"}] },
-  { id:"P20", construct:"negative_emotionality", prompt:"Which sounds more like your child most of the time?", options:[{id:"A",text:"Adjusts fairly easily when plans change"},{id:"B",text:"Gets unsettled when plans change"}] }
+  // OPENNESS (4) — from 최미숙 호기심/창의성 items, adapted to parent observation
+  { id:"P1", construct:"openness",
+    prompt:"새로운 놀이나 활동을 처음 접할 때, 우리 아이는 보통 어떤가요?",
+    promptKr:"새로운 놀이나 활동을 처음 접할 때, 우리 아이는 보통 어떤가요?",
+    options:[
+      {id:"A", text:"어떤 건지 알기 전까지는 참여하지 않으려 한다", textKr:"어떤 건지 알기 전까지는 참여하지 않으려 한다"},
+      {id:"B", text:"뭔지 잘 몰라도 일단 해보려 한다", textKr:"뭔지 잘 몰라도 일단 해보려 한다"}
+    ]},
+  { id:"P2", construct:"openness",
+    prompt:"자유 시간에 혼자 노는 모습을 보면?",
+    promptKr:"자유 시간에 혼자 노는 모습을 보면?",
+    options:[
+      {id:"A", text:"늘 하던 방식대로 익숙한 것을 즐겨 한다", textKr:"늘 하던 방식대로 익숙한 것을 즐겨 한다"},
+      {id:"B", text:"장난감이나 물건을 새롭고 독창적인 방식으로 활용한다", textKr:"장난감이나 물건을 새롭고 독창적인 방식으로 활용한다"}
+    ]},
+  { id:"P3", construct:"openness",
+    prompt:"궁금한 게 생겼을 때 아이는?",
+    promptKr:"궁금한 게 생겼을 때 아이는?",
+    options:[
+      {id:"A", text:"그냥 넘어가거나 크게 신경 쓰지 않는다", textKr:"그냥 넘어가거나 크게 신경 쓰지 않는다"},
+      {id:"B", text:"바로 질문하거나 직접 알아보려 한다", textKr:"바로 질문하거나 직접 알아보려 한다"}
+    ]},
+  { id:"P4", construct:"openness",
+    prompt:"뭔가를 만들거나 그리는 활동을 할 때?",
+    promptKr:"뭔가를 만들거나 그리는 활동을 할 때?",
+    options:[
+      {id:"A", text:"정해진 방법대로 하거나 따라 하는 걸 편해한다", textKr:"정해진 방법대로 하거나 따라 하는 걸 편해한다"},
+      {id:"B", text:"자기만의 방식이나 새로운 아이디어로 표현한다", textKr:"자기만의 방식이나 새로운 아이디어로 표현한다"}
+    ]},
+  // CONSCIENTIOUSNESS (4) — from 최미숙 성실성 items
+  { id:"P5", construct:"conscientiousness",
+    prompt:"숙제나 심부름처럼 끝내야 하는 일이 있을 때?",
+    promptKr:"숙제나 심부름처럼 끝내야 하는 일이 있을 때?",
+    options:[
+      {id:"A", text:"웬만하면 끝까지 마무리한다", textKr:"웬만하면 끝까지 마무리한다"},
+      {id:"B", text:"시작은 하지만 중간에 다른 걸로 넘어가는 경우가 많다", textKr:"시작은 하지만 중간에 다른 걸로 넘어가는 경우가 많다"}
+    ]},
+  { id:"P6", construct:"conscientiousness",
+    prompt:"가방, 신발, 장난감 같은 자기 물건을 챙기는 것은?",
+    promptKr:"가방, 신발, 장난감 같은 자기 물건을 챙기는 것은?",
+    options:[
+      {id:"A", text:"따로 말하지 않아도 스스로 잘 챙기는 편이다", textKr:"따로 말하지 않아도 스스로 잘 챙기는 편이다"},
+      {id:"B", text:"자주 잊어버리거나 챙기라고 말해줘야 한다", textKr:"자주 잊어버리거나 챙기라고 말해줘야 한다"}
+    ]},
+  { id:"P7", construct:"conscientiousness",
+    prompt:"한 가지 놀이나 활동을 하다가 다른 게 눈에 들어오면?",
+    promptKr:"한 가지 놀이나 활동을 하다가 다른 게 눈에 들어오면?",
+    options:[
+      {id:"A", text:"하던 걸 끝낸 다음에 넘어가려 한다", textKr:"하던 걸 끝낸 다음에 넘어가려 한다"},
+      {id:"B", text:"흥미가 생기면 바로 그쪽으로 이동한다", textKr:"흥미가 생기면 바로 그쪽으로 이동한다"}
+    ]},
+  { id:"P8", construct:"conscientiousness",
+    prompt:"뭔가를 정리하거나 마무리했을 때?",
+    promptKr:"뭔가를 정리하거나 마무리했을 때?",
+    options:[
+      {id:"A", text:"빠진 부분이 없는지 다시 확인하는 편이다", textKr:"빠진 부분이 없는지 다시 확인하는 편이다"},
+      {id:"B", text:"대충 됐다 싶으면 그냥 넘어가는 편이다", textKr:"대충 됐다 싶으면 그냥 넘어가는 편이다"}
+    ]},
+  // EXTRAVERSION (4) — from 최미숙 외향성 items
+  { id:"P9", construct:"extraversion",
+    prompt:"처음 가는 장소나 처음 만나는 아이들이 있을 때?",
+    promptKr:"처음 가는 장소나 처음 만나는 아이들이 있을 때?",
+    options:[
+      {id:"A", text:"먼저 말을 걸거나 먼저 합류하는 편이다", textKr:"먼저 말을 걸거나 먼저 합류하는 편이다"},
+      {id:"B", text:"잠깐 지켜보다가 천천히 참여하는 편이다", textKr:"잠깐 지켜보다가 천천히 참여하는 편이다"}
+    ]},
+  { id:"P10", construct:"extraversion",
+    prompt:"친구들과 한참 놀고 집에 돌아온 후에는?",
+    promptKr:"친구들과 한참 놀고 집에 돌아온 후에는?",
+    options:[
+      {id:"A", text:"더 신나고 활기차 보인다", textKr:"더 신나고 활기차 보인다"},
+      {id:"B", text:"조용히 혼자 있는 시간이 필요해 보인다", textKr:"조용히 혼자 있는 시간이 필요해 보인다"}
+    ]},
+  { id:"P11", construct:"extraversion",
+    prompt:"여러 명이 함께 있는 자리에서?",
+    promptKr:"여러 명이 함께 있는 자리에서?",
+    options:[
+      {id:"A", text:"자연스럽게 이야기를 많이 하거나 주도하는 편이다", textKr:"자연스럽게 이야기를 많이 하거나 주도하는 편이다"},
+      {id:"B", text:"익숙해지면 말이 많아지지만 처음엔 조용한 편이다", textKr:"익숙해지면 말이 많아지지만 처음엔 조용한 편이다"}
+    ]},
+  { id:"P12", construct:"extraversion",
+    prompt:"선택권이 있을 때, 노는 방식은?",
+    promptKr:"선택권이 있을 때, 노는 방식은?",
+    options:[
+      {id:"A", text:"여럿이 함께 노는 걸 더 좋아한다", textKr:"여럿이 함께 노는 걸 더 좋아한다"},
+      {id:"B", text:"혼자 또는 한두 명이랑 노는 걸 더 좋아한다", textKr:"혼자 또는 한두 명이랑 노는 걸 더 좋아한다"}
+    ]},
+  // AGREEABLENESS (4) — from 최미숙 호감성 items
+  { id:"P13", construct:"agreeableness",
+    prompt:"친구들과 의견이 부딪혔을 때?",
+    promptKr:"친구들과 의견이 부딪혔을 때?",
+    options:[
+      {id:"A", text:"크게 따지지 않고 맞춰주는 편이다", textKr:"크게 따지지 않고 맞춰주는 편이다"},
+      {id:"B", text:"자기 의견을 분명하게 말하는 편이다", textKr:"자기 의견을 분명하게 말하는 편이다"}
+    ]},
+  { id:"P14", construct:"agreeableness",
+    prompt:"놀이터나 교실에서 혼자 있거나 소외된 아이가 있으면?",
+    promptKr:"놀이터나 교실에서 혼자 있거나 소외된 아이가 있으면?",
+    options:[
+      {id:"A", text:"먼저 알아채고 다가가는 편이다", textKr:"먼저 알아채고 다가가는 편이다"},
+      {id:"B", text:"누가 말해주지 않으면 잘 모르고 지나치는 편이다", textKr:"누가 말해주지 않으면 잘 모르고 지나치는 편이다"}
+    ]},
+  { id:"P15", construct:"agreeableness",
+    prompt:"도움이 필요한 상황에서?",
+    promptKr:"도움이 필요한 상황에서?",
+    options:[
+      {id:"A", text:"부탁받지 않아도 먼저 도우려 한다", textKr:"부탁받지 않아도 먼저 도우려 한다"},
+      {id:"B", text:"부탁을 받으면 잘 도와주는 편이다", textKr:"부탁을 받으면 잘 도와주는 편이다"}
+    ]},
+  { id:"P16", construct:"agreeableness",
+    prompt:"자기가 원하는 것과 다르게 결정됐을 때?",
+    promptKr:"자기가 원하는 것과 다르게 결정됐을 때?",
+    options:[
+      {id:"A", text:"불만이 있어도 받아들이는 편이다", textKr:"불만이 있어도 받아들이는 편이다"},
+      {id:"B", text:"왜 그렇게 됐는지 따지거나 자기 주장을 하는 편이다", textKr:"왜 그렇게 됐는지 따지거나 자기 주장을 하는 편이다"}
+    ]},
+  // NEGATIVE EMOTIONALITY (4) — from 최미숙 정서적 안정성 items (reversed)
+  { id:"P17", construct:"negative_emotionality",
+    prompt:"기대했던 일이 취소되거나 안 됐을 때?",
+    promptKr:"기대했던 일이 취소되거나 안 됐을 때?",
+    options:[
+      {id:"A", text:"실망하더라도 금방 털고 다른 걸 한다", textKr:"실망하더라도 금방 털고 다른 걸 한다"},
+      {id:"B", text:"한동안 속상해하거나 기분이 가라앉아 있다", textKr:"한동안 속상해하거나 기분이 가라앉아 있다"}
+    ]},
+  { id:"P18", construct:"negative_emotionality",
+    prompt:"처음 가보는 곳이나 낯선 상황이 생겼을 때?",
+    promptKr:"처음 가보는 곳이나 낯선 상황이 생겼을 때?",
+    options:[
+      {id:"A", text:"별로 개의치 않고 자연스럽게 적응한다", textKr:"별로 개의치 않고 자연스럽게 적응한다"},
+      {id:"B", text:"미리 걱정하거나 들어가기 전에 머뭇거린다", textKr:"미리 걱정하거나 들어가기 전에 머뭇거린다"}
+    ]},
+  { id:"P19", construct:"negative_emotionality",
+    prompt:"잘못한 것에 대해 지적을 받았을 때?",
+    promptKr:"잘못한 것에 대해 지적을 받았을 때?",
+    options:[
+      {id:"A", text:"듣고 넘어가는 편이다", textKr:"듣고 넘어가는 편이다"},
+      {id:"B", text:"속상해하거나 강하게 반응하는 편이다", textKr:"속상해하거나 강하게 반응하는 편이다"}
+    ]},
+  { id:"P20", construct:"negative_emotionality",
+    prompt:"오늘 하려고 했던 계획이 갑자기 바뀌면?",
+    promptKr:"오늘 하려고 했던 계획이 갑자기 바뀌면?",
+    options:[
+      {id:"A", text:"금방 새 계획에 맞춰간다", textKr:"금방 새 계획에 맞춰간다"},
+      {id:"B", text:"불안해하거나 짜증을 내는 편이다", textKr:"불안해하거나 짜증을 내는 편이다"}
+    ]}
 ];
 
 const rawChildItems = [
-  { id:"C1", construct:"openness", prompt:"You get a new box of art supplies. What sounds most fun?", options:[{id:"1",text:"Draw something I already know how to make"},{id:"2",text:"Try mixing things in a new way"},{id:"3",text:"Wait for someone to show me what to do first"}] },
-  { id:"C2", construct:"openness", prompt:"At playtime, you can choose one.", options:[{id:"1",text:"A favorite game I already know"},{id:"2",text:"A brand-new game I've never tried"},{id:"3",text:"Making up my own game"}] },
-  { id:"C3", construct:"conscientiousness", prompt:"You're building something and it gets tricky. What do you do first?", options:[{id:"1",text:"Keep going until I finish it"},{id:"2",text:"Take a break and maybe come back later"},{id:"3",text:"Start doing something else instead"}] },
-  { id:"C4", construct:"conscientiousness", prompt:"You're almost done cleaning up your toys.", options:[{id:"1",text:"Check if anything is still left out"},{id:"2",text:"Stop when most things are put away"},{id:"3",text:"Ask someone else if it looks done"}] },
-  { id:"C5", construct:"extraversion", prompt:"At a playground where you don't know anyone, what would you most likely do?", options:[{id:"1",text:"Go ask someone to play"},{id:"2",text:"Play by myself first"},{id:"3",text:"Stay near my parent for a while"}] },
-  { id:"C6", construct:"extraversion", prompt:"At a birthday party, what sounds best?", options:[{id:"1",text:"Running around with everyone"},{id:"2",text:"Talking to one or two people"},{id:"3",text:"Finding a quieter activity"}] },
-  { id:"C7", construct:"agreeableness", prompt:"Another child looks sad during a game. What would you probably do?", options:[{id:"1",text:"Go see if they want help or company"},{id:"2",text:"Keep playing unless an adult says something"},{id:"3",text:"Watch first to see what happens"}] },
-  { id:"C8", construct:"agreeableness", prompt:"You and another child both want the same toy.", options:[{id:"1",text:"Take turns"},{id:"2",text:"Explain why I should have it now"},{id:"3",text:"Walk away and choose something else"}] },
-  { id:"C9", construct:"negative_emotionality", prompt:"You worked hard on something and it breaks by accident.", options:[{id:"1",text:"I'd get upset right away"},{id:"2",text:"I'd try to fix it"},{id:"3",text:"I'd ask for help calmly"}] },
-  { id:"C10", construct:"negative_emotionality", prompt:"You hear that today's plan changed.", options:[{id:"1",text:"That's okay, I can do the new plan"},{id:"2",text:"I need a minute to get used to it"},{id:"3",text:"I really don't like that"}] }
+  // OPENNESS — adapted from 최미숙 개방성 + 김복환 개방성
+  { id:"C1", construct:"openness",
+    prompt:"새 미술 도구 상자를 받았어요. 뭐가 제일 재미있을 것 같아요?",
+    promptKr:"새 미술 도구 상자를 받았어요. 뭐가 제일 재미있을 것 같아요?",
+    options:[
+      {id:"1", text:"이미 알고 있는 걸 그려요", textKr:"이미 알고 있는 걸 그려요"},
+      {id:"2", text:"새로운 방식으로 섞어서 해봐요", textKr:"새로운 방식으로 섞어서 해봐요"},
+      {id:"3", text:"어떻게 하는지 먼저 누군가 보여줄 때까지 기다려요", textKr:"어떻게 하는지 먼저 누군가 보여줄 때까지 기다려요"}
+    ]},
+  { id:"C2", construct:"openness",
+    prompt:"모르는 게 생기면 어떻게 해요?",
+    promptKr:"모르는 게 생기면 어떻게 해요?",
+    options:[
+      {id:"1", text:"바로 물어보거나 직접 찾아봐요", textKr:"바로 물어보거나 직접 찾아봐요"},
+      {id:"2", text:"나중에 생각나면 물어봐요", textKr:"나중에 생각나면 물어봐요"},
+      {id:"3", text:"잘 안 물어보는 편이에요", textKr:"잘 안 물어보는 편이에요"}
+    ]},
+  // CONSCIENTIOUSNESS — from 최미숙 성실성 + 김복환 성실성
+  { id:"C3", construct:"conscientiousness",
+    prompt:"뭔가를 만들다가 어려워졌어요. 제일 먼저 어떻게 할 것 같아요?",
+    promptKr:"뭔가를 만들다가 어려워졌어요. 제일 먼저 어떻게 할 것 같아요?",
+    options:[
+      {id:"1", text:"끝날 때까지 계속해요", textKr:"끝날 때까지 계속해요"},
+      {id:"2", text:"잠깐 쉬다가 나중에 다시 해요", textKr:"잠깐 쉬다가 나중에 다시 해요"},
+      {id:"3", text:"다른 것을 하기 시작해요", textKr:"다른 것을 하기 시작해요"}
+    ]},
+  { id:"C4", construct:"conscientiousness",
+    prompt:"숙제가 있는데 하기 싫어요. 어떻게 해요?",
+    promptKr:"숙제가 있는데 하기 싫어요. 어떻게 해요?",
+    options:[
+      {id:"1", text:"싫어도 먼저 끝내고 놀아요", textKr:"싫어도 먼저 끝내고 놀아요"},
+      {id:"2", text:"조금 놀다가 해요", textKr:"조금 놀다가 해요"},
+      {id:"3", text:"최대한 미뤄요", textKr:"최대한 미뤄요"}
+    ]},
+  // EXTRAVERSION — from 최미숙 외향성 + 김복환 외향성
+  { id:"C5", construct:"extraversion",
+    prompt:"아무도 모르는 놀이터에 갔어요. 뭘 할 것 같아요?",
+    promptKr:"아무도 모르는 놀이터에 갔어요. 뭘 할 것 같아요?",
+    options:[
+      {id:"1", text:"같이 놀자고 말을 걸어요", textKr:"같이 놀자고 말을 걸어요"},
+      {id:"2", text:"먼저 혼자 놀아요", textKr:"먼저 혼자 놀아요"},
+      {id:"3", text:"잠깐 부모님 옆에 있어요", textKr:"잠깐 부모님 옆에 있어요"}
+    ]},
+  { id:"C6", construct:"extraversion",
+    prompt:"생일 파티에서 뭐가 제일 좋을 것 같아요?",
+    promptKr:"생일 파티에서 뭐가 제일 좋을 것 같아요?",
+    options:[
+      {id:"1", text:"모두랑 뛰어다니며 놀기", textKr:"모두랑 뛰어다니며 놀기"},
+      {id:"2", text:"한두 명이랑 이야기하기", textKr:"한두 명이랑 이야기하기"},
+      {id:"3", text:"조용한 놀이 찾기", textKr:"조용한 놀이 찾기"}
+    ]},
+  // AGREEABLENESS — from 최미숙 호감성
+  { id:"C7", construct:"agreeableness",
+    prompt:"게임 중에 다른 아이가 슬퍼 보여요. 어떻게 할 것 같아요?",
+    promptKr:"게임 중에 다른 아이가 슬퍼 보여요. 어떻게 할 것 같아요?",
+    options:[
+      {id:"1", text:"도와줄 수 있는지 물어보러 가요", textKr:"도와줄 수 있는지 물어보러 가요"},
+      {id:"2", text:"어른이 뭔가 말할 때까지 계속 놀아요", textKr:"어른이 뭔가 말할 때까지 계속 놀아요"},
+      {id:"3", text:"어떻게 되는지 먼저 지켜봐요", textKr:"어떻게 되는지 먼저 지켜봐요"}
+    ]},
+  { id:"C8", construct:"agreeableness",
+    prompt:"나랑 다른 아이가 같은 장난감을 원해요.",
+    promptKr:"나랑 다른 아이가 같은 장난감을 원해요.",
+    options:[
+      {id:"1", text:"번갈아가며 사용해요", textKr:"번갈아가며 사용해요"},
+      {id:"2", text:"왜 내가 지금 가져야 하는지 설명해요", textKr:"왜 내가 지금 가져야 하는지 설명해요"},
+      {id:"3", text:"다른 것을 고르러 가요", textKr:"다른 것을 고르러 가요"}
+    ]},
+  // NEGATIVE EMOTIONALITY — from 최미숙 정서적 안정성 (child-friendly)
+  { id:"C9", construct:"negative_emotionality",
+    prompt:"열심히 만든 게 실수로 망가졌어요.",
+    promptKr:"열심히 만든 게 실수로 망가졌어요.",
+    options:[
+      {id:"1", text:"바로 많이 속상해져요", textKr:"바로 많이 속상해져요"},
+      {id:"2", text:"고쳐보려고 해요", textKr:"고쳐보려고 해요"},
+      {id:"3", text:"침착하게 도움을 요청해요", textKr:"침착하게 도움을 요청해요"}
+    ]},
+  { id:"C10", construct:"negative_emotionality",
+    prompt:"오늘 계획이 바뀌었다고 들었어요.",
+    promptKr:"오늘 계획이 바뀌었다고 들었어요.",
+    options:[
+      {id:"1", text:"괜찮아요, 새 계획대로 할 수 있어요", textKr:"괜찮아요, 새 계획대로 할 수 있어요"},
+      {id:"2", text:"적응하는 데 잠깐 시간이 필요해요", textKr:"적응하는 데 잠깐 시간이 필요해요"},
+      {id:"3", text:"정말 싫어요", textKr:"정말 싫어요"}
+    ]}
 ];
 
 const parentScoring = {
@@ -607,7 +948,7 @@ function showChildQuestions() {
 function renderParentQuestion() {
   const q = parentItems[pIndex];
   document.getElementById('pQuestionCounter').textContent = `Question ${pIndex + 1} of ${parentItems.length}`;
-  document.getElementById('pQuestionPrompt').textContent = q.prompt;
+  document.getElementById('pQuestionPrompt').textContent = currentLang === 'kr' ? (q.promptKr || q.prompt) : q.prompt;
   const list = document.getElementById('pOptionsList');
   list.innerHTML = '';
   q.options.forEach(opt => {
@@ -689,15 +1030,20 @@ function calculateAndShowResults() {
     let pRaw = 0;
     pItems.forEach(q => { if (pAnswers[q.id] === parentScoring[q.id].keyed) pRaw++; });
     const pScore = (pRaw / pItems.length) * 100;
-    const cItems = rawChildItems.filter(q => q.construct === trait);
-    let cRaw = 0;
-    cItems.forEach(q => {
-      const optScore = childScoring[q.id][parseInt(cAnswers[q.id])] || 0;
-      const calMult = calibrationMultipliers[cCalibrations[q.id]] || 1.0;
-      cRaw += optScore * calMult;
-    });
-    const cScore = (cRaw / cItems.length) * 100;
-    scores[trait] = (pScore * 0.7) + (cScore * 0.3);
+    if (skipChildQuestions) {
+      // Under 8: 100% parent observation
+      scores[trait] = pScore;
+    } else {
+      const cItems = rawChildItems.filter(q => q.construct === trait);
+      let cRaw = 0;
+      cItems.forEach(q => {
+        const optScore = childScoring[q.id][parseInt(cAnswers[q.id])] || 0;
+        const calMult = calibrationMultipliers[cCalibrations[q.id]] || 1.0;
+        cRaw += optScore * calMult;
+      });
+      const cScore = (cRaw / cItems.length) * 100;
+      scores[trait] = (pScore * 0.7) + (cScore * 0.3);
+    }
   });
   renderResults(scores);
 }
@@ -837,6 +1183,70 @@ function renderResults(scores) {
       </div>`;
   });
   document.getElementById('productsContent').innerHTML = productsHTML;
+
+  // Parent-child match bars
+  if (Object.keys(parentScores).length > 0) {
+    const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+    const traitLabels = {
+      openness: { en: 'Openness', kr: '개방성' },
+      conscientiousness: { en: 'Conscientiousness', kr: '성실성' },
+      extraversion: { en: 'Extraversion', kr: '외향성' },
+      agreeableness: { en: 'Agreeableness', kr: '친화성' },
+      negative_emotionality: { en: 'Sensitivity', kr: '감수성' }
+    };
+    const isKr = currentLang === 'kr';
+    let matchHTML = '';
+    traits.forEach(trait => {
+      const pScore = Math.round(parentScores[trait]);
+      const cScore = Math.round(scores[trait]);
+      const gap = Math.abs(pScore - cScore);
+      const isHighGap = gap > 30;
+      const label = isKr ? traitLabels[trait].kr : traitLabels[trait].en;
+      const gapText = isKr
+        ? (isHighGap ? `차이 ${gap}점 — 서로 다른 방식으로 경험할 수 있습니다` : `차이 ${gap}점`)
+        : (isHighGap ? `Gap: ${gap} pts — may experience this very differently` : `Gap: ${gap} pts`);
+      matchHTML += `
+        <div class="match-row">
+          <div class="match-row-label">${label}</div>
+          <div class="match-bars-wrap">
+            <div class="match-bar-row">
+              <span class="match-bar-who">${isKr ? '부모' : 'You'}</span>
+              <div class="match-track"><div class="match-fill-parent" data-score="${pScore}" style="width:0%"></div></div>
+            </div>
+            <div class="match-bar-row">
+              <span class="match-bar-who">${isKr ? '아이' : 'Child'}</span>
+              <div class="match-track"><div class="match-fill-child" data-score="${cScore}" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="match-gap-label ${isHighGap ? 'high' : ''}">${gapText}</div>
+        </div>`;
+    });
+    document.getElementById('matchBarsContent').innerHTML = matchHTML;
+    document.getElementById('parentChildMatch').style.display = 'block';
+    setTimeout(() => {
+      document.querySelectorAll('.match-fill-parent').forEach(el => { el.style.width = el.dataset.score + '%'; });
+      document.querySelectorAll('.match-fill-child').forEach(el => { el.style.width = el.dataset.score + '%'; });
+    }, 400);
+
+    // Update match section labels for Korean
+    if (isKr) {
+      document.getElementById('match-header').textContent = '부모님과 아이의 성향 차이';
+      document.getElementById('match-intro').textContent = '두 프로필이 만나는 지점입니다. 차이가 클수록 서로 다른 방식으로 세상을 경험하고 있다는 뜻입니다.';
+    } else {
+      document.getElementById('match-header').textContent = 'Where your personalities diverge';
+      document.getElementById('match-intro').textContent = 'The bigger the gap, the more differently you and your child experience the same situations.';
+    }
+  }
+
+  // Journey CTA language
+  const isKrCta = currentLang === 'kr';
+  if (!isKrCta) {
+    document.getElementById('journey-cta-h3').textContent = "You don't have to stop here.";
+    document.getElementById('journey-cta-p1').innerHTML = "Some parents find the report is enough.<br>Some go deeper with an expert.<br>Some bring OCEAN into their child's daily life.";
+    document.getElementById('journey-cta-p2').textContent = "OCEAN is there at every depth.";
+    document.getElementById('journey-cta-btn').textContent = "Find out which step is right for you →";
+  }
+
 }
 
 function toggleAccordion(btn) {
@@ -872,6 +1282,7 @@ function t(key) {
 
 function applyLangToCurrentScreen() {
   if (currentLang !== 'kr') return;
+  if (typeof kr === 'undefined') return;
   const activeScreen = document.querySelector('.screen.active');
   if (!activeScreen) return;
   const id = activeScreen.id;
@@ -906,7 +1317,7 @@ renderParentQuestion = function() {
   if (origIndex < 0) return;
   const krQ = kr.parentItems[origIndex];
   if (!krQ) return;
-  document.getElementById('pQuestionPrompt').textContent = krQ.prompt;
+  document.getElementById('pQuestionPrompt').textContent = krQ.prompt || q.promptKr || q.prompt;
   document.getElementById('pQuestionCounter').textContent = kr.ui.question_of(pIndex + 1, parentItems.length);
   const btns = document.querySelectorAll('#pOptionsList .option-btn');
   btns.forEach((btn, i) => {
@@ -957,6 +1368,7 @@ const _origRenderResults = renderResults;
 renderResults = function(scores) {
   _origRenderResults(scores);
   if (currentLang !== 'kr') return;
+  if (typeof kr === 'undefined') return;
 
   // Results header
   document.querySelector('.results-header h2').textContent = kr.ui.results_title;
@@ -1065,6 +1477,179 @@ const _origShowScreen = showScreen;
 showScreen = function(id) {
   _origShowScreen(id);
   setTimeout(applyLangToCurrentScreen, 50);
+};
+
+
+// ── PARENT SELF ASSESSMENT ──
+const rawParentSelfItems = [
+  { id:"PS1", construct:"openness", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I prefer doing familiar things in familiar ways",textKr:"익숙한 방식으로 익숙한 일을 하는 것을 선호한다"},{id:"B",text:"I seek out new experiences and ideas",textKr:"새로운 경험과 아이디어를 찾아 나서는 편이다"}] },
+  { id:"PS2", construct:"conscientiousness", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I follow through on tasks and keep things organized",textKr:"맡은 일을 끝까지 해내고 체계적으로 관리하는 편이다"},{id:"B",text:"I go with the flow and tend to leave things open-ended",textKr:"흐름에 따르고 일을 열어두는 편이다"}] },
+  { id:"PS3", construct:"extraversion", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I feel energized being around other people",textKr:"사람들과 함께할 때 에너지가 생긴다"},{id:"B",text:"I feel drained after socializing and need quiet time",textKr:"사람들과 어울린 후 피곤하고 조용한 시간이 필요하다"}] },
+  { id:"PS4", construct:"agreeableness", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I prioritize keeping harmony and making others comfortable",textKr:"조화를 유지하고 상대방을 편하게 하는 것을 우선시한다"},{id:"B",text:"I prioritize honesty and standing by my position",textKr:"솔직함과 자신의 입장을 지키는 것을 우선시한다"}] },
+  { id:"PS5", construct:"negative_emotionality", prompt:"Which sounds more like you most of the time?", promptKr:"평소 나에게 더 잘 맞는 것은?", options:[{id:"A",text:"I tend to stay calm and recover quickly from setbacks",textKr:"어려운 상황에서도 침착함을 유지하고 빠르게 회복하는 편이다"},{id:"B",text:"I tend to feel things strongly and take time to settle",textKr:"감정을 강하게 느끼고 안정을 찾는 데 시간이 걸리는 편이다"}] }
+];
+
+const parentSelfScoring = {
+  PS1:{keyed:"B"}, PS2:{keyed:"A"}, PS3:{keyed:"A"}, PS4:{keyed:"A"}, PS5:{keyed:"B"}
+};
+
+let parentSelfItems = [...rawParentSelfItems];
+let psIndex = 0;
+let psAnswers = {};
+let parentScores = {};
+
+function showParentSelfQuestions() {
+  psIndex = 0;
+  psAnswers = {};
+  renderParentSelfQuestion();
+  showScreen('screen-parent-self-q');
+  document.getElementById('progressWrap').style.display = 'block';
+}
+
+function renderParentSelfQuestion() {
+  const q = parentSelfItems[psIndex];
+  const isKr = currentLang === 'kr';
+  document.getElementById('psQuestionCounter').textContent = isKr
+    ? kr.ui.question_of(psIndex + 1, parentSelfItems.length)
+    : `Question ${psIndex + 1} of ${parentSelfItems.length}`;
+  document.getElementById('psQuestionPrompt').textContent = isKr ? q.promptKr : q.prompt;
+  const list = document.getElementById('psOptionsList');
+  list.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = isKr ? opt.textKr : opt.text;
+    btn.onclick = () => selectParentSelfOption(opt.id, btn);
+    list.appendChild(btn);
+  });
+  document.getElementById('psNextBtn').classList.remove('visible');
+  selectedOption = null;
+  updateProgress('parent_self', psIndex, parentSelfItems.length);
+}
+
+function selectParentSelfOption(optId, btn) {
+  document.querySelectorAll('#psOptionsList .option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedOption = optId;
+  document.getElementById('psNextBtn').classList.add('visible');
+}
+
+function nextParentSelfQuestion() {
+  if (!selectedOption) return;
+  psAnswers[parentSelfItems[psIndex].id] = selectedOption;
+  psIndex++;
+  if (psIndex < parentSelfItems.length) {
+    renderParentSelfQuestion();
+  } else {
+    calculateParentScores();
+    document.getElementById('progressWrap').style.display = 'none';
+    if (skipChildQuestions) {
+      showScreen('screen-skip-child');
+    } else {
+      showScreen('screen-transition');
+    }
+  }
+}
+
+function calculateParentScores() {
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  traits.forEach(trait => {
+    const items = rawParentSelfItems.filter(q => q.construct === trait);
+    let raw = 0;
+    items.forEach(q => { if (psAnswers[q.id] === parentSelfScoring[q.id].keyed) raw++; });
+    parentScores[trait] = items.length > 0 ? (raw / items.length) * 100 : 50;
+  });
+}
+
+// Patch updateProgress to handle parent_self section
+const _origUpdateProgress = updateProgress;
+updateProgress = function(section, index, total) {
+  if (section === 'parent_self') {
+    const isKr = currentLang === 'kr';
+    document.getElementById('progressSection').textContent = isKr ? '부모님 자신에 대해' : 'About yourself';
+    document.getElementById('progressCount').textContent = `${index + 1} / ${total}`;
+    document.getElementById('progressFill').style.width = ((index / total) * 100) + '%';
+    return;
+  }
+  _origUpdateProgress(section, index, total);
+};
+
+// startAssessment defined earlier with age gate logic
+
+// Patch nextParentQuestion to go to parent-self-intro after parent questions
+const _origNextParentQ = nextParentQuestion;
+nextParentQuestion = function() {
+  if (!selectedOption) return;
+  pAnswers[parentItems[pIndex].id] = selectedOption;
+  pIndex++;
+  if (pIndex < parentItems.length) {
+    renderParentQuestion();
+  } else {
+    document.getElementById('progressWrap').style.display = 'none';
+    showScreen('screen-parent-self-intro');
+  }
+};
+
+
+// Patch applyLangToCurrentScreen for new screens
+const _origApplyLang = applyLangToCurrentScreen;
+applyLangToCurrentScreen = function() {
+  if (typeof kr === 'undefined') return;
+  _origApplyLang();
+  if (currentLang !== 'kr') {
+    // Apply English to new screens
+    const introH = document.getElementById('intro-h2');
+    if (introH) introH.innerHTML = "Where are you and your child<br>missing each other?";
+    const introP1 = document.getElementById('intro-p1');
+    if (introP1) introP1.textContent = "Answer based on your child's usual behavior over the past 3–6 months. There are no right or wrong answers.";
+    const introP2 = document.getElementById('intro-p2');
+    if (introP2) introP2.textContent = "Takes about 15–20 minutes. You'll go first, then invite your child for a few questions.";
+    const introBtn = document.getElementById('intro-btn');
+    if (introBtn) introBtn.textContent = "Let's begin";
+    const introDisclaimer = document.getElementById('intro-disclaimer');
+    if (introDisclaimer) introDisclaimer.textContent = "This profile is a developmental guidance tool, not a diagnosis or a fixed label.";
+    const pselfH = document.getElementById('pself-intro-h2');
+    if (pselfH) pselfH.textContent = "Now: a few questions about you";
+    const pselfP = document.getElementById('pself-intro-p');
+    if (pselfP) pselfP.textContent = "OCEAN looks at both profiles together. Understanding where you and your child align — and where you don't — is the whole point.";
+    const pselfBtn = document.getElementById('pself-intro-btn');
+    if (pselfBtn) pselfBtn.textContent = "Continue";
+    const pselfLabel = document.getElementById('pself-section-label');
+    if (pselfLabel) pselfLabel.textContent = "About yourself";
+    const psNextBtn = document.getElementById('psNextBtn');
+    if (psNextBtn) psNextBtn.textContent = "Next";
+    const transH = document.getElementById('transition-h2');
+    if (transH) transH.textContent = "Now invite your child";
+    const transP = document.getElementById('transition-p');
+    if (transP) transP.textContent = "Read the next prompts aloud and let your child choose. After each one, you'll tell us whether that answer was typical for them.";
+    const transBtn = document.getElementById('transition-btn');
+    if (transBtn) transBtn.textContent = "Continue";
+    const parentIntroH = document.getElementById('parent-intro-h2');
+    if (parentIntroH) parentIntroH.textContent = "First: just you";
+    const parentIntroP = document.getElementById('parent-intro-p');
+    if (parentIntroP) parentIntroP.textContent = "Choose the option that sounds more like your child most of the time. Go with your first honest impression.";
+    const parentIntroBtn = document.getElementById('parent-intro-btn');
+    if (parentIntroBtn) parentIntroBtn.textContent = "Start";
+    return;
+  }
+  // Korean
+  const activeScreen = document.querySelector('.screen.active');
+  if (!activeScreen) return;
+  const id = activeScreen.id;
+  if (id === 'screen-parent-self-intro') {
+    activeScreen.querySelector('h2').textContent = '이번엔 부모님 자신에 대해';
+    activeScreen.querySelector('p').textContent = '오션은 아이만 보지 않습니다. 부모님의 성향도 함께 봐야 어디서 엇갈리는지 알 수 있어요.';
+    activeScreen.querySelector('.hero-cta').textContent = kr.ui.continue;
+  }
+  if (id === 'screen-skip-child') {
+    activeScreen.querySelector('h2').textContent = '부모님 관찰만으로 분석합니다';
+    activeScreen.querySelector('.skip-child-box p').textContent = '만 8세 미만 아이의 경우, 자기 보고식 답변보다 부모님의 관찰이 훨씬 더 정확합니다. 발달심리 연구에서도 10세 이전에는 부모 관찰 데이터가 더 신뢰롭다고 밝히고 있어요. 부모님이 답해주신 내용을 바탕으로 프로필을 만들어드립니다.';
+    activeScreen.querySelector('.hero-cta').textContent = '결과 보기';
+  }
+  if (id === 'screen-parent-self-q') {
+    document.getElementById('pself-section-label').textContent = '부모님 자신에 대해';
+    document.getElementById('psNextBtn').textContent = kr.ui.next;
+  }
 };
 
 </script>
