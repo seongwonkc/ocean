@@ -481,8 +481,8 @@
       <div class="birth-year-wrap">
         <label class="birth-year-label" id="birth-year-label">아이의 출생연도를 입력해주세요</label>
         <input type="number" class="birth-year-input" id="birthYearInput"
-          placeholder="예: 2018" min="2015" max="2020" />
-        <p class="age-note" id="birth-year-note">만 5세~10세 (2015~2020년생)</p>
+          placeholder="예: 2019" />
+        <p class="age-note" id="birth-year-note">만 5세~10세 아이를 위한 검사입니다</p>
       </div>
       <button class="hero-cta" onclick="startAssessment()" style="border:none;cursor:pointer;width:100%;margin-top:8px" id="intro-btn">시작하기</button>
       <p class="disclaimer" id="intro-disclaimer">이 프로필은 발달 지원 도구이며, 진단이나 고정된 성격 유형이 아닙니다.</p>
@@ -1308,27 +1308,23 @@ function applyLangToCurrentScreen() {
 }
 
 // Patch renderParentQuestion to use Korean
+// New questions have promptKr and textKr built in — use those directly
 const _origRenderParent = renderParentQuestion;
 renderParentQuestion = function() {
   _origRenderParent();
   if (currentLang !== 'kr') return;
+  if (typeof kr === 'undefined') return;
   const q = parentItems[pIndex];
-  const origIndex = rawParentItems.findIndex(r => r.id === q.id);
-  if (origIndex < 0) return;
-  const krQ = kr.parentItems[origIndex];
-  if (!krQ) return;
-  document.getElementById('pQuestionPrompt').textContent = krQ.prompt || q.promptKr || q.prompt;
+  // Use promptKr directly from question data
+  if (q.promptKr) {
+    document.getElementById('pQuestionPrompt').textContent = q.promptKr;
+  }
   document.getElementById('pQuestionCounter').textContent = kr.ui.question_of(pIndex + 1, parentItems.length);
+  // Use textKr directly from option data
   const btns = document.querySelectorAll('#pOptionsList .option-btn');
   btns.forEach((btn, i) => {
-    const optId = btn.dataset ? btn.dataset.optId : null;
-    // match by position in shuffled options
     const shuffledOpt = parentItems[pIndex].options[i];
-    const origOpt = rawParentItems[origIndex].options.find(o => o.id === shuffledOpt.id);
-    if (origOpt) {
-      const optIndex = rawParentItems[origIndex].options.indexOf(origOpt);
-      if (krQ.options[optIndex]) btn.textContent = krQ.options[optIndex].text;
-    }
+    if (shuffledOpt && shuffledOpt.textKr) btn.textContent = shuffledOpt.textKr;
   });
   document.getElementById('pNextBtn').textContent = kr.ui.next;
   document.getElementById('progressSection').textContent = kr.ui.about_child;
