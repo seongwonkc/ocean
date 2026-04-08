@@ -533,6 +533,8 @@
       .accordion-trigger { padding: 14px 16px; font-size: 14px; }
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -654,6 +656,16 @@
         <p id="results-main-sub">아이와 부모님의 성향이 어디서 잘 맞고, 어디서 엇갈리는지 보여드립니다</p>
       </div>
 
+      <!-- DOWNLOAD BUTTON -->
+<div style="text-align:center;margin-bottom:24px">
+  <button onclick="downloadPDF()" id="downloadBtn"
+    style="background:var(--ink);color:var(--white);border:none;border-radius:40px;
+    padding:14px 32px;font-family:'Noto Serif KR',serif;font-size:15px;font-weight:600;
+    cursor:pointer;transition:all 0.2s ease">
+    📄 리포트 저장하기
+  </button>
+</div>
+      
       <!-- OCEAN EXPLAINER + FIVE CHARACTERS — rendered by JS -->
       <div id="oceanExplainerSection"></div>
 
@@ -1713,20 +1725,13 @@ const pOP = parentScores.openness              ?? 50;
       html += '<div style="margin-top:10px;font-size:12px;color:var(--ink-soft)">';
       html += '<em>' + (isKr ? '💡 도움이 되는 것:' : '💡 What helps:') + '</em> ';
       html += (isKr ? f.tipKr : f.tipEn);
-      html += '</div></div></div>';
+            html += '</div></div></div>';
     });
   }
 
-  html += '<div style="margin-top:20px;background:var(--cream);border-radius:14px;padding:24px;text-align:center;border:1px dashed var(--celadon-light)">';
-  html += '<div style="font-size:22px;margin-bottom:8px">🔒</div>';
-  html += '<div style="font-family:\'DM Serif Display\',serif;font-size:18px;color:var(--ink);margin-bottom:8px">' + (isKr ? '더 깊이 들어가기' : 'Go deeper') + '</div>';
-  html += '<p style="font-size:13px;color:var(--ink-soft);margin-bottom:16px">' + (isKr ? '각 특성 조합이 실제 일상에서 어떻게 나타나는지, 연령대별 대화법, 전문가가 검토한 맞춤 전략을 확인하세요.' : 'See how each trait combination plays out day-to-day, with age-specific conversation guides and expert-reviewed strategies.') + '</p>';
-  html += '<a href="index.html#waitlist" style="display:inline-block;background:var(--celadon);color:var(--white);padding:12px 28px;border-radius:40px;font-family:\'Noto Serif KR\',serif;font-size:14px;font-weight:600;text-decoration:none">' + (isKr ? '전체 리포트 받기 →' : 'Get the full report →') + '</a>';
-  html += '</div></div>';
-
+  html += '</div>';
   section.innerHTML = html;
 }
-
 // ─────────────────────────────────────────────
 // ACTIVITY CARDS
 // ─────────────────────────────────────────────
@@ -2124,6 +2129,57 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   applyLangToCurrentScreen();
 });
+  // ─────────────────────────────────────────────
+// PDF DOWNLOAD
+// ─────────────────────────────────────────────
+async function downloadPDF() {
+  const btn = document.getElementById('downloadBtn');
+  const isKr = currentLang === 'kr';
+  btn.textContent = isKr ? '저장 중...' : 'Saving...';
+  btn.disabled = true;
+
+  const { jsPDF } = window.jspdf;
+  const element = document.getElementById('screen-results');
+
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      windowWidth: 680,
+      scrollY: 0
+    });
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
+    const ratio = pdfWidth / imgWidth;
+    const scaledHeight = imgHeight * ratio;
+
+    let position = 0;
+    let remaining = scaledHeight;
+
+    while (remaining > 0) {
+      pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, scaledHeight);
+      remaining -= pdfHeight;
+      position -= pdfHeight;
+      if (remaining > 0) pdf.addPage();
+    }
+
+    const filename = isKr ? 'OCEAN_가족리포트.pdf' : 'OCEAN_family_report.pdf';
+    pdf.save(filename);
+  } catch (e) {
+    console.error('PDF error:', e);
+    alert(isKr ? 'PDF 저장 중 오류가 발생했습니다.' : 'Error generating PDF.');
+  }
+
+  btn.textContent = isKr ? '📄 리포트 저장하기' : '📄 Save report';
+  btn.disabled = false;
+}
 </script>
 </body>
 </html>
