@@ -1395,60 +1395,64 @@ function matchArchetype(scores) {
   return archetypes.find(a => a.id === 'flexible_adapter');
 }
 
-// ─────────────────────────────────────────────
-// OCEAN EXPLAINER + FIVE CHARACTERS
-// ─────────────────────────────────────────────
+// ── OCEAN EXPLAINER — FIVE TRAITS ────────────────────────────────────────────
 function renderOceanExplainer() {
   const section = document.getElementById('oceanExplainerSection');
   if (!section) return;
   const isKr = currentLang === 'kr';
 
-  const characters = [
-    { id:'osol', img:'images/osol.png',
-      nameKr:'오솔', nameEn:'Osol',
-      traitKr:'개방성', traitEn:'Openness',
-      descKr:'모르는 게 생기면 바로 탐험하러 가는 아이',
-      descEn:'Always first to explore the unfamiliar',
-      color:'#5a7a3a' },
-    { id:'aru', img:'images/aru.png',
-      nameKr:'아루', nameEn:'Aru',
-      traitKr:'원만성', traitEn:'Agreeableness',
-      descKr:'주변을 먼저 살피고 다가가는 아이',
-      descEn:'Always notices who needs a friend',
-      color:'#3d8b6e' },
-    { id:'chiu', img:'images/chiu.png',
-      nameKr:'치우', nameEn:'Chiu',
-      traitKr:'성실성', traitEn:'Conscientiousness',
-      descKr:'시작한 건 반드시 끝내는 아이',
-      descEn:'Never leaves something half-finished',
-      color:'#3d6b8e' },
-    { id:'epa', img:'images/epa.png',
-      nameKr:'에파', nameEn:'Epa',
-      traitKr:'외향성', traitEn:'Extraversion',
-      descKr:'어디서든 에너지가 넘치는 아이',
-      descEn:'Energizes every room they enter',
-      color:'#b06a2e' },
-    { id:'nuri', img:'images/nuri.png',
-      nameKr:'누리', nameEn:'Nuri',
-      traitKr:'감수성', traitEn:'Sensitivity',
-      descKr:'감정이 깊고 풍부하게 느끼는 아이',
-      descEn:'Feels everything deeply and fully',
-      color:'#8b5e83' }
+  const traits = [
+    { color:'#5a7a3a',
+      nameKr:'개방성', nameEn:'Openness',
+      iconKr:'O', iconEn:'O',
+      headKr:'새로움을 향해 열려 있는가',
+      headEn:'Open to the new',
+      descKr:'호기심, 상상력, 새로운 경험에 대한 욕구. 높으면 탐험가, 낮으면 익숙함에서 안정을 찾습니다.',
+      descEn:'Curiosity, imagination, appetite for new experiences. Higher means explorer. Lower means comfort in the familiar.' },
+    { color:'#3d8b6e',
+      nameKr:'원만성', nameEn:'Agreeableness',
+      iconKr:'A', iconEn:'A',
+      headKr:'타인과 어떻게 함께하는가',
+      headEn:'How they move with others',
+      descKr:'공감, 협력, 타인을 배려하는 성향. 높으면 갈등을 부드럽게 하고, 낮으면 자기 주장이 강합니다.',
+      descEn:'Empathy, cooperation, warmth. Higher means a natural peacemaker. Lower means direct and self-asserting.' },
+    { color:'#3d6b8e',
+      nameKr:'성실성', nameEn:'Conscientiousness',
+      iconKr:'C', iconEn:'C',
+      headKr:'시작한 것을 끝까지 하는가',
+      headEn:'Follow-through and focus',
+      descKr:'끈기, 조직력, 책임감. 높으면 마무리를 잘 하고, 낮으면 유연하지만 주의가 분산됩니다.',
+      descEn:'Persistence, organization, reliability. Higher means a finisher. Lower means flexible but easily pulled away.' },
+    { color:'#b06a2e',
+      nameKr:'외향성', nameEn:'Extraversion',
+      iconKr:'E', iconEn:'E',
+      headKr:'사람에게서 에너지를 얻는가',
+      headEn:'Where they get their energy',
+      descKr:'사회적 자극과 활동을 통해 충전합니다. 높으면 함께 있을 때 빛나고, 낮으면 혼자 있을 때 회복됩니다.',
+      descEn:'Energized by social contact and activity. Higher means thrives in company. Lower means recharges alone.' },
+    { color:'#8b5e83',
+      nameKr:'감수성', nameEn:'Sensitivity',
+      iconKr:'N', iconEn:'N',
+      headKr:'감정을 얼마나 강하게 느끼는가',
+      headEn:'How intensely they feel',
+      descKr:'변화, 좌절, 불확실성에 대한 정서적 반응 강도. 높다고 나쁜 게 아니라 — 더 섬세하게 조율된 것입니다.',
+      descEn:'How strongly they respond to change, frustration, uncertainty. Higher isn\'t worse — it\'s more finely tuned.' }
   ];
 
-  const title = isKr ? '오션이 만나는 다섯 아이' : 'Five children OCEAN meets';
+  const title = isKr ? '오션이 보는 다섯 가지 차원' : 'The five dimensions OCEAN measures';
   const sub = isKr
     ? '모든 아이는 이 다섯 가지 특성의 독특한 조합입니다. 높고 낮음이 아니라 — 각자의 지형입니다.'
-    : 'Every child is a unique combination of these five dimensions. Not high or low — a landscape.';
+    : 'Every child is a unique combination of these five. Not high or low — a landscape.';
 
-  const cards = characters.map(c => `
-    <div class="character-card">
-      <div class="character-img">
-        <img src="${c.img}" alt="${isKr ? c.nameKr : c.nameEn}" onerror="this.style.display='none'" />
-      </div>
-      <div class="character-name">${isKr ? c.nameKr : c.nameEn}</div>
-      <div class="character-trait-badge" style="background:${c.color}22;color:${c.color}">${isKr ? c.traitKr : c.traitEn}</div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:6px;line-height:1.4">${isKr ? c.descKr : c.descEn}</div>
+  const cards = traits.map(t => `
+    <div class="character-card" style="width:130px">
+      <div style="width:44px;height:44px;border-radius:50%;background:${t.color}33;color:${t.color};
+           display:flex;align-items:center;justify-content:center;
+           font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;
+           margin:0 auto 10px">${isKr ? t.iconKr : t.iconEn}</div>
+      <div class="character-name" style="font-size:13px;margin-bottom:3px">${isKr ? t.nameKr : t.nameEn}</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.5);line-height:1.4;margin-bottom:6px">${isKr ? t.headKr : t.headEn}</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.38);line-height:1.4">${isKr ? t.descKr : t.descEn}</div>
     </div>`).join('');
 
   section.innerHTML = `
