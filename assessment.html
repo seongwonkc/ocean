@@ -1101,6 +1101,13 @@ const traitDescriptions = {
   agreeableness:{ name:"Agreeableness", plain:"Keeps things smooth.", higher:"More likely to smooth conflict, help, notice others, and cooperate.", balanced:"Can be warm and cooperative while still asserting personal needs.", lower:"More likely to hold position, focus on own goals, or engage directly in disagreement." },
   negative_emotionality:{ name:"Sensitivity", plain:"Feels change strongly.", higher:"More likely to react strongly to change, frustration, correction, or uncertainty.", balanced:"Shows feelings clearly, but usually settles without much spillover.", lower:"More likely to stay steady and recover quickly after setbacks." }
 };
+  const traitDescriptionsKr = {
+  openness:{ higher:"새로운 것을 탐색하고, 상상하고, 직접 시도해보려는 성향이 강합니다.", balanced:"익숙한 것과 새로운 것 사이에서 유연하게 균형을 잡습니다.", lower:"익숙하고 검증된 방식에서 안정을 찾습니다. 루틴을 선호합니다." },
+  conscientiousness:{ higher:"시작한 일을 끝까지 해내고, 체계적으로 관리하는 경향이 강합니다.", balanced:"책임감이 있지만, 관심사나 상황에 따라 집중도가 달라질 수 있습니다.", lower:"주의가 빠르게 이동하는 편이며, 외부 구조가 있을 때 더 잘 발휘됩니다." },
+  extraversion:{ higher:"먼저 말을 걸고, 그룹 안에서 활기차게 참여하며 사회적 자극을 즐깁니다.", balanced:"사교적이지만, 상황에 따라 천천히 참여하기도 합니다.", lower:"먼저 관찰하고, 조용한 상호작용을 선호하며 혼자 있는 시간에 회복됩니다." },
+  agreeableness:{ higher:"갈등을 부드럽게 하고, 타인을 배려하며 협력을 자연스럽게 이끌어냅니다.", balanced:"따뜻하고 협조적이지만, 필요할 때는 자기 의견도 분명히 표현합니다.", lower:"자기 입장을 분명히 하고, 자신의 목표에 집중하는 경향이 있습니다." },
+  negative_emotionality:{ higher:"변화, 좌절, 불확실한 상황에 감정적으로 강하게 반응하는 편입니다.", balanced:"감정을 명확히 표현하지만, 대체로 큰 여파 없이 안정을 찾습니다.", lower:"어려운 상황에서도 침착함을 유지하고 빠르게 회복하는 편입니다." }
+};
 
 const archetypes = [
   { id:"curie_style_explorer", name:"Explorer", nameKr:"탐구자", tagline:"Curious and persistent.", taglineKr:"호기심과 끈기를 함께 가졌습니다.", desc:"Drawn to new ideas and also willing to stay with a challenge long enough to learn from it.", descKr:"새로운 아이디어에 끌리면서도, 배움을 위해 충분히 오래 도전을 붙잡고 있습니다.", logic:{openness:"high",conscientiousness:"high"}, character:"osol" },
@@ -1918,7 +1925,10 @@ function renderResults(scores) {
     const score = Math.round(scores[trait]);
     const band  = getBand(score);
     const desc  = traitDescriptions[trait];
-    const descText = desc[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
+    const descKr = traitDescriptionsKr[trait];
+const descText = isKr
+  ? descKr[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced']
+  : desc[isHigh(score) ? 'higher' : isLow(score) ? 'lower' : 'balanced'];
     const bandKr = band === 'Higher' ? '높음' : band === 'Somewhat higher' ? '다소 높음' :
                    band === 'Balanced' ? '중간' : band === 'Somewhat lower' ? '다소 낮음' : '낮음';
     barsHTML += `
