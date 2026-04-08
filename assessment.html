@@ -532,9 +532,19 @@
       .product-card { flex-direction: column; }
       .accordion-trigger { padding: 14px 16px; font-size: 14px; }
     }
+  @media print {
+  .assessment-nav, #downloadBtn { display: none !important; }
+  .screen { display: none !important; }
+  #screen-results { display: block !important; }
+  .results-wrap { max-width: 100% !important; padding: 0 !important; }
+  .accordion-panel { display: block !important; }
+  .wish-body { display: block !important; }
+  .character-row { overflow: visible !important; flex-wrap: wrap !important; }
+  .archetype-card, .ocean-explainer, .premium-cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: white !important; }
+  @page { margin: 15mm; }
+}
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -2133,88 +2143,21 @@ document.addEventListener('DOMContentLoaded', () => {
 // PDF DOWNLOAD
 // ─────────────────────────────────────────────
 async function downloadPDF() {
-  const btn = document.getElementById('downloadBtn');
-  const isKr = currentLang === 'kr';
-  btn.textContent = isKr ? '저장 중...' : 'Saving...';
-  btn.disabled = true;
-  btn.style.display = 'none'; // hide button from PDF
-
-  // Open all accordions
+  // Open all accordions and activity cards
   document.querySelectorAll('.accordion-panel').forEach(p => p.classList.add('open'));
   document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.add('open'));
   document.querySelectorAll('.wish-card').forEach(c => c.classList.add('open'));
 
-  const { jsPDF } = window.jspdf;
-  const element = document.getElementById('screen-results');
+  window.print();
 
-  // Scroll to top
-  window.scrollTo(0, 0);
-  element.scrollTop = 0;
-
-  await new Promise(r => setTimeout(r, 300)); // let DOM settle
-
-  try {
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#f7f3ec',
-      onclone: (doc) => {
-        // Resolve CSS variables in cloned doc
-        const style = doc.createElement('style');
-        style.textContent = `
-          :root {
-            --ink: #2c2c2a;
-            --ink-soft: #5a5a52;
-            --cream: #f7f3ec;
-            --celadon: #8baf9a;
-            --celadon-pale: #eaf3ee;
-            --celadon-light: #d5e5dc;
-            --amber: #c4853a;
-            --stone: #8c8b84;
-            --white: #fdfcf9;
-            --moss: #5a7a5e;
-          }
-        `;
-        doc.head.appendChild(style);
-      }
-    });
-
-    const imgData = canvas.toDataURL('image/jpeg', 0.95);
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
-    const ratio = pdfWidth / canvas.width;
-    const scaledHeight = canvas.height * ratio;
-
-    let position = 0;
-    let remaining = scaledHeight;
-
-    while (remaining > 0) {
-      pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, scaledHeight);
-      remaining -= pdfHeight;
-      position -= pdfHeight;
-      if (remaining > 0) pdf.addPage();
-    }
-
-    const filename = isKr ? 'OCEAN_가족리포트.pdf' : 'OCEAN_family_report.pdf';
-    pdf.save(filename);
-  } catch (e) {
-    console.error('PDF error:', e);
-    alert(isKr ? 'PDF 저장 중 오류가 발생했습니다.' : 'Error generating PDF.');
-  }
-
-  // Restore UI
-  btn.style.display = 'block';
-  btn.textContent = isKr ? '📄 리포트 저장하기' : '📄 Save report';
-  btn.disabled = false;
-
-  // Close accordions again
-  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
-  document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
-  document.querySelectorAll('.wish-card').forEach(c => c.classList.remove('open'));
+  // Restore after print dialog closes
+  setTimeout(() => {
+    document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.wish-card').forEach(c => c.classList.remove('open'));
+  }, 1000);
 }
+  
 </script>
 </body>
 </html>
