@@ -121,6 +121,63 @@
 
     .results-header p { color: var(--ink-soft); font-size: 15px; }
 
+    /* ── OCEAN EXPLAINER ── */
+    .ocean-explainer {
+      background: var(--ink); border-radius: 20px;
+      padding: 32px 28px; margin-bottom: 24px; color: var(--white);
+    }
+    .ocean-explainer h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; font-weight: 400; margin-bottom: 8px;
+    }
+    .explainer-sub {
+      font-size: 13px; color: rgba(255,255,255,0.65);
+      margin-bottom: 24px; font-style: italic;
+    }
+    .character-row {
+      display: flex; gap: 10px; overflow-x: auto;
+      padding-bottom: 8px; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .character-row::-webkit-scrollbar { display: none; }
+    .character-card {
+      flex: 0 0 auto; width: 110px; scroll-snap-align: start;
+      background: rgba(255,255,255,0.08); border-radius: 14px;
+      padding: 14px 10px; text-align: center; transition: background 0.2s;
+    }
+    .character-card:hover { background: rgba(255,255,255,0.14); }
+    .character-img {
+      width: 60px; height: 75px; border-radius: 10px; overflow: hidden;
+      margin: 0 auto 10px; background: rgba(255,255,255,0.1);
+    }
+    .character-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .character-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 14px; color: var(--white); margin-bottom: 4px;
+    }
+    .character-trait-badge {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+      padding: 3px 8px; border-radius: 10px; display: inline-block;
+    }
+
+    /* ── RADAR CHART ── */
+    .radar-section {
+      background: var(--cream); border-radius: 20px;
+      padding: 28px 24px; margin-bottom: 24px; text-align: center;
+    }
+    .radar-section h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px; font-weight: 400; color: var(--ink); margin-bottom: 6px;
+    }
+    .radar-sub { font-size: 13px; color: var(--ink-soft); margin-bottom: 20px; font-style: italic; }
+    .radar-legend {
+      display: flex; justify-content: center; gap: 24px;
+      margin-top: 16px; font-size: 13px; color: var(--ink-soft);
+    }
+    .radar-legend-item { display: flex; align-items: center; gap: 8px; }
+    .radar-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── ARCHETYPE ── */
     .archetype-card {
       background: var(--ink); color: var(--white);
       border-radius: 20px; padding: 36px 32px;
@@ -401,6 +458,67 @@
     }
     .skip-child-box p { font-size: 14px; line-height: 1.7; color: var(--ink-soft); margin: 0; }
 
+    /* ── ACTIVITY CARDS ── */
+    .activity-section { margin-bottom: 24px; }
+    .activity-section-header {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; font-weight: 400; color: var(--ink);
+      margin-bottom: 8px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--celadon-light);
+    }
+    .activity-section-sub {
+      font-size: 13px; color: var(--ink-soft);
+      margin-bottom: 20px; font-style: italic;
+    }
+    .wish-card {
+      background: var(--cream); border-radius: 14px;
+      margin-bottom: 10px; overflow: hidden;
+      cursor: pointer; border: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .wish-card:hover { border-color: var(--celadon-light); }
+    .wish-card.open { border-color: var(--celadon); }
+    .wish-header {
+      padding: 18px 20px;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .wish-header-left { flex: 1; }
+    .wish-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 5px;
+    }
+    .wish-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.4;
+    }
+    .wish-score-bar { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .wish-track { flex: 1; height: 5px; background: var(--celadon-light); border-radius: 3px; overflow: hidden; }
+    .wish-fill { height: 100%; background: var(--celadon); border-radius: 3px; }
+    .wish-score-label { font-size: 11px; color: var(--stone); white-space: nowrap; }
+    .wish-arrow { font-size: 11px; color: var(--stone); transition: transform 0.3s; flex-shrink: 0; }
+    .wish-card.open .wish-arrow { transform: rotate(180deg); }
+    .wish-body { display: none; padding: 0 20px 20px; animation: fadeUp 0.2s ease forwards; }
+    .wish-card.open .wish-body { display: block; }
+    .wish-context {
+      font-size: 13px; color: var(--ink-soft); line-height: 1.7;
+      margin-bottom: 16px; padding: 12px 14px;
+      background: var(--white); border-radius: 10px; border-left: 3px solid var(--celadon);
+    }
+    .activity-list { list-style: none; padding: 0; margin: 0; }
+    .activity-list li {
+      font-size: 13px; line-height: 1.65; color: var(--ink-soft);
+      padding: 10px 0 10px 20px; position: relative;
+      border-bottom: 1px solid var(--celadon-pale);
+    }
+    .activity-list li:last-child { border-bottom: none; }
+    .activity-list li::before { content: '→'; position: absolute; left: 0; color: var(--celadon); font-size: 11px; top: 11px; }
+    .activity-list li strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+    .wish-strength-note {
+      font-size: 12px; color: #27ae60;
+      background: #eafbf1; border-radius: 8px;
+      padding: 10px 12px; font-style: italic;
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 480px) {
       .assessment-wrap { padding: 24px 16px; justify-content: flex-start; padding-top: 48px; }
@@ -536,6 +654,12 @@
         <p id="results-main-sub">아이와 부모님의 성향이 어디서 잘 맞고, 어디서 엇갈리는지 보여드립니다</p>
       </div>
 
+      <!-- OCEAN EXPLAINER + FIVE CHARACTERS — rendered by JS -->
+      <div id="oceanExplainerSection"></div>
+
+      <!-- RADAR CHART — rendered by JS -->
+      <div class="radar-section" id="radarSection"></div>
+
       <!-- CHILD ARCHETYPE -->
       <div class="archetype-card" id="archetypeCard"></div>
 
@@ -566,6 +690,9 @@
 
       <!-- COMPATIBILITY FLAGS — rendered by JS -->
       <div id="compatibilitySection" style="margin-bottom:24px"></div>
+
+      <!-- ACTIVITY CARDS — rendered by JS -->
+      <div id="activityCardsSection"></div>
 
       <!-- JOURNEY CTA -->
       <div class="premium-cta" id="journeyCta">
@@ -849,7 +976,6 @@ const calibrationMultipliers = { very_typical:1.0, somewhat_typical:0.7, not_ver
 // PARENT SELF-ASSESSMENT QUESTIONS (15 items, A/B)
 // ─────────────────────────────────────────────
 const rawParentSelfItems = [
-  // ── NEGATIVE EMOTIONALITY (4) — A = high NE (reactive) ───────────────────
   { id:"PS1", construct:"negative_emotionality",
     prompt:"When your plans change unexpectedly, which is more typical?",
     promptKr:"계획이 갑자기 바뀌었을 때, 나는 보통 어떤가요?",
@@ -878,7 +1004,6 @@ const rawParentSelfItems = [
       { id:"A", text:"My emotional state shifts noticeably depending on what's happening",  textKr:"상황에 따라 감정 상태가 눈에 띄게 달라지는 편이다" },
       { id:"B", text:"My emotional state stays fairly even from day to day",               textKr:"하루하루 감정 상태가 큰 변화 없이 비교적 일정한 편이다" }
     ]},
-  // ── AGREEABLENESS (4) — A = high AG ──────────────────────────────────────
   { id:"PS5", construct:"agreeableness",
     prompt:"When you disagree with someone, which is more typical?",
     promptKr:"누군가와 의견이 다를 때, 나는 보통 어떤가요?",
@@ -907,7 +1032,6 @@ const rawParentSelfItems = [
       { id:"A", text:"I tend to keep things smooth and avoid friction",            textKr:"분위기를 부드럽게 유지하고 마찰을 피하는 편이다" },
       { id:"B", text:"I tend to say what needs to be said even if it causes friction", textKr:"마찰이 생기더라도 필요한 말을 하는 편이다" }
     ]},
-  // ── CONSCIENTIOUSNESS (4) — A = high CO ──────────────────────────────────
   { id:"PS9", construct:"conscientiousness",
     prompt:"When you take on a task or commitment, which is more typical?",
     promptKr:"어떤 일이나 약속을 맡았을 때, 나는 보통 어떤가요?",
@@ -936,7 +1060,6 @@ const rawParentSelfItems = [
       { id:"A", text:"I keep things organized — I like knowing where things stand",   textKr:"정돈된 상태를 유지한다 — 상황이 파악되어 있는 것을 좋아한다" },
       { id:"B", text:"I'm organized enough, but I don't stress about tidiness",       textKr:"어느 정도 정리되어 있으면 충분하고, 깔끔함에 크게 연연하지 않는다" }
     ]},
-  // ── EXTRAVERSION (2) — A = high EX ───────────────────────────────────────
   { id:"PS13", construct:"extraversion",
     prompt:"After a full day of being around a lot of people, which is more typical?",
     promptKr:"하루 종일 많은 사람들과 함께한 후, 나는 보통 어떤가요?",
@@ -951,7 +1074,6 @@ const rawParentSelfItems = [
       { id:"A", text:"I introduce myself and get involved fairly quickly",          textKr:"비교적 빠르게 먼저 인사하고 어울리는 편이다" },
       { id:"B", text:"I hang back and observe before I start engaging",             textKr:"먼저 지켜보다가 천천히 참여하는 편이다" }
     ]},
-  // ── OPENNESS (1) — A = high OP ────────────────────────────────────────────
   { id:"PS15", construct:"openness",
     prompt:"When you come across an idea or way of doing something unfamiliar, which is more typical?",
     promptKr:"익숙하지 않은 아이디어나 방식을 접했을 때, 나는 보통 어떤가요?",
@@ -962,15 +1084,10 @@ const rawParentSelfItems = [
 ];
 
 const parentSelfScoring = {
-  // NE: A = reactive (high NE), B = stable (low NE)
   PS1:{keyed:"A"}, PS2:{keyed:"A"}, PS3:{keyed:"A"}, PS4:{keyed:"A"},
-  // AG: A = agreeable (high AG), B = direct (low AG)
   PS5:{keyed:"A"}, PS6:{keyed:"A"}, PS7:{keyed:"A"}, PS8:{keyed:"A"},
-  // CO: A = conscientious (high CO), B = flexible (low CO)
   PS9:{keyed:"A"}, PS10:{keyed:"A"}, PS11:{keyed:"A"}, PS12:{keyed:"A"},
-  // EX: A = extraverted (high EX), B = introverted (low EX)
   PS13:{keyed:"A"}, PS14:{keyed:"A"},
-  // OP: A = open (high OP), B = conventional (low OP)
   PS15:{keyed:"A"}
 };
 
@@ -1279,6 +1396,153 @@ function matchArchetype(scores) {
 }
 
 // ─────────────────────────────────────────────
+// OCEAN EXPLAINER + FIVE CHARACTERS
+// ─────────────────────────────────────────────
+function renderOceanExplainer() {
+  const section = document.getElementById('oceanExplainerSection');
+  if (!section) return;
+  const isKr = currentLang === 'kr';
+
+  const characters = [
+    { id:'osol', img:'images/osol.png',
+      nameKr:'오솔', nameEn:'Osol',
+      traitKr:'개방성', traitEn:'Openness',
+      descKr:'모르는 게 생기면 바로 탐험하러 가는 아이',
+      descEn:'Always first to explore the unfamiliar',
+      color:'#5a7a3a' },
+    { id:'aru', img:'images/aru.png',
+      nameKr:'아루', nameEn:'Aru',
+      traitKr:'원만성', traitEn:'Agreeableness',
+      descKr:'주변을 먼저 살피고 다가가는 아이',
+      descEn:'Always notices who needs a friend',
+      color:'#3d8b6e' },
+    { id:'chiu', img:'images/chiu.png',
+      nameKr:'치우', nameEn:'Chiu',
+      traitKr:'성실성', traitEn:'Conscientiousness',
+      descKr:'시작한 건 반드시 끝내는 아이',
+      descEn:'Never leaves something half-finished',
+      color:'#3d6b8e' },
+    { id:'epa', img:'images/epa.png',
+      nameKr:'에파', nameEn:'Epa',
+      traitKr:'외향성', traitEn:'Extraversion',
+      descKr:'어디서든 에너지가 넘치는 아이',
+      descEn:'Energizes every room they enter',
+      color:'#b06a2e' },
+    { id:'nuri', img:'images/nuri.png',
+      nameKr:'누리', nameEn:'Nuri',
+      traitKr:'감수성', traitEn:'Sensitivity',
+      descKr:'감정이 깊고 풍부하게 느끼는 아이',
+      descEn:'Feels everything deeply and fully',
+      color:'#8b5e83' }
+  ];
+
+  const title = isKr ? '오션이 만나는 다섯 아이' : 'Five children OCEAN meets';
+  const sub = isKr
+    ? '모든 아이는 이 다섯 가지 특성의 독특한 조합입니다. 높고 낮음이 아니라 — 각자의 지형입니다.'
+    : 'Every child is a unique combination of these five dimensions. Not high or low — a landscape.';
+
+  const cards = characters.map(c => `
+    <div class="character-card">
+      <div class="character-img">
+        <img src="${c.img}" alt="${isKr ? c.nameKr : c.nameEn}" onerror="this.style.display='none'" />
+      </div>
+      <div class="character-name">${isKr ? c.nameKr : c.nameEn}</div>
+      <div class="character-trait-badge" style="background:${c.color}22;color:${c.color}">${isKr ? c.traitKr : c.traitEn}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:6px;line-height:1.4">${isKr ? c.descKr : c.descEn}</div>
+    </div>`).join('');
+
+  section.innerHTML = `
+    <div class="ocean-explainer">
+      <h3>${title}</h3>
+      <p class="explainer-sub">${sub}</p>
+      <div class="character-row">${cards}</div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────
+// RADAR CHART
+// ─────────────────────────────────────────────
+function renderRadarChart(childScores, pScores) {
+  const section = document.getElementById('radarSection');
+  if (!section) return;
+  const isKr = currentLang === 'kr';
+  const hasParent = Object.keys(pScores).length > 0;
+
+  const traits = ['openness','conscientiousness','extraversion','agreeableness','negative_emotionality'];
+  const labels = isKr
+    ? ['개방성','성실성','외향성','원만성','감수성']
+    : ['Openness','Conscientiousness','Extraversion','Agreeableness','Sensitivity'];
+  const cx = 200, cy = 215, r = 130, n = 5;
+
+  function toXY(i, f) {
+    const a = (Math.PI * 2 * i / n) - Math.PI / 2;
+    return { x: cx + r * f * Math.cos(a), y: cy + r * f * Math.sin(a) };
+  }
+  function poly(scores, invNE) {
+    return traits.map((t, i) => {
+      let v = (scores[t] || 50) / 100;
+      if (t === 'negative_emotionality' && invNE) v = 1 - v;
+      const p = toXY(i, v);
+      return `${p.x},${p.y}`;
+    }).join(' ');
+  }
+  function grid(f) {
+    return traits.map((_, i) => { const p = toXY(i, f); return `${p.x},${p.y}`; }).join(' ');
+  }
+
+  const grids = [0.25, 0.5, 0.75, 1].map(f =>
+    `<polygon points="${grid(f)}" fill="none" stroke="#d5e5dc" stroke-width="${f === 1 ? 1.5 : 1}"/>`
+  ).join('');
+  const axes = traits.map((_, i) => {
+    const e = toXY(i, 1);
+    return `<line x1="${cx}" y1="${cy}" x2="${e.x}" y2="${e.y}" stroke="#d5e5dc" stroke-width="1"/>`;
+  }).join('');
+  const lbls = labels.map((l, i) => {
+    const p = toXY(i, 1.24);
+    const anc = p.x < cx - 5 ? 'end' : p.x > cx + 5 ? 'start' : 'middle';
+    return `<text x="${p.x}" y="${p.y}" text-anchor="${anc}" dominant-baseline="middle" font-family="'Noto Sans KR',sans-serif" font-size="11.5" fill="#6a6a5a" font-weight="500">${l}</text>`;
+  }).join('');
+  const cPoly = `<polygon points="${poly(childScores, false)}" fill="rgba(139,175,154,0.22)" stroke="#8baf9a" stroke-width="2.5" stroke-linejoin="round"/>`;
+  const pPoly = hasParent
+    ? `<polygon points="${poly(pScores, true)}" fill="rgba(196,133,58,0.18)" stroke="#c4853a" stroke-width="2" stroke-linejoin="round" stroke-dasharray="5,3"/>`
+    : '';
+  const cDots = traits.map((t, i) => {
+    const p = toXY(i, (childScores[t] || 50) / 100);
+    return `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#8baf9a" stroke="white" stroke-width="1.5"/>`;
+  }).join('');
+  const pDots = hasParent ? traits.map((t, i) => {
+    let v = (pScores[t] || 50) / 100;
+    if (t === 'negative_emotionality') v = 1 - v;
+    const p = toXY(i, v);
+    return `<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#c4853a" stroke="white" stroke-width="1.5"/>`;
+  }).join('') : '';
+
+  const svg = `<svg viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:0 auto">
+    ${grids}${axes}${pPoly}${cPoly}${pDots}${cDots}${lbls}
+  </svg>`;
+
+  const title = isKr ? '두 사람의 성격 지형' : 'Two personality maps';
+  const sub = isKr
+    ? '겹치는 부분은 공명하는 영역, 벌어진 부분은 서로 다르게 경험하는 영역입니다'
+    : 'Overlap shows resonance. Distance shows where you experience the world differently.';
+
+  section.innerHTML = `
+    <h3>${title}</h3>
+    <p class="radar-sub">${sub}</p>
+    ${svg}
+    <div class="radar-legend">
+      <div class="radar-legend-item">
+        <div class="radar-legend-dot" style="background:#8baf9a"></div>
+        <span>${isKr ? '아이' : 'Child'}</span>
+      </div>
+      ${hasParent ? `<div class="radar-legend-item">
+        <div class="radar-legend-dot" style="background:#c4853a;border-radius:2px"></div>
+        <span>${isKr ? '부모님' : 'Parent'}</span>
+      </div>` : ''}
+    </div>`;
+}
+
+// ─────────────────────────────────────────────
 // PARENT PROFILE RENDERER
 // ─────────────────────────────────────────────
 function renderParentProfile() {
@@ -1369,8 +1633,7 @@ function renderCompatibilityFlags(childScores) {
 
   if (cNE > 60 && pAG < 40) flags.push({
     level:'hi', icon:'⚠️',
-    titleKr:'감정 지지 부족',
-    titleEn:'Emotional scaffolding gap',
+    titleKr:'감정 지지 부족', titleEn:'Emotional scaffolding gap',
     bodyKr:'아이는 감정 기복이 강한 편인데, 부모님의 공감적 반응이 낮습니다. 아이가 속상할 때 충분한 정서적 지지를 받지 못하면 불안이 심화될 수 있습니다.',
     bodyEn:'Your child feels things intensely, and your natural style is more direct than empathic. Without emotional scaffolding during hard moments, anxiety can quietly build.',
     tipKr:'아이가 화가 났을 때 "왜 그러니"보다 "많이 속상했겠다"로 시작해보세요.',
@@ -1379,8 +1642,7 @@ function renderCompatibilityFlags(childScores) {
 
   if (cNE > 60 && pCO < 40) flags.push({
     level:'hi', icon:'⚠️',
-    titleKr:'환경 불안정 위험',
-    titleEn:'Environmental instability risk',
+    titleKr:'환경 불안정 위험', titleEn:'Environmental instability risk',
     bodyKr:'예민한 아이에게 예측 가능한 일과는 안전감의 기초입니다. 일관성이 낮은 환경은 아이의 불안을 서서히 높일 수 있습니다.',
     bodyEn:'Sensitive children rely on predictable routines for a sense of safety. An inconsistent environment can quietly amplify your child\'s anxiety over time.',
     tipKr:'취침 시간 하나만 먼저 고정해보세요. 단 하나의 예측 가능한 닻이 큰 차이를 만듭니다.',
@@ -1389,8 +1651,7 @@ function renderCompatibilityFlags(childScores) {
 
   if (cNE > 60 && pNE > 60) flags.push({
     level:'hi', icon:'⚠️',
-    titleKr:'감정 증폭 패턴',
-    titleEn:'Emotional amplification loop',
+    titleKr:'감정 증폭 패턴', titleEn:'Emotional amplification loop',
     bodyKr:'아이와 부모님 모두 감정 반응이 강한 편입니다. 한쪽이 흔들리면 다른 쪽도 함께 흔들리는 상호 증폭 패턴이 생길 수 있습니다.',
     bodyEn:'Both you and your child have strong emotional reactivity. When one person escalates, the other tends to follow — creating cycles that are hard to exit.',
     tipKr:'"5분 후에 이야기하자"는 규칙을 갈등 전에 미리 정해두세요.',
@@ -1399,8 +1660,7 @@ function renderCompatibilityFlags(childScores) {
 
   if (cEX < 35 && pEX > 65) flags.push({
     level:'med', icon:'💛',
-    titleKr:'에너지 수준 차이',
-    titleEn:'Energy level mismatch',
+    titleKr:'에너지 수준 차이', titleEn:'Energy level mismatch',
     bodyKr:'아이는 조용한 환경과 혼자만의 시간을 필요로 하는데, 부모님은 활동적이고 사회적인 자극을 즐기는 편입니다. 아이가 과자극 상태에 놓이기 쉽습니다.',
     bodyEn:'Your child recharges in quiet while you energize through activity. Extended social situations may leave your child overstimulated and withdrawn.',
     tipKr:'사교 활동 후 아이에게 30분의 혼자 시간을 보장해주세요.',
@@ -1409,8 +1669,7 @@ function renderCompatibilityFlags(childScores) {
 
   if (cOP > 65 && pOP < 35) flags.push({
     level:'med', icon:'💛',
-    titleKr:'탐색 방식 차이',
-    titleEn:'Exploration style gap',
+    titleKr:'탐색 방식 차이', titleEn:'Exploration style gap',
     bodyKr:'아이는 새로운 방식과 아이디어를 탐구하고 싶어하지만, 부모님은 익숙하고 검증된 방법을 선호합니다. 아이의 탐색 욕구가 제한될 수 있습니다.',
     bodyEn:'Your child has a strong drive to explore and experiment, while you prefer what\'s reliable and proven. The child\'s curiosity can feel disruptive from your vantage point.',
     tipKr:'일주일에 한 번, 아이가 선택하는 활동을 판단 없이 따라가보세요.',
@@ -1449,7 +1708,6 @@ function renderCompatibilityFlags(childScores) {
     });
   }
 
-  // Premium lock placeholder
   html += `<div style="margin-top:20px;background:var(--cream);border-radius:14px;padding:24px;text-align:center;border:1px dashed var(--celadon-light)">
     <div style="font-size:22px;margin-bottom:8px">🔒</div>
     <div style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);margin-bottom:8px">${isKr ? '더 깊이 들어가기' : 'Go deeper'}</div>
@@ -1459,6 +1717,161 @@ function renderCompatibilityFlags(childScores) {
 
   html += '</div>';
   section.innerHTML = html;
+}
+
+// ─────────────────────────────────────────────
+// ACTIVITY CARDS
+// ─────────────────────────────────────────────
+function renderActivityCards(childScores) {
+  const section = document.getElementById('activityCardsSection');
+  if (!section) return;
+  const isKr = currentLang === 'kr';
+
+  const activities = [
+    { trait:'conscientiousness', score: childScores.conscientiousness || 50,
+      wishKr:'끝까지 해냈으면 해요', wishEn:'I wish my child would see things through',
+      labelKr:'성실성 · 끈기', labelEn:'Conscientiousness',
+      contextKr:'집중력과 끈기는 전두엽 발달과 함께 자라는 능력입니다. 5~10세는 이 능력이 급격히 발달하는 시기예요. 결과보다 과정을 인정해주는 것이 가장 효과적입니다.',
+      contextEn:'Focus and persistence grow with the prefrontal cortex — this is exactly the developmental window when these abilities are forming. Recognizing effort over outcome is the highest-leverage move.',
+      activitiesKr:[
+        { title:'과정 칭찬하기', desc:'"잘했어" 대신 "열심히 했구나"로 — 노력 자체를 인정해주세요 (Dweck, 성장 마인드셋)' },
+        { title:'"아직"의 언어', desc:'"못 해"가 아니라 "아직 못 해"로 — 작은 단어가 가능성을 열어둡니다' },
+        { title:'5분 단위로 쪼개기', desc:'큰 과제를 작은 단계로 나누어 성취감을 자주 경험하게 해주세요' },
+        { title:'진행 상황 시각화', desc:'스티커 차트나 체크리스트로 진전을 눈으로 볼 수 있게 해주세요' }
+      ],
+      activitiesEn:[
+        { title:'Process praise', desc:'"You worked really hard on that" over "Good job" — recognizing effort builds intrinsic motivation (Dweck)' },
+        { title:'The word "yet"', desc:'"I can\'t do it yet" — a single word that keeps the door open to growth' },
+        { title:'Break it into 5-minute chunks', desc:'Large tasks feel impossible. Breaking them down makes success feel reachable' },
+        { title:'Make progress visible', desc:'A sticker chart or checklist lets your child see how far they\'ve come' }
+      ]
+    },
+    { trait:'openness', score: childScores.openness || 50,
+      wishKr:'새로운 것도 즐겼으면 해요', wishEn:'I wish my child embraced new things',
+      labelKr:'개방성 · 탐구심', labelEn:'Openness',
+      contextKr:'낯선 것에 조심스러운 건 생존 본능과 연결된 자연스러운 반응입니다. 강제로 밀어붙이는 것보다, 아주 조금씩 익숙함의 경계를 넓혀가는 게 효과적입니다.',
+      contextEn:'Caution about the unfamiliar is wired into survival instincts. Pushing hard backfires. The research-backed approach is gradual expansion — tiny steps just beyond the familiar.',
+      activitiesKr:[
+        { title:'한 발짝 탐험', desc:'익숙한 것에서 아주 조금만 새로운 요소를 추가해보세요. 처음부터 큰 변화는 역효과를 낳습니다' },
+        { title:'부모가 먼저 모르는 척하기', desc:'"우리 같이 알아볼까?" — 부모의 호기심은 아이에게 전염됩니다' },
+        { title:'선택권 주기', desc:'"오늘 새로운 공원 가볼까, 네가 골라" — 자율성이 생기면 낯섦에 대한 불안이 줄어들어요' },
+        { title:'왜? 탐구 시간', desc:'하루에 한 가지 "왜 그럴까?" 질문을 함께 탐구해보세요' }
+      ],
+      activitiesEn:[
+        { title:'One small step', desc:'Add just one unfamiliar element to something familiar. Big changes backfire — tiny ones compound' },
+        { title:'Model curiosity', desc:'"Let\'s figure it out together" — your own genuine curiosity is contagious' },
+        { title:'Give choice over novelty', desc:'"Which new park should we try?" — autonomy over the unknown reduces anxiety about it' },
+        { title:'One "why" a day', desc:'Pick one thing and wonder about it together. Questions are more powerful than explanations' }
+      ]
+    },
+    { trait:'extraversion', score: childScores.extraversion || 50,
+      wishKr:'친구들과 더 잘 어울렸으면 해요', wishEn:'I wish my child connected more easily with others',
+      labelKr:'외향성 · 사회적 에너지', labelEn:'Extraversion',
+      contextKr:'내향적인 아이는 "소극적"인 게 아니라, 충전 방식이 다른 겁니다. 억지로 사교적으로 만들려는 시도보다, 아이가 편안한 사회적 환경을 먼저 만들어주세요.',
+      contextEn:'Introverted children aren\'t shy or broken — they recharge differently. Forcing sociability creates anxiety. Building comfortable social environments first is what actually works.',
+      activitiesKr:[
+        { title:'1:1부터 시작하기', desc:'큰 그룹 전에 단 한 명과 놀이 약속부터 — 관계의 깊이가 먼저입니다' },
+        { title:'"관찰 시간" 인정하기', desc:'처음에 지켜보는 건 정상이에요. "왜 안 들어가?"라고 다그치지 마세요' },
+        { title:'집에서 역할극', desc:'낯선 상황을 미리 놀이로 연습하면 실제 상황에서 훨씬 편안해집니다' },
+        { title:'공통 관심사로 연결하기', desc:'비슷한 취미를 가진 아이와 연결해주면 대화 시작이 훨씬 쉬워져요' }
+      ],
+      activitiesEn:[
+        { title:'One-on-one first', desc:'A playdate with one child before a group — depth before breadth' },
+        { title:'Normalize the warm-up time', desc:'Watching before joining is normal. Remove the pressure to dive in immediately' },
+        { title:'Role-play social situations', desc:'Practicing at home — what to say when you meet someone new — reduces real-world anxiety' },
+        { title:'Connect through shared interest', desc:'Finding a child with the same niche interest gives them a conversation starter built in' }
+      ]
+    },
+    { trait:'agreeableness', score: childScores.agreeableness || 50,
+      wishKr:'다른 사람 마음을 더 알았으면 해요', wishEn:'I wish my child was more aware of others',
+      labelKr:'원만성 · 공감', labelEn:'Agreeableness',
+      contextKr:'공감 능력은 선천적인 성향이기도 하지만, 환경과 경험을 통해 충분히 발달할 수 있습니다. 강요보다 감정 언어를 자주 접하게 해주는 것이 핵심입니다.',
+      contextEn:'Empathy has a heritable component, but it develops significantly through experience. Exposure to emotional language is the lever — not lectures about being kind.',
+      activitiesKr:[
+        { title:'책·영상 속 감정 코칭', desc:'"저 아이는 지금 어떤 기분일까?" — 간접 경험이 공감 회로를 키웁니다' },
+        { title:'감정 어휘 확장하기', desc:'슬프다/기쁘다 외에 더 많은 감정 단어를 — 이름 붙일 수 있어야 느낄 수 있어요' },
+        { title:'집 안에서 "돕는 역할" 만들기', desc:'아이만의 특별한 돕는 역할을 정해주면 배려가 습관이 됩니다' },
+        { title:'공감 먼저 반영하기', desc:'아이가 화날 때 "많이 속상했겠다"로 시작하면 아이도 그 방식을 배웁니다' }
+      ],
+      activitiesEn:[
+        { title:'Emotion coaching through stories', desc:'"How do you think she\'s feeling right now?" — indirect experience builds empathy circuits' },
+        { title:'Expand the feeling vocabulary', desc:'Beyond happy/sad — the more words they have for emotions, the more they can perceive them' },
+        { title:'A helping role at home', desc:'Give your child a specific caring responsibility — it makes consideration a habit, not a request' },
+        { title:'Reflect feelings first', desc:'When your child is upset, leading with "you seem really frustrated" teaches them to do the same for others' }
+      ]
+    },
+    { trait:'negative_emotionality', score: childScores.negative_emotionality || 50,
+      wishKr:'감정 기복이 줄었으면 해요', wishEn:'I wish my child managed big feelings more easily',
+      labelKr:'감수성 · 정서 조절', labelEn:'Emotional sensitivity',
+      contextKr:'감정 반응이 강한 아이는 신경학적으로 더 민감한 시스템을 타고났습니다. 고쳐야 할 결함이 아니라, 더 섬세한 조율이 필요한 악기입니다. 부모의 침착함이 가장 강력한 도구예요.',
+      contextEn:'Children with strong emotional reactivity are neurologically wired for intensity — it\'s not a flaw. Think of it as a finely-tuned instrument, not a broken one. Your calm is the most powerful tool you have.',
+      activitiesKr:[
+        { title:'부모 먼저 침착하기', desc:'아이의 감정은 부모 감정에 동조됩니다. 아이가 폭발할 때, 부모가 닻이 되어주세요' },
+        { title:'일과 고정하기', desc:'예측 가능한 하루 구조가 불안을 줄입니다. 취침 시간 하나부터 시작해보세요' },
+        { title:'감정에 이름 붙이기', desc:'"지금 화가 많이 났구나" — 감정에 이름을 붙이면 강도가 낮아진다는 연구가 있습니다' },
+        { title:'진정 루틴 함께 만들기', desc:'아이만의 감정 진정 방법을 미리 찾아두세요. 폭발 중에 배우기는 어렵습니다' }
+      ],
+      activitiesEn:[
+        { title:'Your calm is the tool', desc:'Your child\'s nervous system co-regulates with yours. When they escalate, staying anchored is the intervention' },
+        { title:'Predictable structure', desc:'Consistent routines reduce baseline anxiety. Start with one fixed anchor — bedtime is highest impact' },
+        { title:'Name it to tame it', desc:'"You seem really angry right now" — labeling emotions reduces their intensity (Lieberman et al.)' },
+        { title:'Build the calm-down kit before the storm', desc:'Find your child\'s regulation tools during a peaceful moment — deep breaths, movement, a quiet spot' }
+      ]
+    }
+  ];
+
+  const title = isKr ? '이런 부분이 더 발전했으면 해요' : 'Growth areas';
+  const sub = isKr
+    ? '아이의 현재 점수와 무관하게, 어느 영역이든 발달할 수 있습니다. 클릭해서 과학 기반 활동을 확인해보세요.'
+    : 'Any trait can develop with the right environment. Click to see research-backed activities.';
+
+  const cards = activities.map((a, idx) => {
+    const score = Math.round(a.score);
+    const isStrong = score >= 65;
+    const bandLabel = isKr
+      ? (score >= 65 ? '이미 강한 영역' : score >= 45 ? '발전 가능한 영역' : '집중 발달 영역')
+      : (score >= 65 ? 'Already strong' : score >= 45 ? 'Growing area' : 'Focus area');
+    const bandColor = score >= 65 ? '#27ae60' : score >= 45 ? '#e67e22' : '#3d6b8e';
+
+    const actList = (isKr ? a.activitiesKr : a.activitiesEn).map(act =>
+      `<li><strong>${act.title}</strong>${act.desc}</li>`
+    ).join('');
+
+    const body = isStrong
+      ? `<div class="wish-context">${isKr ? a.contextKr : a.contextEn}</div>
+         <div class="wish-strength-note">
+           ${isKr ? '✓ 아이가 이미 이 영역에서 강점을 보이고 있어요. 지금 하고 있는 것들을 계속해주세요.' : '✓ Your child is already showing strength here. Keep doing what you\'re doing.'}
+         </div>`
+      : `<div class="wish-context">${isKr ? a.contextKr : a.contextEn}</div>
+         <ul class="activity-list">${actList}</ul>`;
+
+    return `<div class="wish-card" id="wish-${idx}" onclick="toggleWishCard(${idx})">
+      <div class="wish-header">
+        <div class="wish-header-left">
+          <div class="wish-label">${isKr ? a.labelKr : a.labelEn}</div>
+          <div class="wish-title">${isKr ? a.wishKr : a.wishEn}</div>
+          <div class="wish-score-bar">
+            <div class="wish-track"><div class="wish-fill" style="width:${score}%;background:${bandColor}"></div></div>
+            <div class="wish-score-label" style="color:${bandColor}">${bandLabel}</div>
+          </div>
+        </div>
+        <span class="wish-arrow">&#9660;</span>
+      </div>
+      <div class="wish-body">${body}</div>
+    </div>`;
+  }).join('');
+
+  section.innerHTML = `<div class="activity-section">
+    <div class="activity-section-header">${title}</div>
+    <p class="activity-section-sub">${sub}</p>
+    ${cards}
+  </div>`;
+}
+
+function toggleWishCard(idx) {
+  const card = document.getElementById(`wish-${idx}`);
+  if (!card) return;
+  card.classList.toggle('open');
 }
 
 // ─────────────────────────────────────────────
@@ -1476,6 +1889,12 @@ function renderResults(scores) {
   document.getElementById('results-main-sub').textContent   = isKr
     ? '아이와 부모님의 성향이 어디서 잘 맞고, 어디서 엇갈리는지 보여드립니다'
     : 'Where you and your child align — and where you diverge.';
+
+  // OCEAN explainer + five characters — rendered immediately
+  renderOceanExplainer();
+
+  // Radar chart — rendered immediately
+  renderRadarChart(scores, parentScores);
 
   // Archetype card
   document.getElementById('archetypeCard').innerHTML = `
@@ -1595,10 +2014,11 @@ function renderResults(scores) {
   document.getElementById('journey-cta-h3').textContent  = isKr ? '여기서 멈추지 않아도 됩니다.'     : 'You don\'t have to stop here.';
   document.getElementById('journey-cta-btn').textContent = isKr ? '어떤 단계가 맞는지 알아보기 →'   : 'Find out which step is right for you →';
 
-  // Parent profile + compatibility (rendered after brief delay so child bars animate first)
+  // Parent profile + compatibility + activity cards — after brief delay so child bars animate first
   setTimeout(() => {
     renderParentProfile();
     renderCompatibilityFlags(scores);
+    renderActivityCards(scores);
   }, 400);
 }
 
