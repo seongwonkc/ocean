@@ -1631,14 +1631,14 @@ function renderCompatibilityFlags(childScores) {
   if (!section || Object.keys(parentScores).length === 0) return;
   const isKr = currentLang === 'kr';
 
-  const cNE = childScores.negative_emotionality || 50;
-  const cEX = childScores.extraversion          || 50;
-  const cOP = childScores.openness              || 50;
-  const pNE = parentScores.negative_emotionality || 50;
-  const pAG = parentScores.agreeableness         || 50;
-  const pCO = parentScores.conscientiousness     || 50;
-  const pEX = parentScores.extraversion          || 50;
-  const pOP = parentScores.openness              || 50;
+ const cNE = childScores.negative_emotionality ?? 50;
+const cEX = childScores.extraversion          ?? 50;
+const cOP = childScores.openness              ?? 50;
+const pNE = parentScores.negative_emotionality ?? 50;
+const pAG = parentScores.agreeableness         ?? 50;
+const pCO = parentScores.conscientiousness     ?? 50;
+const pEX = parentScores.extraversion          ?? 50;
+const pOP = parentScores.openness              ?? 50;
 
   const flags = [];
 
