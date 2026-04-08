@@ -2137,28 +2137,56 @@ async function downloadPDF() {
   const isKr = currentLang === 'kr';
   btn.textContent = isKr ? '저장 중...' : 'Saving...';
   btn.disabled = true;
+  btn.style.display = 'none'; // hide button from PDF
+
+  // Open all accordions
+  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.add('open'));
+  document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.add('open'));
+  document.querySelectorAll('.wish-card').forEach(c => c.classList.add('open'));
 
   const { jsPDF } = window.jspdf;
   const element = document.getElementById('screen-results');
+
+  // Scroll to top
+  window.scrollTo(0, 0);
+  element.scrollTop = 0;
+
+  await new Promise(r => setTimeout(r, 300)); // let DOM settle
 
   try {
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
       logging: false,
-      windowWidth: 680,
-      scrollY: 0
+      backgroundColor: '#f7f3ec',
+      onclone: (doc) => {
+        // Resolve CSS variables in cloned doc
+        const style = doc.createElement('style');
+        style.textContent = `
+          :root {
+            --ink: #2c2c2a;
+            --ink-soft: #5a5a52;
+            --cream: #f7f3ec;
+            --celadon: #8baf9a;
+            --celadon-pale: #eaf3ee;
+            --celadon-light: #d5e5dc;
+            --amber: #c4853a;
+            --stone: #8c8b84;
+            --white: #fdfcf9;
+            --moss: #5a7a5e;
+          }
+        `;
+        doc.head.appendChild(style);
+      }
     });
 
-    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    const imgData = canvas.toDataURL('image/jpeg', 0.95);
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = canvas.width;
-    const imgHeight = canvas.height;
-    const ratio = pdfWidth / imgWidth;
-    const scaledHeight = imgHeight * ratio;
+    const ratio = pdfWidth / canvas.width;
+    const scaledHeight = canvas.height * ratio;
 
     let position = 0;
     let remaining = scaledHeight;
@@ -2177,8 +2205,15 @@ async function downloadPDF() {
     alert(isKr ? 'PDF 저장 중 오류가 발생했습니다.' : 'Error generating PDF.');
   }
 
+  // Restore UI
+  btn.style.display = 'block';
   btn.textContent = isKr ? '📄 리포트 저장하기' : '📄 Save report';
   btn.disabled = false;
+
+  // Close accordions again
+  document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.accordion-trigger').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.wish-card').forEach(c => c.classList.remove('open'));
 }
 </script>
 </body>
