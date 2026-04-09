@@ -2448,6 +2448,11 @@ function submitEmailCapture() {
       document.getElementById('emailCaptureMsg').style.display = 'block';
     });
 }
+function devTest() {
+  parentScores = { negative_emotionality: 80, agreeableness: 30, conscientiousness: 30, extraversion: 80, openness: 20 };
+  const testScores = { negative_emotionality: 80, extraversion: 30, openness: 80, conscientiousness: 50, agreeableness: 50 };
+  renderResults(testScores);
+}
 </script>
 </body>
 </html>
