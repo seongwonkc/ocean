@@ -1681,12 +1681,14 @@ function renderRadarChart(childScores, pScores) {
     return { x: cx + r * f * Math.cos(a), y: cy + r * f * Math.sin(a) };
   }
   function poly(scores, invNE) {
-    return traits.map((t, i) => {
-      let v = (scores[t] ??50) / 100;
-      if (t === 'negative_emotionality' && invNE) v = 1 - v;
-      const p = toXY(i, v);
-      return `${p.x},${p.y}`;
-    }).join(' ');
+  return traits.map((t, i) => {
+    let raw = (scores[t] ?? 50) / 100;
+    if (t === 'negative_emotionality' && invNE) raw = 1 - raw;
+    const MIN_RADAR = 0.15;
+    const v = MIN_RADAR + raw * (1 - MIN_RADAR);
+    const p = toXY(i, v);
+    return `${p.x},${p.y}`;
+  }).join(' ');
   }
   function grid(f) {
     return traits.map((_, i) => { const p = toXY(i, f); return `${p.x},${p.y}`; }).join(' ');
@@ -1708,13 +1710,17 @@ function renderRadarChart(childScores, pScores) {
   const pPoly = hasParent
     ? `<polygon points="${poly(pScores, true)}" fill="rgba(196,133,58,0.18)" stroke="#c4853a" stroke-width="2" stroke-linejoin="round" stroke-dasharray="5,3"/>`
     : '';
-  const cDots = traits.map((t, i) => {
-    const p = toXY(i, (childScores[t] ??50) / 100);
+    const MIN_RADAR = 0.15;
+    const cDots = traits.map((t, i) => {
+    const raw = (childScores[t] ?? 50) / 100;
+    const v = MIN_RADAR + raw * (1 - MIN_RADAR);
+    const p = toXY(i, v);
     return `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#8baf9a" stroke="white" stroke-width="1.5"/>`;
   }).join('');
   const pDots = hasParent ? traits.map((t, i) => {
-    let v = (pScores[t] ??50) / 100;
-    if (t === 'negative_emotionality') v = 1 - v;
+    let raw = (pScores[t] ?? 50) / 100;
+    if (t === 'negative_emotionality') raw = 1 - raw;
+    const v = MIN_RADAR + raw * (1 - MIN_RADAR);
     const p = toXY(i, v);
     return `<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#c4853a" stroke="white" stroke-width="1.5"/>`;
   }).join('') : '';
