@@ -2331,12 +2331,12 @@ async function downloadPDF() {
   // { O: 72, C: 45, E: 60, A: 55, N: 38 }
   // which is the same childScores object used elsewhere
  
-  if (!window.EDUCATION_CONTENT_KR) {
+  if (typeof EDUCATION_CONTENT_KR === 'undefined') {
     console.warn('education-content-kr.js not loaded');
     return '';
   }
  
-  const data = window.EDUCATION_CONTENT_KR;
+  const data = EDUCATION_CONTENT_KR;
   const subjects = Object.keys(data);
  
   // Trait display names in Korean
