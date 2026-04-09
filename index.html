@@ -1,423 +1,722 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OCEAN / 오션 — 우리 아이와 나, 어디서 엇갈리고 있을까요?</title>
-  <meta name="description" content="부모와 아이의 성향 차이를 찾아드립니다. Big Five 기반 부모-자녀 소통 시스템." />
+  <title>OCEAN / 오션 — 우리 아이의 성향을 알면, 교육이 달라집니다</title>
+  <meta name="description" content="50년간 검증된 Big Five 성격 과학으로 우리 아이의 학습 성향과 부모-자녀 관계를 분석합니다." />
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
+    :root {
+      --indigo:       #3D3580;
+      --indigo-dark:  #2A2570;
+      --indigo-mid:   #6B63B5;
+      --indigo-light: #D4D2F0;
+      --indigo-pale:  #EEEDF8;
+      --coral:        #E8583A;
+      --coral-light:  #F5C4B8;
+      --ink:          #1C1C1E;
+      --ink-soft:     #48484A;
+      --stone:        #8E8E93;
+      --white:        #FFFFFF;
+      --cream:        #F8F6F2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Pretendard', 'Noto Serif KR', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
     /* ── NAV ── */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 40px;
-      background: rgba(247,243,236,0.92);
-      backdrop-filter: blur(12px);
+      padding: 20px 48px;
+      background: rgba(248,246,242,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid transparent;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, background 0.3s ease;
     }
-    .nav.scrolled { border-color: var(--celadon-light); }
-    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); letter-spacing: 0.04em; }
-    .nav-logo span { color: var(--celadon); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .lang-toggle { position: static; background: none; border: none; padding: 0; backdrop-filter: none; }
+    .nav.scrolled {
+      border-color: var(--indigo-light);
+      background: rgba(248,246,242,0.96);
+    }
+    .nav-logo {
+      font-family: 'Pretendard', sans-serif;
+      font-weight: 800;
+      font-size: 20px; color: var(--ink);
+      letter-spacing: 0.06em; text-decoration: none;
+    }
+    .nav-logo span { color: var(--indigo); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-link {
+      font-size: 13px; font-weight: 500; color: var(--stone);
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--indigo); }
+    .nav-cta {
+      background: var(--indigo); color: var(--white);
+      padding: 10px 22px; border-radius: 40px;
+      font-size: 13px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: all 0.25s ease;
+    }
+    .nav-cta:hover {
+      background: var(--indigo-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(61,53,128,0.3);
+    }
+    .lang-toggle {
+      position: static !important;
+      display: flex; gap: 4px;
+      background: rgba(61,53,128,0.08);
+      border-radius: 24px; padding: 3px;
+      border: none; backdrop-filter: none;
+    }
+    .lang-toggle button {
+      border: none; background: none;
+      padding: 5px 12px; border-radius: 20px;
+      font-family: 'Pretendard', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: var(--stone); cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-toggle button.active {
+      background: var(--indigo); color: var(--white);
+    }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 120px 24px 80px;
-      text-align: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+      padding: 120px 0 80px;
       position: relative;
       overflow: hidden;
+      background: var(--white);
     }
     .hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(139,175,154,0.12) 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, rgba(196,133,58,0.07) 0%, transparent 50%);
+      background:
+        radial-gradient(ellipse 60% 80% at 100% 50%, rgba(61,53,128,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 0% 80%, rgba(232,88,58,0.04) 0%, transparent 50%);
       pointer-events: none;
     }
+    .hero-left {
+      padding: 0 48px 0 80px;
+      opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards;
+    }
     .hero-eyebrow {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 12px; font-weight: 400;
-      color: var(--celadon);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-      opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--indigo); margin-bottom: 28px;
     }
-
-    /* ── CHECKLIST ── */
-    .checklist {
-      background: rgba(255,255,255,0.7);
-      border: 1px solid var(--celadon-light);
-      border-radius: 16px;
-      padding: 32px 40px;
-      max-width: 560px;
-      width: 100%;
-      margin: 0 auto 32px;
-      text-align: left;
-      opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
-    }
-    .checklist-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 20px; font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
-    .checklist-title .label {
-      display: block;
-      font-size: 11px; font-weight: 400;
-      color: var(--amber);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .checklist-items { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-    .checklist-items li {
-      display: flex; align-items: flex-start; gap: 12px;
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; line-height: 1.6;
-      color: var(--ink-soft);
-    }
-    .checklist-items li::before {
+    .hero-eyebrow::before {
       content: '';
-      width: 18px; height: 18px; min-width: 18px;
-      border: 1.5px solid var(--celadon);
-      border-radius: 4px;
-      margin-top: 2px;
+      display: inline-block; width: 24px; height: 1.5px;
+      background: var(--indigo);
+    }
+    .hero-h1 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(28px, 3.2vw, 48px);
+      font-weight: 800; line-height: 1.2;
+      color: var(--ink); margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+    .hero-h1 em { font-style: italic; color: var(--indigo); }
+    .hero-sub {
+      font-size: 16px; line-height: 1.75;
+      color: var(--ink-soft); margin-bottom: 40px;
+      max-width: 440px; font-weight: 400;
     }
 
-    .hero-hook {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; color: var(--stone);
-      margin-bottom: 24px;
-      opacity: 0; animation: fadeUp 0.6s ease 0.35s forwards;
+    /* Checklist pills */
+    .checklist {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 40px;
     }
-    .hero-hook strong { color: var(--celadon); font-weight: 600; }
-
-    .hero-reframe {
-      max-width: 480px;
-      margin: 0 auto 40px;
-      opacity: 0; animation: fadeUp 0.6s ease 0.45s forwards;
+    .checklist-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 18px;
+      background: var(--cream);
+      border: 1px solid var(--indigo-light);
+      border-radius: 12px;
+      font-size: 14px; font-weight: 500;
+      color: var(--ink-soft);
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: all 0.2s ease;
     }
-    .hero-reframe p {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 17px; line-height: 1.8;
+    .checklist-item:hover {
+      border-color: var(--indigo);
+      background: var(--indigo-pale);
       color: var(--ink);
     }
-    .hero-reframe p + p { margin-top: 8px; }
-    .hero-reframe .highlight {
-      color: var(--moss); font-weight: 600;
-      border-bottom: 2px solid var(--celadon-light);
+    .checklist-item.visible {
+      opacity: 1; transform: translateX(0);
     }
-
-    .hero-cta {
-      display: inline-block;
-      background: var(--celadon);
-      color: var(--white);
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; font-weight: 600;
-      padding: 16px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 20px rgba(139,175,154,0.35);
-      opacity: 0; animation: fadeUp 0.6s ease 0.55s forwards;
-    }
-    .hero-cta:hover { background: var(--moss); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,175,154,0.45); }
-    .hero-cta-sub {
-      display: block; margin-top: 12px;
-      font-family: 'Noto Serif KR', serif;
-      font-size: 12px; color: var(--stone);
-      opacity: 0; animation: fadeUp 0.6s ease 0.65s forwards;
-    }
-
-    /* ── WHY MBTI ── */
-    .why-mbti {
-      padding: 100px 24px;
-      background: var(--white);
-    }
-    .why-mbti-inner {
-      max-width: 700px; margin: 0 auto;
-      text-align: center;
-    }
-    .section-label {
-      display: inline-block;
-      font-family: 'Noto Serif KR', serif;
-      font-size: 11px; font-weight: 400;
-      color: var(--amber);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .why-mbti h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 5vw, 42px);
-      color: var(--ink); line-height: 1.25;
-      margin-bottom: 32px;
-    }
-    .why-mbti h2 em { font-style: italic; color: var(--celadon); }
-    .why-mbti-body {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 16px; line-height: 1.9;
-      color: var(--ink-soft);
-      text-align: left;
-    }
-    .why-mbti-body p + p { margin-top: 16px; }
-    .why-mbti-body strong { color: var(--ink); font-weight: 600; }
-
-    /* ── HOW IT WORKS ── */
-    .how {
-      padding: 100px 24px;
-      background: var(--cream);
-    }
-    .how-inner { max-width: 800px; margin: 0 auto; }
-    .how h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(26px, 4vw, 38px);
-      color: var(--ink); text-align: center;
-      margin-bottom: 60px;
-    }
-    .how-steps { display: flex; flex-direction: column; gap: 0; }
-    .how-step {
-      display: grid; grid-template-columns: 64px 1fr;
-      gap: 24px; padding: 32px 0;
-      border-bottom: 1px solid var(--celadon-light);
-      align-items: start;
-    }
-    .how-step:last-child { border-bottom: none; }
-    .how-step-num {
-      width: 48px; height: 48px;
-      border: 2px solid var(--celadon);
-      border-radius: 50%;
+    .checklist-item:nth-child(1) { transition-delay: 0.3s; }
+    .checklist-item:nth-child(2) { transition-delay: 0.45s; }
+    .checklist-item:nth-child(3) { transition-delay: 0.6s; }
+    .checklist-item:nth-child(4) { transition-delay: 0.75s; }
+    .check-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--indigo);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px; color: var(--celadon);
       flex-shrink: 0;
-    }
-    .how-step-content h3 {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 17px; font-weight: 700;
-      color: var(--ink); margin-bottom: 8px;
-    }
-    .how-step-content p {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; line-height: 1.8;
-      color: var(--ink-soft);
+      font-size: 10px; color: white;
     }
 
-    /* ── JOURNEY ── */
-    .journey {
-      padding: 100px 24px;
+    .hero-cta-group {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s ease 1s forwards;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--indigo); color: var(--white);
+      padding: 16px 32px; border-radius: 50px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(61,53,128,0.3);
+    }
+    .hero-cta:hover {
+      background: var(--indigo-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(61,53,128,0.4);
+    }
+    .hero-cta-sub {
+      font-size: 12px; color: var(--stone); font-weight: 400;
+    }
+
+    /* Hero right — radar SVG */
+    .hero-right {
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 80px 40px 24px;
+      opacity: 0; animation: fadeIn 1.2s ease 0.5s forwards;
+      position: relative;
+    }
+    .radar-wrap {
+      position: relative; width: 420px; height: 420px;
+    }
+    .radar-label-badge {
+      position: absolute;
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 11px; font-weight: 600;
+      backdrop-filter: blur(8px);
+    }
+    .radar-label-child {
+      top: 10px; right: 20px;
+      background: rgba(61,53,128,0.12);
+      border: 1px solid rgba(61,53,128,0.2);
+      color: var(--indigo);
+    }
+    .radar-label-parent {
+      bottom: 10px; left: 20px;
+      background: rgba(232,88,58,0.1);
+      border: 1px solid rgba(232,88,58,0.2);
+      color: var(--coral);
+    }
+    .radar-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* ── HOOK SECTION ── */
+    .hook {
+      padding: 100px 80px;
       background: var(--ink);
-      color: var(--white);
+      position: relative; overflow: hidden;
     }
-    .journey-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .journey .section-label { color: var(--amber-light); }
-    .journey h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(26px, 4vw, 38px);
-      color: var(--white); margin-bottom: 16px;
+    .hook::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,53,128,0.4) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .journey-intro {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 16px; line-height: 1.9;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 56px;
+    .hook-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
     }
-    .journey-steps { display: flex; flex-direction: column; gap: 0; text-align: left; }
-    .journey-step {
-      display: grid; grid-template-columns: 40px 1fr;
-      gap: 20px; padding: 28px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      align-items: start;
+    .hook-left .section-label { color: var(--coral-light); margin-bottom: 20px; }
+    .hook-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(26px, 2.8vw, 42px);
+      font-weight: 800; line-height: 1.2;
+      color: var(--white); margin-bottom: 24px;
     }
-    .journey-step:last-child { border-bottom: none; }
-    .journey-step-icon {
-      font-size: 22px; margin-top: 2px;
+    .hook-h2 em { font-style: italic; color: var(--coral-light); }
+    .hook-body {
+      font-size: 16px; line-height: 1.8;
+      color: rgba(255,255,255,0.6);
     }
-    .journey-step-text h3 {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 16px; font-weight: 700;
-      color: var(--white); margin-bottom: 6px;
+    .hook-stat {
+      display: flex; flex-direction: column; gap: 24px;
     }
-    .journey-step-text p {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 14px; line-height: 1.8;
-      color: rgba(255,255,255,0.55);
+    .stat-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 24px 28px;
+      transition: all 0.3s ease;
     }
-    .journey-cta {
-      display: inline-block; margin-top: 48px;
-      background: transparent;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      color: var(--white);
-      font-family: 'Noto Serif KR', serif;
-      font-size: 14px; font-weight: 600;
-      padding: 14px 36px; border-radius: 50px;
-      text-decoration: none;
-      transition: all 0.25s ease;
+    .stat-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(61,53,128,0.5);
+      transform: translateX(4px);
     }
-    .journey-cta:hover { border-color: var(--celadon); color: var(--celadon); }
-
-    /* ── CHARACTERS ── */
-    .characters {
-      padding: 100px 24px;
-      background: var(--white);
+    .stat-num {
+      font-family: 'Pretendard', sans-serif;
+      font-weight: 800;
+      font-size: 32px; color: var(--indigo-light);
+      line-height: 1; margin-bottom: 8px;
+      display: block;
     }
-    .characters-inner { max-width: 900px; margin: 0 auto; }
-    .characters h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(26px, 4vw, 38px);
-      color: var(--ink); text-align: center;
-      margin-bottom: 12px;
+    .stat-label {
+      font-size: 14px; color: rgba(255,255,255,0.55);
+      line-height: 1.5;
     }
-    .characters-sub {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; color: var(--stone);
-      text-align: center; margin-bottom: 56px;
-    }
-    .characters-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-    }
-    .character-card {
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    .character-card:hover { transform: translateY(-4px); }
-    .character-image {
-      width: 100%; aspect-ratio: 1;
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--celadon-pale);
-      margin-bottom: 14px;
-    }
-    .character-image img { width: 100%; height: 100%; object-fit: cover; }
-    .character-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 18px; color: var(--ink);
-    }
-    .character-name-kr {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 13px; color: var(--stone);
-      margin-bottom: 6px;
-    }
-    .character-desc {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 12px; line-height: 1.6;
-      color: var(--stone);
+    .stat-source {
+      font-size: 11px; color: rgba(255,255,255,0.3);
+      margin-top: 6px; font-style: italic;
     }
 
     /* ── SCIENCE ── */
     .science {
-      padding: 100px 24px;
-      background: var(--celadon-pale);
+      padding: 100px 80px;
+      background: var(--cream);
     }
-    .science-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .science h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(26px, 4vw, 38px);
-      color: var(--ink); margin-bottom: 32px;
+    .science-inner { max-width: 1100px; margin: 0 auto; }
+    .science-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+      margin-bottom: 60px;
     }
+    .science-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(26px, 2.8vw, 40px);
+      font-weight: 800; line-height: 1.2;
+      color: var(--ink);
+    }
+    .science-h2 em { font-style: italic; color: var(--indigo); }
     .science-body {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; line-height: 1.9;
-      color: var(--ink-soft); text-align: left;
+      font-size: 16px; line-height: 1.85;
+      color: var(--ink-soft);
     }
     .science-body p + p { margin-top: 16px; }
-    .science-stat {
-      display: flex; gap: 40px;
-      margin-top: 48px; padding-top: 40px;
-      border-top: 1px solid var(--celadon-light);
-      justify-content: center; flex-wrap: wrap;
+    .credibility-pills {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 48px;
     }
-    .science-stat-item { text-align: center; }
-    .science-stat-num {
+    .credibility-pill {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* ── OUR STORY ── */
+    .story {
+      padding: 100px 80px;
+      background: var(--white);
+    }
+    .story-inner {
+      max-width: 720px; margin: 0 auto;
+    }
+    .story-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(26px, 2.8vw, 40px);
+      font-weight: 800; color: var(--ink);
+      margin-bottom: 40px; line-height: 1.2;
+    }
+    .story-body {
+      font-size: 16px; line-height: 1.95;
+      color: var(--ink-soft);
+    }
+    .story-body p + p { margin-top: 22px; }
+    .story-body strong { color: var(--ink); font-weight: 700; }
+    .story-pull {
+      margin: 40px 0;
+      padding: 28px 32px;
+      border-left: 4px solid var(--indigo);
+      background: var(--indigo-pale);
+      border-radius: 0 12px 12px 0;
+      font-size: 18px; font-weight: 700;
+      color: var(--indigo); line-height: 1.5;
+    }
+      background: var(--white);
+      border: 1.5px solid var(--indigo-light);
+      border-radius: 40px;
+      font-size: 13px; font-weight: 500;
+      color: var(--ink);
+      transition: all 0.2s ease;
+    }
+    .credibility-pill:hover {
+      border-color: var(--indigo);
+      background: var(--indigo-pale);
+    }
+    .pill-icon { font-size: 16px; }
+    .video-wrap {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: 0 24px 64px rgba(61,53,128,0.15);
+      border: 1px solid var(--indigo-light);
+    }
+    .video-wrap iframe {
+      width: 100%; height: 100%; border: none; display: block;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 100px 80px;
+      background: var(--white);
+    }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-header { text-align: center; margin-bottom: 72px; }
+    .how-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(26px, 2.8vw, 40px);
+      font-weight: 800; color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .how-sub {
+      font-size: 16px; color: var(--stone);
+    }
+    .how-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--indigo-light);
+      border-radius: 20px; overflow: hidden;
+      margin-bottom: 60px;
+    }
+    .how-step {
+      background: var(--white);
+      padding: 40px 32px;
+      transition: background 0.2s ease;
+    }
+    .how-step:hover { background: var(--indigo-pale); }
+    .how-num {
+      font-family: 'Pretendard', sans-serif;
+      font-size: 48px; font-weight: 800;
+      color: var(--indigo-light);
+      line-height: 1; margin-bottom: 20px;
+      display: block;
+    }
+    .how-step h3 {
+      font-size: 17px; font-weight: 700;
+      color: var(--ink); margin-bottom: 10px;
+    }
+    .how-step p {
+      font-size: 14px; line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    /* Report preview */
+    .report-preview {
+      background: var(--cream);
+      border: 1.5px solid var(--indigo-light);
+      border-radius: 20px; padding: 40px;
+    }
+    .report-preview-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 24px;
+      display: block;
+    }
+    .report-preview h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 36px; color: var(--celadon);
-      display: block; line-height: 1;
-      margin-bottom: 6px;
+      font-size: 22px; font-weight: 400;
+      color: var(--ink); margin-bottom: 24px;
     }
-    .science-stat-label {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 12px; color: var(--stone);
-      line-height: 1.5;
+    .report-items {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .report-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px; background: var(--white);
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .report-item:hover {
+      border-color: var(--indigo-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(61,53,128,0.08);
+    }
+    .report-item-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--indigo-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .report-item-text h4 {
+      font-size: 14px; font-weight: 600;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .report-item-text p {
+      font-size: 12px; color: var(--stone); line-height: 1.5;
+    }
+
+    /* ── TIERS ── */
+    .tiers {
+      padding: 100px 80px;
+      background: var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .tiers::after {
+      content: '';
+      position: absolute; bottom: -200px; left: -200px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,53,128,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .tiers-inner { max-width: 1100px; margin: 0 auto; }
+    .tiers-header { text-align: center; margin-bottom: 64px; }
+    .tiers-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(26px, 2.8vw, 40px);
+      font-weight: 800; color: var(--white);
+      margin-bottom: 12px;
+    }
+    .tiers-sub { font-size: 16px; color: rgba(255,255,255,0.5); }
+    .tiers-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .tier-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 32px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .tier-card:hover {
+      background: rgba(61,53,128,0.2);
+      border-color: var(--indigo-mid);
+      transform: translateY(-4px);
+    }
+    .tier-card.featured {
+      background: var(--indigo);
+      border-color: var(--indigo);
+    }
+    .tier-badge {
+      display: inline-block;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--coral); background: rgba(232,88,58,0.15);
+      padding: 4px 10px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .tier-price {
+      font-family: 'Pretendard', sans-serif;
+      font-weight: 800;
+      font-size: 28px; color: var(--white);
+      margin-bottom: 6px; display: block;
+    }
+    .tier-price-sub {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      margin-bottom: 20px; display: block;
+    }
+    .tier-name {
+      font-size: 16px; font-weight: 700;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .tier-desc {
+      font-size: 13px; line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+    }
+    .tier-divider {
+      height: 1px; background: rgba(255,255,255,0.1);
+      margin: 20px 0;
+    }
+    .tier-features {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+    }
+    .tier-features li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 12px; color: rgba(255,255,255,0.6);
+    }
+    .tier-features li::before {
+      content: '✓'; color: var(--indigo-light);
+      font-weight: 700; flex-shrink: 0; margin-top: 1px;
     }
 
     /* ── WAITLIST ── */
     .waitlist {
-      padding: 100px 24px;
-      background: var(--cream);
-      text-align: center;
+      padding: 100px 80px;
+      background: var(--indigo-pale);
+      position: relative;
     }
-    .waitlist-inner { max-width: 520px; margin: 0 auto; }
-    .waitlist h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 5vw, 44px);
-      color: var(--ink); margin-bottom: 16px;
+    .waitlist-inner {
+      max-width: 640px; margin: 0 auto; text-align: center;
     }
+    .waitlist-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; color: var(--ink);
+      margin-bottom: 16px; line-height: 1.15;
+    }
+    .waitlist-h2 em { font-style: italic; color: var(--indigo); }
     .waitlist-desc {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px; line-height: 1.8;
-      color: var(--ink-soft); margin-bottom: 40px;
+      font-size: 16px; color: var(--ink-soft);
+      margin-bottom: 40px; line-height: 1.7;
     }
-    .waitlist-form { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .waitlist-form input[type="email"] {
-      flex: 1; min-width: 220px;
-      padding: 14px 20px;
-      border: 1.5px solid var(--celadon-light);
+    .waitlist-form {
+      display: flex; gap: 12px;
+      max-width: 480px; margin: 0 auto;
+    }
+    .waitlist-form input {
+      flex: 1;
+      padding: 16px 22px;
+      border: 1.5px solid var(--indigo-light);
       border-radius: 50px;
       background: var(--white);
-      font-family: 'Noto Serif KR', serif;
+      font-family: 'Pretendard', sans-serif;
       font-size: 14px; color: var(--ink);
       outline: none; transition: border-color 0.2s;
     }
-    .waitlist-form input[type="email"]:focus { border-color: var(--celadon); }
+    .waitlist-form input:focus { border-color: var(--indigo); }
+    .waitlist-form input::placeholder { color: var(--stone); }
     .waitlist-form button {
-      padding: 14px 32px; border-radius: 50px;
-      background: var(--celadon); color: var(--white);
+      padding: 16px 28px; border-radius: 50px;
+      background: var(--indigo); color: var(--white);
       border: none; cursor: pointer;
-      font-family: 'Noto Serif KR', serif;
+      font-family: 'Pretendard', sans-serif;
       font-size: 14px; font-weight: 600;
-      transition: all 0.25s ease;
-      white-space: nowrap;
+      transition: all 0.25s ease; white-space: nowrap;
     }
-    .waitlist-form button:hover { background: var(--moss); }
+    .waitlist-form button:hover {
+      background: var(--indigo-dark);
+      transform: translateY(-1px);
+    }
+    .waitlist-note {
+      margin-top: 16px; font-size: 12px; color: var(--stone);
+    }
+    #wl-success {
+      display: none; margin-top: 20px;
+      padding: 16px 24px; border-radius: 12px;
+      background: rgba(61,53,128,0.1);
+      border: 1px solid var(--indigo-light);
+      font-size: 14px; color: var(--indigo); font-weight: 500;
+    }
+
+    /* ── INSTAGRAM ── */
+    .instagram {
+      padding: 80px;
+      background: var(--white);
+      text-align: center;
+    }
+    .instagram-inner { max-width: 480px; margin: 0 auto; }
+    .instagram-h2 {
+      font-family: 'Pretendard', sans-serif;
+      font-size: 28px; font-weight: 800; color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .instagram-sub {
+      font-size: 15px; color: var(--stone);
+      margin-bottom: 28px;
+    }
+    .instagram-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 50px;
+      border: 1.5px solid var(--indigo-light);
+      color: var(--indigo); font-weight: 600; font-size: 14px;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .instagram-btn:hover {
+      background: var(--indigo);
+      color: var(--white);
+      border-color: var(--indigo);
+    }
 
     /* ── FOOTER ── */
     footer {
-      padding: 40px 24px;
+      padding: 40px 80px;
       background: var(--ink);
-      text-align: center;
+      display: flex; align-items: center; justify-content: space-between;
     }
+    .footer-logo {
+      font-family: 'Pretendard', sans-serif;
+      font-weight: 800;
+      font-size: 16px; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+    }
+    .footer-logo span { color: rgba(61,53,128,0.6); }
     footer p {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 12px; color: rgba(255,255,255,0.3);
+      font-size: 12px; color: rgba(255,255,255,0.25);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block; width: 20px; height: 1.5px;
+      background: currentColor;
     }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes radarPulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
     .fade-in.visible { opacity: 1; transform: none; }
 
-    /* ── MOBILE ── */
-    @media (max-width: 680px) {
-      .nav { padding: 16px 20px; }
-      .checklist { padding: 24px 20px; }
-      .characters-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-      .characters-grid .character-card:nth-child(4),
-      .characters-grid .character-card:nth-child(5) { grid-column: span 1; }
-      .how-step { grid-template-columns: 48px 1fr; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+      .hero-left { padding: 0 24px; }
+      .hero-right { padding: 40px 24px; }
+      .radar-wrap { width: 320px; height: 320px; }
+      .hook-inner { grid-template-columns: 1fr; gap: 48px; }
+      .science-header { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .report-items { grid-template-columns: 1fr; }
+      .nav { padding: 16px 24px; }
+      .nav-right .nav-link { display: none; }
+      .hook { padding: 80px 24px; }
+      .science { padding: 80px 24px; }
+      .how { padding: 80px 24px; }
+      .tiers { padding: 80px 24px; }
+      .story { padding: 80px 24px; }
+      .waitlist { padding: 80px 24px; }
+      .instagram { padding: 60px 24px; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 12px; }
+    }
+    @media (max-width: 600px) {
+      .tiers-grid { grid-template-columns: 1fr; }
+      .waitlist-form { flex-direction: column; }
     }
   </style>
 </head>
@@ -425,156 +724,179 @@
 
   <!-- NAV -->
   <nav class="nav" id="mainNav">
-    <div class="nav-logo">OCEAN <span>/</span> 오션</div>
+    <a href="index.html" class="nav-logo">OCEAN <span>/</span> 오션</a>
     <div class="nav-right">
+      <a href="#how" class="nav-link" id="nav-how">어떻게 작동하나요</a>
+      <a href="#tiers" class="nav-link" id="nav-tiers">서비스</a>
       <div class="lang-toggle" id="langToggle">
-        <button data-lang="en" class="active" onclick="setLang('en', this)">EN</button>
-        <button data-lang="kr" onclick="setLang('kr', this)">한국어</button>
+        <button data-lang="kr" class="active" onclick="setLang('kr', this)">한국어</button>
+        <button data-lang="en" onclick="setLang('en', this)">EN</button>
       </div>
+      <a href="assessment.html" class="nav-cta" id="nav-cta">무료 검사</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <p class="hero-eyebrow" id="hero-eyebrow">부모로서의 나 마주보기</p>
+    <div class="hero-left">
+      <span class="hero-eyebrow" id="hero-eyebrow">Big Five 성격 과학 기반 교육 플랫폼</span>
+      <h1 class="hero-h1" id="hero-h1">세상에서 가장 많이 연구된<br>성격 과학, 우리 아이 교육에<br>쓰는 부모는 <em>아직 많지 않습니다.</em></h1>
+      <p class="hero-sub" id="hero-sub">아이마다 배우는 방식이 다릅니다. 성향을 알면, 같은 노력으로 다른 결과가 나옵니다.</p>
 
-    <div class="checklist">
-      <div class="checklist-title">
-        <span class="label" id="checklist-label">당신의 고민은 무엇인가요?</span>
-      </div>
-      <ul class="checklist-items" id="checklist-items">
-        <li id="c1">아이와 매일 같은 싸움을 반복하고 있다.</li>
-        <li id="c2">열심히 하는데 왜 이렇게 안 통하는지 모르겠다.</li>
-        <li id="c3">아이가 왜 그러는지, 진짜 이유를 알고 싶다.</li>
-        <li id="c4">지금 내 방식이 맞는 건지 확신이 없다.</li>
-      </ul>
-    </div>
-
-    <p class="hero-hook" id="hero-hook">하나라도 해당된다면, <strong>오션이 도움이 될 수 있습니다.</strong></p>
-
-    <div class="hero-reframe">
-      <p id="reframe1">아이의 문제가 아닐 수 있습니다.</p>
-      <p id="reframe2">부모와 아이, 서로 다른 성향이 부딪히고 있는 걸 수 있어요.</p>
-      <p id="reframe3"><span class="highlight" id="reframe3-highlight">오션은 그 부딪히는 지점을 정확히 짚어드립니다.</span></p>
-    </div>
-
-    <a href="assessment.html" class="hero-cta" id="hero-cta">무료 검사 시작하기 →</a>
-    <span class="hero-cta-sub" id="hero-cta-sub">15분 · 무료 · 즉시 결과 확인</span>
-  </section>
-
-  <!-- WHY NOT MBTI -->
-  <section class="why-mbti">
-    <div class="why-mbti-inner">
-      <span class="section-label fade-in" id="why-label">왜 MBTI가 아닌가요?</span>
-      <h2 class="fade-in" id="why-h2">MBTI는 <em>나를</em> 설명합니다.<br>오션은 <em>우리 사이를</em> 설명합니다.</h2>
-      <div class="why-mbti-body fade-in">
-        <p id="why-p1">MBTI, 재미있죠. 근데 우리 아이한테 쓰기엔 한계가 있습니다. 유형으로 나누는 순간, 아이는 그 틀 안에 갇혀버립니다.</p>
-        <p id="why-p2">오션은 Big Five — 50년간 검증된 발달심리학의 프레임워크를 바탕으로 합니다. 유형이 아니라 <strong>성향의 정도</strong>를 봅니다. 그리고 성향은 자랄 수 있습니다.</p>
-        <p id="why-p3">더 중요한 것은, 오션은 아이만 보지 않습니다. 부모의 성향도 함께 봅니다. 두 성향이 만나는 지점 — 거기서 갈등이 생기고, 거기서 이해가 시작됩니다.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how">
-    <div class="how-inner">
-      <span class="section-label fade-in" id="how-label" style="display:block;text-align:center;margin-bottom:12px;">이렇게 작동합니다</span>
-      <h2 class="fade-in" id="how-h2">검사부터 변화까지</h2>
-      <div class="how-steps">
-        <div class="how-step fade-in">
-          <div class="how-step-num">1</div>
-          <div class="how-step-content">
-            <h3 id="how1-h">부모와 아이가 함께 검사합니다</h3>
-            <p id="how1-p">15분 안에 완료됩니다. 부모가 먼저 답하고, 아이와 함께 이어갑니다. 정답은 없습니다.</p>
-          </div>
+      <div class="checklist" id="checklist">
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <span id="c1">학원을 바꿔봤는데도 달라지지 않는다</span>
         </div>
-        <div class="how-step fade-in">
-          <div class="how-step-num">2</div>
-          <div class="how-step-content">
-            <h3 id="how2-h">성향 차이 지점을 분석합니다</h3>
-            <p id="how2-p">오션은 아이의 Big Five 프로필과 부모의 프로필을 함께 분석합니다. 어디서 잘 맞고, 어디서 엇갈리는지를 구체적으로 보여드립니다.</p>
-          </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <span id="c2">공부를 왜 싫어하는지, 진짜 이유를 모른다</span>
         </div>
-        <div class="how-step fade-in">
-          <div class="how-step-num">3</div>
-          <div class="how-step-content">
-            <h3 id="how3-h">왜 부딪히는지, 어떻게 다가가면 되는지</h3>
-            <p id="how3-p">단순한 유형 설명이 아닙니다. 이 아이에게, 이 부모에게, 지금 이 순간에 맞는 소통 방법을 알려드립니다.</p>
-          </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <span id="c3">옆집 아이한테 되는 방법이 우리 아이한테는 안 된다</span>
+        </div>
+        <div class="checklist-item">
+          <span class="check-icon">✓</span>
+          <span id="c4">지금 내 방식이 아이 잠재력을 막고 있는 건 아닐까</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- JOURNEY / TIERS -->
-  <section class="journey">
-    <div class="journey-inner">
-      <span class="section-label fade-in" id="journey-label">필요한 만큼, 원하는 깊이로</span>
-      <h2 class="fade-in" id="journey-h2">무료 검사로 시작합니다.</h2>
-      <p class="journey-intro fade-in" id="journey-intro">거기서 뭘 발견하느냐에 따라, 다음 단계가 달라집니다.</p>
-      <div class="journey-steps">
-        <div class="journey-step fade-in">
-          <div class="journey-step-icon">◎</div>
-          <div class="journey-step-text">
-            <h3 id="j1-h">어떤 부모는 리포트만으로도 충분합니다.</h3>
-            <p id="j1-p">성향 분석과 소통 가이드만으로도 "아, 그래서 그랬구나"를 경험하는 부모님들이 있습니다.</p>
-          </div>
+      <div class="hero-cta-group">
+        <a href="assessment.html" class="hero-cta" id="hero-cta">
+          무료 검사 시작하기 →
+        </a>
+        <span class="hero-cta-sub" id="hero-cta-sub">15분 · 무료 · 즉시 결과 확인</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="radar-wrap">
+        <!-- Animated Dual Radar SVG -->
+        <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" width="420" height="420">
+          <defs>
+            <radialGradient id="glowIndigo" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3D3580" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#3D3580" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="glowCoral" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#E8583A" stop-opacity="0.1"/>
+              <stop offset="100%" stop-color="#E8583A" stop-opacity="0"/>
+            </radialGradient>
+            <style>
+              .radar-child-poly {
+                animation: radarFadeIn 1.5s ease 0.8s both;
+              }
+              .radar-parent-poly {
+                animation: radarFadeIn 1.5s ease 1.2s both;
+              }
+              @keyframes radarFadeIn {
+                from { opacity: 0; }
+                to   { opacity: 1; }
+              }
+              .radar-dot-c { animation: dotPop 0.4s ease both; }
+              .radar-dot-c:nth-child(1) { animation-delay: 1.6s; }
+              .radar-dot-c:nth-child(2) { animation-delay: 1.7s; }
+              .radar-dot-c:nth-child(3) { animation-delay: 1.8s; }
+              .radar-dot-c:nth-child(4) { animation-delay: 1.9s; }
+              .radar-dot-c:nth-child(5) { animation-delay: 2.0s; }
+              .radar-dot-p:nth-child(1) { animation-delay: 2.0s; }
+              .radar-dot-p:nth-child(2) { animation-delay: 2.1s; }
+              .radar-dot-p:nth-child(3) { animation-delay: 2.2s; }
+              .radar-dot-p:nth-child(4) { animation-delay: 2.3s; }
+              .radar-dot-p:nth-child(5) { animation-delay: 2.4s; }
+              @keyframes dotPop {
+                from { opacity: 0; transform: scale(0); }
+                to   { opacity: 1; transform: scale(1); }
+              }
+            </style>
+          </defs>
+
+          <!-- Background glow -->
+          <circle cx="210" cy="210" r="200" fill="url(#glowIndigo)"/>
+
+          <!-- Grid rings -->
+          <polygon points="210,85 322,147 322,273 210,335 98,273 98,147" fill="none" stroke="#D4D2F0" stroke-width="1.5"/>
+          <polygon points="210,117 298,163 298,257 210,303 122,257 122,163" fill="none" stroke="#D4D2F0" stroke-width="1"/>
+          <polygon points="210,148 274,179 274,241 210,272 146,241 146,179" fill="none" stroke="#D4D2F0" stroke-width="1"/>
+          <polygon points="210,180 250,196 250,224 210,241 170,224 170,196" fill="none" stroke="#D4D2F0" stroke-width="0.8"/>
+
+          <!-- Axis lines -->
+          <line x1="210" y1="210" x2="210" y2="85"  stroke="#D4D2F0" stroke-width="1"/>
+          <line x1="210" y1="210" x2="322" y2="147" stroke="#D4D2F0" stroke-width="1"/>
+          <line x1="210" y1="210" x2="322" y2="273" stroke="#D4D2F0" stroke-width="1"/>
+          <line x1="210" y1="210" x2="210" y2="335" stroke="#D4D2F0" stroke-width="1"/>
+          <line x1="210" y1="210" x2="98"  y2="273" stroke="#D4D2F0" stroke-width="1"/>
+          <line x1="210" y1="210" x2="98"  y2="147" stroke="#D4D2F0" stroke-width="1"/>
+
+          <!-- Child polygon (indigo) — high O, high C, mid E, high A, low N -->
+          <polygon class="radar-child-poly"
+            points="210,100 308,155 290,255 210,315 115,262 128,155"
+            fill="rgba(61,53,128,0.15)" stroke="#3D3580" stroke-width="2.5" stroke-linejoin="round"/>
+
+          <!-- Parent polygon (coral dashed) — mid O, mid C, high E, mid A, high N -->
+          <polygon class="radar-parent-poly"
+            points="210,130 295,163 310,262 210,300 125,250 140,158"
+            fill="rgba(232,88,58,0.1)" stroke="#E8583A" stroke-width="2"
+            stroke-linejoin="round" stroke-dasharray="6,4"/>
+
+          <!-- Child dots -->
+          <circle class="radar-dot-c" cx="210" cy="100" r="5" fill="#3D3580" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-c" cx="308" cy="155" r="5" fill="#3D3580" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-c" cx="290" cy="255" r="5" fill="#3D3580" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-c" cx="210" cy="315" r="5" fill="#3D3580" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-c" cx="115" cy="262" r="5" fill="#3D3580" stroke="white" stroke-width="2"/>
+
+          <!-- Parent dots -->
+          <circle class="radar-dot-p" cx="210" cy="130" r="4" fill="#E8583A" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-p" cx="295" cy="163" r="4" fill="#E8583A" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-p" cx="310" cy="262" r="4" fill="#E8583A" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-p" cx="210" cy="300" r="4" fill="#E8583A" stroke="white" stroke-width="2"/>
+          <circle class="radar-dot-p" cx="125" cy="250" r="4" fill="#E8583A" stroke="white" stroke-width="2"/>
+
+          <!-- Axis labels -->
+          <text x="210" y="72" text-anchor="middle" font-family="Pretendard, sans-serif" font-size="11" font-weight="600" fill="#8E8E93" letter-spacing="0.05em">개방성</text>
+          <text x="338" y="148" text-anchor="start"  font-family="Pretendard, sans-serif" font-size="11" font-weight="600" fill="#8E8E93" letter-spacing="0.05em">성실성</text>
+          <text x="338" y="278" text-anchor="start"  font-family="Pretendard, sans-serif" font-size="11" font-weight="600" fill="#8E8E93" letter-spacing="0.05em">외향성</text>
+          <text x="210" y="358" text-anchor="middle" font-family="Pretendard, sans-serif" font-size="11" font-weight="600" fill="#8E8E93" letter-spacing="0.05em">원만성</text>
+          <text x="82"  y="278" text-anchor="end"    font-family="Pretendard, sans-serif" font-size="11" font-weight="600" fill="#8E8E93" letter-spacing="0.05em">감수성</text>
+        </svg>
+
+        <div class="radar-label-badge radar-label-child">
+          <span class="radar-dot" style="background:#3D3580"></span>
+          아이
         </div>
-        <div class="journey-step fade-in">
-          <div class="journey-step-icon">◎</div>
-          <div class="journey-step-text">
-            <h3 id="j2-h">어떤 부모는 전문가와 함께 더 깊이 들어갑니다.</h3>
-            <p id="j2-p">오션 전문 상담사와의 1:1 코칭을 통해, 리포트를 실제 대화와 육아로 연결합니다.</p>
-          </div>
-        </div>
-        <div class="journey-step fade-in">
-          <div class="journey-step-icon">◎</div>
-          <div class="journey-step-text">
-            <h3 id="j3-h">어떤 부모는 아이의 일상 안으로 직접 들어오는 걸 선택합니다.</h3>
-            <p id="j3-p">오션은 그 모든 깊이에 함께합니다.</p>
-          </div>
+        <div class="radar-label-badge radar-label-parent">
+          <span class="radar-dot" style="background:#E8583A"></span>
+          부모님
         </div>
       </div>
-      <a href="#waitlist" class="journey-cta fade-in" id="journey-cta">어떤 단계가 맞는지 알아보기 →</a>
     </div>
   </section>
 
-  <!-- CHARACTERS -->
-  <section class="characters">
-    <div class="characters-inner">
-      <span class="section-label fade-in" id="chars-label" style="display:block;text-align:center;margin-bottom:12px;">The Characters</span>
-      <h2 class="fade-in" id="chars-h2">다섯 아이. 다섯 기운. 하나의 가족.</h2>
-      <p class="characters-sub fade-in" id="chars-sub">오션의 다섯 캐릭터는 Big Five의 다섯 성향을 담고 있습니다. 우리 아이의 모습이 어딘가에 있을 거예요.</p>
-      <div class="characters-grid">
-        <div class="character-card fade-in">
-          <div class="character-image"><img src="images/chiu.png" alt="Chiu" onerror="this.style.display='none'" /></div>
-          <div class="character-name">Chiu</div>
-          <div class="character-name-kr">치우</div>
-          <p class="character-desc" id="chiu-desc">시키기도 전에 이미 다 해놓은 아이.</p>
+  <!-- HOOK -->
+  <section class="hook">
+    <div class="hook-inner">
+      <div class="hook-left fade-in">
+        <span class="section-label">왜 오션인가요</span>
+        <h2 class="hook-h2" id="hook-h2">우리 아이에게 맞는<br>방법이 <em>따로 있습니다.</em><br>아직 모르고 있을 뿐입니다.</h2>
+        <p class="hook-body" id="hook-body">아이마다 수학을 배우는 방식이 다릅니다. 국어, 영어, 과학도 마찬가지입니다. 성향을 알면, 같은 내용을 가르쳐도 스며드는 방식이 달라집니다.</p>
+      </div>
+      <div class="hook-stat fade-in">
+        <div class="stat-card">
+          <span class="stat-num">IQ보다</span>
+          <span class="stat-label">성실성이 학업 성취를 더 잘 예측합니다</span>
+          <span class="stat-source">Mammadov, 2021 · 메타분석</span>
         </div>
-        <div class="character-card fade-in">
-          <div class="character-image"><img src="images/osol.png" alt="Osol" onerror="this.style.display='none'" /></div>
-          <div class="character-name">Osol</div>
-          <div class="character-name-kr">오솔</div>
-          <p class="character-desc" id="osol-desc">맨날 딴 생각하는 것 같은데, 사실 제일 많이 생각하는 아이.</p>
+        <div class="stat-card">
+          <span class="stat-num">영어 못하는<br>아이는 없습니다.</span>
+          <span class="stat-label">방법이 안 맞는 아이가 있을 뿐입니다. 감수성이 높은 아이의 영어 불안은 실력이 아닌 성향의 문제입니다</span>
+          <span class="stat-source">Dong et al., 2024 · 외국어 불안 메타분석</span>
         </div>
-        <div class="character-card fade-in">
-          <div class="character-image"><img src="images/epa.png" alt="Epa" onerror="this.style.display='none'" /></div>
-          <div class="character-name">Epa</div>
-          <div class="character-name-kr">이파</div>
-          <p class="character-desc" id="epa-desc">어디서든 제일 먼저 친구 사귀는 아이.</p>
-        </div>
-        <div class="character-card fade-in">
-          <div class="character-image"><img src="images/aru.png" alt="Aru" onerror="this.style.display='none'" /></div>
-          <div class="character-name">Aru</div>
-          <div class="character-name-kr">아루</div>
-          <p class="character-desc" id="aru-desc">아무 말 안 해도 눈치채는 아이.</p>
-        </div>
-        <div class="character-card fade-in">
-          <div class="character-image"><img src="images/nuri.png" alt="Nuri" onerror="this.style.display='none'" /></div>
-          <div class="character-name">Nuri</div>
-          <div class="character-name-kr">누리</div>
-          <p class="character-desc" id="nuri-desc">별것 아닌 것에 가장 크게 감동받는 아이.</p>
+        <div class="stat-card">
+          <span class="stat-num">만 5세</span>
+          <span class="stat-label">부터 측정 가능한 빅5 성격 특성. 지금이 가장 빠른 시작입니다</span>
+          <span class="stat-source">Tackett, 2011</span>
         </div>
       </div>
     </div>
@@ -583,25 +905,199 @@
   <!-- SCIENCE -->
   <section class="science">
     <div class="science-inner">
-      <span class="section-label fade-in" id="sci-label">과학적 배경</span>
-      <h2 class="fade-in" id="sci-h2">검증된 프레임워크</h2>
-      <div class="science-body fade-in">
-        <p id="sci-p1">Big Five는 전 세계 50년 발달심리 연구의 기반입니다. 국내 유아 대상 연구에서도 만 3세부터 측정 가능한 것으로 검증되었습니다.</p>
-        <p id="sci-p2">오션은 그 과학을 부모가 쓸 수 있는 언어로 바꿉니다. 어렵지 않습니다. 복잡하지 않습니다. 우리 아이를 조금 더 선명하게 볼 수 있을 뿐입니다.</p>
+      <div class="science-header">
+        <div class="fade-in">
+          <span class="section-label">과학적 배경</span>
+          <h2 class="science-h2" id="sci-h2">MBTI가 아닙니다.<br><em>정신과에서도 쓰는</em><br>성격 과학입니다.</h2>
+        </div>
+        <div class="fade-in">
+          <p class="science-body" id="sci-body">
+            <p>Big Five는 전 세계 50년 발달심리 연구의 기반입니다. MBTI처럼 유형으로 나누지 않습니다. 성향의 정도를 봅니다. 그리고 성향은 환경에 따라 발달할 수 있습니다.</p>
+            <p style="margin-top:16px">카카오와 서울대학교 행복연구센터가 채택한 바로 그 프레임워크입니다.</p>
+          </p>
+        </div>
       </div>
-      <div class="science-stat fade-in">
-        <div class="science-stat-item">
-          <span class="science-stat-num">50+</span>
-          <span class="science-stat-label" id="stat1">년간 검증된<br>발달심리 연구</span>
+
+      <div class="credibility-pills fade-in">
+        <a href="https://ko.wikipedia.org/wiki/5%EA%B0%80%EC%A7%80_%EC%84%B1%EA%B2%A9_%ED%8A%B9%EC%84%B1_%EC%9A%94%EC%86%8C" target="_blank" class="credibility-pill">
+          <span class="pill-icon">🔬</span>
+          50년 · 전세계 수천 편 연구
+        </a>
+        <a href="https://together.kakao.com/big-five" target="_blank" class="credibility-pill">
+          <span class="pill-icon">🏫</span>
+          카카오 × 서울대 행복연구센터 채택
+        </a>
+        <a href="https://www.hoganlead.com/resources/big-five-personality" target="_blank" class="credibility-pill">
+          <span class="pill-icon">🚀</span>
+          NASA 우주비행사 선발 기준
+        </a>
+        <a href="https://rework.withgoogle.com/guides/understanding-team-effectiveness/steps/identify-dynamics-of-effective-teams/" target="_blank" class="credibility-pill">
+          <span class="pill-icon">🔍</span>
+          Google 리더십 평가 기반
+        </a>
+      </div>
+
+      <div class="video-wrap fade-in">
+        <iframe
+          src="https://www.youtube.com/embed/O-ZNU5IWo80"
+          title="Big Five 성격 과학 설명 — 정신과 전문의"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <div class="how-header fade-in">
+        <span class="section-label">이렇게 작동합니다</span>
+        <h2 class="how-h2" id="how-h2">15분이면 충분합니다</h2>
+        <p class="how-sub" id="how-sub">부모와 아이가 함께, 즉시 결과 확인</p>
+      </div>
+
+      <div class="how-grid fade-in">
+        <div class="how-step">
+          <span class="how-num">01</span>
+          <h3 id="how1-h">부모 + 아이 함께 검사</h3>
+          <p id="how1-p">부모님이 먼저 아이를 관찰한 내용으로 답하고, 이어서 아이와 함께 진행합니다. 정답은 없습니다. 15분이면 완료됩니다.</p>
         </div>
-        <div class="science-stat-item">
-          <span class="science-stat-num">5</span>
-          <span class="science-stat-label" id="stat2">가지 성향으로<br>아이를 이해합니다</span>
+        <div class="how-step">
+          <span class="how-num">02</span>
+          <h3 id="how2-h">즉시 리포트 확인</h3>
+          <p id="how2-p">검사 완료 즉시 아이의 빅5 프로파일과 부모-자녀 관계 역동 분석, 과목별 학습 가이드까지 한 번에 확인합니다.</p>
         </div>
-        <div class="science-stat-item">
-          <span class="science-stat-num">15분</span>
-          <span class="science-stat-label" id="stat3">검사 완료<br>즉시 결과 확인</span>
+        <div class="how-step">
+          <span class="how-num">03</span>
+          <h3 id="how3-h">오늘부터 다르게</h3>
+          <p id="how3-p">리포트의 내용을 오늘 대화부터 적용할 수 있습니다. 이론이 아니라 실천 가능한 가이드입니다.</p>
         </div>
+      </div>
+
+      <!-- Report preview -->
+      <div class="report-preview fade-in">
+        <span class="report-preview-label">리포트에 포함된 내용</span>
+        <h3 id="report-h">무료 리포트 하나에, 이 모든 것이 담깁니다</h3>
+        <div class="report-items">
+          <div class="report-item">
+            <div class="report-item-icon">📊</div>
+            <div class="report-item-text">
+              <h4 id="r1-h">아이의 빅5 성격 프로파일</h4>
+              <p id="r1-p">개방성, 성실성, 외향성, 원만성, 감수성 — 5가지 성향을 한눈에</p>
+            </div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-icon">💬</div>
+            <div class="report-item-text">
+              <h4 id="r2-h">부모-자녀 관계 역동 분석</h4>
+              <p id="r2-p">두 성향이 만나는 지점에서 생기는 갈등 패턴과 해법</p>
+            </div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-icon">📚</div>
+            <div class="report-item-text">
+              <h4 id="r3-h">과목별 맞춤 학습 가이드</h4>
+              <p id="r3-p">수학, 국어, 영어, 과학 — 성향에 맞는 공부법을 과목별로</p>
+            </div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-icon">✨</div>
+            <div class="report-item-text">
+              <h4 id="r4-h">창의력 발달 성향 분석</h4>
+              <p id="r4-p">아이의 창의력이 어떻게 발현되는지, 어떻게 키울 수 있는지</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIERS -->
+  <section class="tiers" id="tiers">
+    <div class="tiers-inner">
+      <div class="tiers-header fade-in">
+        <span class="section-label">서비스</span>
+        <h2 class="tiers-h2" id="tiers-h2">필요한 만큼, 원하는 깊이로</h2>
+        <p class="tiers-sub" id="tiers-sub">무료 검사로 시작해서, 필요할 때 더 깊이 들어갑니다</p>
+      </div>
+
+      <div class="tiers-grid fade-in">
+        <div class="tier-card">
+          <span class="tier-badge">무료</span>
+          <span class="tier-price">₩0</span>
+          <span class="tier-price-sub">영원히 무료</span>
+          <div class="tier-name" id="t1-name">기본 리포트</div>
+          <p class="tier-desc" id="t1-desc">검사와 전체 리포트를 무료로 받아보세요.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-features">
+            <li id="t1-f1">빅5 성격 프로파일</li>
+            <li id="t1-f2">부모-자녀 관계 분석</li>
+            <li id="t1-f3">과목별 학습 가이드</li>
+            <li id="t1-f4">창의력 분석</li>
+          </ul>
+        </div>
+
+        <div class="tier-card featured">
+          <span class="tier-badge">월간</span>
+          <span class="tier-price">₩29,000</span>
+          <span class="tier-price-sub">/ 월</span>
+          <div class="tier-name" id="t2-name">맞춤 콘텐츠</div>
+          <p class="tier-desc" id="t2-desc">아이의 성향에 맞게 큐레이션된 주간 콘텐츠를 받아보세요.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-features">
+            <li id="t2-f1">기본 리포트 전체 포함</li>
+            <li id="t2-f2">주간 맞춤 활동 가이드</li>
+            <li id="t2-f3">성향별 도서·교구 추천</li>
+            <li id="t2-f4">월간 발달 리포트</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <span class="tier-badge">코칭</span>
+          <span class="tier-price">₩180,000</span>
+          <span class="tier-price-sub">/ 월</span>
+          <div class="tier-name" id="t3-name">전문가 코칭</div>
+          <p class="tier-desc" id="t3-desc">오션 전문 상담사와 1:1 월간 코칭 세션.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-features">
+            <li id="t3-f1">맞춤 콘텐츠 전체 포함</li>
+            <li id="t3-f2">월 1회 전문가 화상 코칭</li>
+            <li id="t3-f3">성향 매칭 전문가 배정</li>
+            <li id="t3-f4">실시간 질문 채널</li>
+          </ul>
+        </div>
+
+        <div class="tier-card">
+          <span class="tier-badge">프리미엄</span>
+          <span class="tier-price">₩600,000+</span>
+          <span class="tier-price-sub">/ 월</span>
+          <div class="tier-name" id="t4-name">오션 아뜰리에</div>
+          <p class="tier-desc" id="t4-desc">소수 정원 대면 프로그램. 아이의 일상 안으로 직접 들어갑니다.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-features">
+            <li id="t4-f1">코칭 전체 포함</li>
+            <li id="t4-f2">월간 대면 세션</li>
+            <li id="t4-f3">소수 정원 운영</li>
+            <li id="t4-f4">입학 심사 후 배정</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="story">
+    <div class="story-inner">
+      <span class="section-label fade-in">오션을 만든 이유</span>
+      <h2 class="story-h2 fade-in" id="story-h2">더 많이 가르치는 것이 아니라,<br>더 정확하게 이해하는 것</h2>
+      <div class="story-body fade-in">
+        <p id="story-p1">한국의 교육열은 세계 최고 수준입니다. 그리고 한국 부모의 교육 불안도 세계 최고 수준입니다.</p>
+        <p id="story-p2">오션은 묻습니다. 이 둘이 반드시 함께여야 하는가.</p>
+        <div class="story-pull" id="story-pull">발달심리학은 50년 전부터 알고 있었습니다 — 아이마다 배우는 방식이 다르다는 것을.</div>
+        <p id="story-p3">성향에 맞는 환경이 주어질 때, 아이는 불안 없이 자랍니다. 그리고 그 발달의 격차는 생각보다 빠르게 좁혀집니다.</p>
+        <p id="story-p4">오션은 그 과학을 모든 부모의 손에 쥐여드리고 싶습니다. 대치동 학부모만의 정보가 아니라. 비싼 상담사를 찾아갈 여유가 없어도. <strong>우리 아이를 제대로 이해하는 첫 번째 도구</strong>가 되고 싶습니다.</p>
+        <p id="story-p5">더 많이 가르치는 것이 아니라, 더 정확하게 이해하는 것. 그게 오션이 믿는 교육입니다.</p>
       </div>
     </div>
   </section>
@@ -609,23 +1105,41 @@
   <!-- WAITLIST -->
   <section class="waitlist" id="waitlist">
     <div class="waitlist-inner">
-      <span class="section-label fade-in" id="wl-label">가장 먼저 만나보세요</span>
-      <h2 class="fade-in" id="wl-h2">오션이 곧 찾아옵니다.</h2>
-      <p class="waitlist-desc fade-in" id="wl-desc">지금 사전 신청하시면 런칭 소식을 가장 먼저 전해드립니다.</p>
-      <form class="waitlist-form fade-in" name="waitlist" method="POST" data-netlify="true">
+      <span class="section-label fade-in">사전 등록</span>
+      <h2 class="waitlist-h2 fade-in" id="wl-h2">오션이<br><em>곧 찾아옵니다.</em></h2>
+      <p class="waitlist-desc fade-in" id="wl-desc">지금 등록하시면 런칭 소식을 가장 먼저 전해드립니다.</p>
+      <form class="waitlist-form fade-in" name="waitlist" method="POST" data-netlify="true" onsubmit="handleWaitlist(event)">
         <input type="hidden" name="form-name" value="waitlist" />
         <input type="email" name="email" id="wl-email" placeholder="이메일 주소를 입력해주세요" required />
-        <button type="submit" id="wl-btn">사전 신청하기</button>
+        <button type="submit" id="wl-btn">등록하기</button>
       </form>
+      <p class="waitlist-note fade-in" id="wl-note">스팸 없이, 런칭 소식만 전해드립니다.</p>
+      <div id="wl-success">✓ 등록되었습니다. 런칭 소식을 가장 먼저 전해드리겠습니다.</div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="instagram">
+    <div class="instagram-inner fade-in">
+      <h2 class="instagram-h2" id="ig-h2">매주 성향별 육아·교육 팁</h2>
+      <p class="instagram-sub" id="ig-sub">인스타그램에서 오션을 팔로우하세요</p>
+      <a href="https://instagram.com/oceanbig5" target="_blank" class="instagram-btn" id="ig-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        @oceanbig5 팔로우하기
+      </a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
+    <div class="footer-logo">OCEAN <span>/</span> 오션</div>
     <p id="footer-text">© 2025 OCEAN / 오션. All rights reserved.</p>
   </footer>
 
-  <script src="translations-kr.js"></script>
   <script>
     // ── NAV SCROLL ──
     const nav = document.getElementById('mainNav');
@@ -635,127 +1149,86 @@
 
     // ── SCROLL ANIMATIONS ──
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── CHECKLIST STAGGER ──
+    const checkItems = document.querySelectorAll('.checklist-item');
+    setTimeout(() => {
+      checkItems.forEach(item => item.classList.add('visible'));
+    }, 200);
+
+    // ── WAITLIST ──
+    function handleWaitlist(e) {
+      e.preventDefault();
+      const email = document.getElementById('wl-email').value;
+      if (!email) return;
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'form-name': 'waitlist', email }).toString()
+      }).then(() => {
+        document.querySelector('.waitlist-form').style.display = 'none';
+        document.getElementById('wl-success').style.display = 'block';
+      }).catch(() => {
+        document.getElementById('wl-success').style.display = 'block';
+      });
+    }
 
     // ── LANGUAGE ──
     const t = {
-      en: {
-        eyebrow: "Facing yourself as a parent",
-        checklist_label: "What's on your mind?",
-        c1: "You keep having the same fight with your child every day.",
-        c2: "You're trying hard, but nothing seems to get through.",
-        c3: "You want to understand why your child really acts this way.",
-        c4: "You're not sure your approach is working.",
-        hook: "If any of these sound familiar, <strong>OCEAN can help.</strong>",
-        reframe1: "It may not be your child's problem.",
-        reframe2: "It may be two different personalities colliding.",
-        reframe3: "<span class='highlight'>OCEAN pinpoints exactly where — and why.</span>",
-        cta: "Take the Free Assessment →",
-        cta_sub: "15 min · Free · Instant results",
-        why_label: "Why not MBTI?",
-        why_h2: "MBTI explains <em>you</em>.<br>OCEAN explains <em>the space between you.</em>",
-        why_p1: "MBTI is fun. But it has real limits when it comes to children. The moment you assign a type, your child gets locked into a box.",
-        why_p2: "OCEAN is built on Big Five — the most rigorously tested framework in developmental psychology. It measures degrees of trait, not types. And traits can grow.",
-        why_p3: "More importantly, OCEAN doesn't just look at your child. It looks at both of you. The point where your personalities meet — that's where conflict starts, and where understanding begins.",
-        how_label: "How it works",
-        how_h2: "From assessment to change",
-        how1_h: "Parent and child take the assessment together",
-        how1_p: "Completed in 15 minutes. The parent answers first, then continues with the child. There are no right answers.",
-        how2_h: "We map where your personalities diverge",
-        how2_p: "OCEAN analyzes both profiles side by side — showing exactly where you're aligned, and where you're missing each other.",
-        how3_h: "Why you clash, and how to connect",
-        how3_p: "Not generic type descriptions. Specific guidance for this child, this parent, this moment.",
-        journey_label: "As deep as you need",
-        journey_h2: "It starts with a free assessment.",
-        journey_intro: "Where you go from there depends on what you find.",
-        j1_h: "Some parents find the report is enough.",
-        j1_p: "The profile and communication guide alone give many parents that 'oh, so that's why' moment.",
-        j2_h: "Some go deeper with an expert.",
-        j2_p: "1:1 coaching with an OCEAN specialist — translating the report into real conversations and parenting decisions.",
-        j3_h: "Some bring OCEAN into their child's daily life.",
-        j3_p: "OCEAN is there at every depth.",
-        journey_cta: "Find out which step is right for you →",
-        chars_label: "The Characters",
-        chars_h2: "Five children. Five spirits. One family.",
-        chars_sub: "Each of the five OCEAN characters embodies one of the Big Five traits. Somewhere in here, you'll see your child.",
-        chiu_desc: "The one who was already done before you asked.",
-        osol_desc: "Always daydreaming — but actually thinking harder than anyone.",
-        epa_desc: "First one to make friends, wherever they go.",
-        aru_desc: "Knows how you're feeling before you say a word.",
-        nuri_desc: "Moved by things no one else even notices.",
-        sci_label: "The Science",
-        sci_h2: "A validated framework",
-        sci_p1: "Big Five is the foundation of 50 years of developmental psychology research worldwide. Korean studies have confirmed it is measurable from age 3.",
-        sci_p2: "OCEAN translates that science into language parents can actually use. No jargon. No complexity. Just a clearer view of your child.",
-        stat1: "years of validated\ndevelopmental research",
-        stat2: "traits that explain\nhow your child moves through the world",
-        stat3: "to complete\ninstant results",
-        wl_label: "Be the first to know",
-        wl_h2: "OCEAN is coming.",
-        wl_desc: "Join the waitlist and we'll reach out when we launch.",
-        wl_email: "Your email address",
-        wl_btn: "Join Waitlist",
-        footer: "© 2025 OCEAN / 오션. All rights reserved.",
-      },
       kr: {
-        eyebrow: "부모로서의 나 마주보기",
-        checklist_label: "당신의 고민은 무엇인가요?",
-        c1: "아이와 매일 같은 싸움을 반복하고 있다.",
-        c2: "열심히 하는데 왜 이렇게 안 통하는지 모르겠다.",
-        c3: "아이가 왜 그러는지, 진짜 이유를 알고 싶다.",
-        c4: "지금 내 방식이 맞는 건지 확신이 없다.",
-        hook: "하나라도 해당된다면, <strong>오션이 도움이 될 수 있습니다.</strong>",
-        reframe1: "아이의 문제가 아닐 수 있습니다.",
-        reframe2: "부모와 아이, 서로 다른 성향이 부딪히고 있는 걸 수 있어요.",
-        reframe3: "<span class='highlight'>오션은 그 부딪히는 지점을 정확히 짚어드립니다.</span>",
-        cta: "무료 검사 시작하기 →",
-        cta_sub: "15분 · 무료 · 즉시 결과 확인",
-        why_label: "왜 MBTI가 아닌가요?",
-        why_h2: "MBTI는 <em>나를</em> 설명합니다.<br>오션은 <em>우리 사이를</em> 설명합니다.",
-        why_p1: "MBTI, 재미있죠. 근데 우리 아이한테 쓰기엔 한계가 있습니다. 유형으로 나누는 순간, 아이는 그 틀 안에 갇혀버립니다.",
-        why_p2: "오션은 Big Five — 50년간 검증된 발달심리학의 프레임워크를 바탕으로 합니다. 유형이 아니라 성향의 정도를 봅니다. 그리고 성향은 자랄 수 있습니다.",
-        why_p3: "더 중요한 것은, 오션은 아이만 보지 않습니다. 부모의 성향도 함께 봅니다. 두 성향이 만나는 지점 — 거기서 갈등이 생기고, 거기서 이해가 시작됩니다.",
-        how_label: "이렇게 작동합니다",
-        how_h2: "검사부터 변화까지",
-        how1_h: "부모와 아이가 함께 검사합니다",
-        how1_p: "15분 안에 완료됩니다. 부모가 먼저 답하고, 아이와 함께 이어갑니다. 정답은 없습니다.",
-        how2_h: "성향 차이 지점을 분석합니다",
-        how2_p: "오션은 아이의 Big Five 프로필과 부모의 프로필을 함께 분석합니다. 어디서 잘 맞고, 어디서 엇갈리는지를 구체적으로 보여드립니다.",
-        how3_h: "왜 부딪히는지, 어떻게 다가가면 되는지",
-        how3_p: "단순한 유형 설명이 아닙니다. 이 아이에게, 이 부모에게, 지금 이 순간에 맞는 소통 방법을 알려드립니다.",
-        journey_label: "필요한 만큼, 원하는 깊이로",
-        journey_h2: "무료 검사로 시작합니다.",
-        journey_intro: "거기서 뭘 발견하느냐에 따라, 다음 단계가 달라집니다.",
-        j1_h: "어떤 부모는 리포트만으로도 충분합니다.",
-        j1_p: "성향 분석과 소통 가이드만으로도 '아, 그래서 그랬구나'를 경험하는 부모님들이 있습니다.",
-        j2_h: "어떤 부모는 전문가와 함께 더 깊이 들어갑니다.",
-        j2_p: "오션 전문 상담사와의 1:1 코칭을 통해, 리포트를 실제 대화와 육아로 연결합니다.",
-        j3_h: "어떤 부모는 아이의 일상 안으로 직접 들어오는 걸 선택합니다.",
-        j3_p: "오션은 그 모든 깊이에 함께합니다.",
-        journey_cta: "어떤 단계가 맞는지 알아보기 →",
-        chars_label: "캐릭터",
-        chars_h2: "다섯 아이. 다섯 기운. 하나의 가족.",
-        chars_sub: "오션의 다섯 캐릭터는 Big Five의 다섯 성향을 담고 있습니다. 우리 아이의 모습이 어딘가에 있을 거예요.",
-        chiu_desc: "시키기도 전에 이미 다 해놓은 아이.",
-        osol_desc: "맨날 딴 생각하는 것 같은데, 사실 제일 많이 생각하는 아이.",
-        epa_desc: "어디서든 제일 먼저 친구 사귀는 아이.",
-        aru_desc: "아무 말 안 해도 눈치채는 아이.",
-        nuri_desc: "별것 아닌 것에 가장 크게 감동받는 아이.",
-        sci_label: "과학적 배경",
-        sci_h2: "검증된 프레임워크",
-        sci_p1: "Big Five는 전 세계 50년 발달심리 연구의 기반입니다. 국내 유아 대상 연구에서도 만 3세부터 측정 가능한 것으로 검증되었습니다.",
-        sci_p2: "오션은 그 과학을 부모가 쓸 수 있는 언어로 바꿉니다. 어렵지 않습니다. 복잡하지 않습니다. 우리 아이를 조금 더 선명하게 볼 수 있을 뿐입니다.",
-        stat1: "년간 검증된\n발달심리 연구",
-        stat2: "가지 성향으로\n아이를 이해합니다",
-        stat3: "검사 완료\n즉시 결과 확인",
-        wl_label: "가장 먼저 만나보세요",
-        wl_h2: "오션이 곧 찾아옵니다.",
-        wl_desc: "지금 사전 신청하시면 런칭 소식을 가장 먼저 전해드립니다.",
-        wl_email: "이메일 주소를 입력해주세요",
-        wl_btn: "사전 신청하기",
-        footer: "© 2025 OCEAN / 오션. All rights reserved.",
+        nav_how: '어떻게 작동하나요', nav_tiers: '서비스', nav_cta: '무료 검사',
+        hero_eyebrow: 'Big Five 성격 과학 기반 교육 플랫폼',
+        hero_h1: '세상에서 가장 많이 연구된\n성격 과학, 우리 아이 교육에\n쓰는 부모는 아직 많지 않습니다.',
+        hero_sub: '아이마다 배우는 방식이 다릅니다. 성향을 알면, 같은 노력으로 다른 결과가 나옵니다.',
+        c1: '학원을 바꿔봤는데도 달라지지 않는다',
+        c2: '공부를 왜 싫어하는지, 진짜 이유를 모른다',
+        c3: '옆집 아이한테 되는 방법이 우리 아이한테는 안 된다',
+        c4: '지금 내 방식이 아이 잠재력을 막고 있는 건 아닐까',
+        hero_cta: '무료 검사 시작하기 →', hero_cta_sub: '15분 · 무료 · 즉시 결과 확인',
+        hook_h2: '우리 아이에게 맞는 방법이 따로 있습니다. 아직 모르고 있을 뿐입니다.',
+        hook_body: '아이마다 수학을 배우는 방식이 다릅니다. 국어, 영어, 과학도 마찬가지입니다. 성향을 알면, 같은 내용을 가르쳐도 스며드는 방식이 달라집니다.',
+        sci_h2: 'MBTI가 아닙니다. 정신과에서도 쓰는 성격 과학입니다.',
+        how_h2: '15분이면 충분합니다', how_sub: '부모와 아이가 함께, 즉시 결과 확인',
+        how1_h: '부모 + 아이 함께 검사', how2_h: '즉시 리포트 확인', how3_h: '오늘부터 다르게',
+        report_h: '무료 리포트 하나에, 이 모든 것이 담깁니다',
+        tiers_h2: '필요한 만큼, 원하는 깊이로',
+        tiers_sub: '무료 검사로 시작해서, 필요할 때 더 깊이 들어갑니다',
+        wl_h2: '오션이 곧 찾아옵니다.',
+        wl_desc: '지금 등록하시면 런칭 소식을 가장 먼저 전해드립니다.',
+        wl_note: '스팸 없이, 런칭 소식만 전해드립니다.',
+        ig_h2: '매주 성향별 육아·교육 팁', ig_sub: '인스타그램에서 오션을 팔로우하세요',
+        ig_btn: '@oceanbig5 팔로우하기',
+        footer: '© 2025 OCEAN / 오션. All rights reserved.',
+      },
+      en: {
+        nav_how: 'How it works', nav_tiers: 'Plans', nav_cta: 'Free Assessment',
+        hero_eyebrow: 'Big Five Science-Based Education Platform',
+        hero_h1: 'The world\'s most researched\npersonality science —\nfew parents use it for education.',
+        hero_sub: 'Every child learns differently. Know their personality, get different results with the same effort.',
+        c1: 'Changed tutors, but nothing changed',
+        c2: 'Don\'t know why my child hates studying',
+        c3: 'What works for other kids doesn\'t work for mine',
+        c4: 'What if my approach is actually limiting my child\'s potential?',
+        hero_cta: 'Start Free Assessment →', hero_cta_sub: '15 min · Free · Instant results',
+        hook_h2: 'There\'s a method that works specifically for your child. You just don\'t know it yet.',
+        hook_body: 'Every child learns math differently. The same is true for reading, English, and science. Know the personality, and the same content lands differently.',
+        sci_h2: 'Not MBTI. The personality science used in clinical psychiatry.',
+        how_h2: '15 minutes is all it takes', how_sub: 'Parent and child together, instant results',
+        how1_h: 'Parent + child take the assessment', how2_h: 'Instant report', how3_h: 'Different from today',
+        report_h: 'One free report. Everything inside.',
+        tiers_h2: 'As deep as you need',
+        tiers_sub: 'Start with the free assessment, go deeper when you\'re ready',
+        wl_h2: 'OCEAN is coming.',
+        wl_desc: 'Sign up now and we\'ll reach out when we launch.',
+        wl_note: 'No spam. Launch updates only.',
+        ig_h2: 'Weekly personality-based parenting tips', ig_sub: 'Follow OCEAN on Instagram',
+        ig_btn: 'Follow @oceanbig5',
+        footer: '© 2025 OCEAN. All rights reserved.',
       }
     };
 
@@ -764,74 +1237,42 @@
       btn.classList.add('active');
       sessionStorage.setItem('ocean_lang', lang);
       const l = t[lang];
-      document.getElementById('hero-eyebrow').textContent = l.eyebrow;
-      document.getElementById('checklist-label').textContent = l.checklist_label;
+      document.getElementById('nav-how').textContent = l.nav_how;
+      document.getElementById('nav-tiers').textContent = l.nav_tiers;
+      document.getElementById('nav-cta').textContent = l.nav_cta;
+      document.getElementById('hero-eyebrow').textContent = l.hero_eyebrow;
+      document.getElementById('hero-sub').textContent = l.hero_sub;
       document.getElementById('c1').textContent = l.c1;
       document.getElementById('c2').textContent = l.c2;
       document.getElementById('c3').textContent = l.c3;
       document.getElementById('c4').textContent = l.c4;
-      document.getElementById('hero-hook').innerHTML = l.hook;
-      document.getElementById('reframe1').textContent = l.reframe1;
-      document.getElementById('reframe2').textContent = l.reframe2;
-      document.getElementById('reframe3').innerHTML = l.reframe3;
-      document.getElementById('hero-cta').textContent = l.cta;
-      document.getElementById('hero-cta-sub').textContent = l.cta_sub;
-      document.getElementById('why-label').textContent = l.why_label;
-      document.getElementById('why-h2').innerHTML = l.why_h2;
-      document.getElementById('why-p1').textContent = l.why_p1;
-      document.getElementById('why-p2').textContent = l.why_p2;
-      document.getElementById('why-p3').textContent = l.why_p3;
-      document.getElementById('how-label').textContent = l.how_label;
+      document.getElementById('hero-cta').textContent = l.hero_cta;
+      document.getElementById('hero-cta-sub').textContent = l.hero_cta_sub;
+      document.getElementById('hook-h2').textContent = l.hook_h2;
+      document.getElementById('hook-body').textContent = l.hook_body;
       document.getElementById('how-h2').textContent = l.how_h2;
+      document.getElementById('how-sub').textContent = l.how_sub;
       document.getElementById('how1-h').textContent = l.how1_h;
-      document.getElementById('how1-p').textContent = l.how1_p;
       document.getElementById('how2-h').textContent = l.how2_h;
-      document.getElementById('how2-p').textContent = l.how2_p;
       document.getElementById('how3-h').textContent = l.how3_h;
-      document.getElementById('how3-p').textContent = l.how3_p;
-      document.getElementById('journey-label').textContent = l.journey_label;
-      document.getElementById('journey-h2').textContent = l.journey_h2;
-      document.getElementById('journey-intro').textContent = l.journey_intro;
-      document.getElementById('j1-h').textContent = l.j1_h;
-      document.getElementById('j1-p').textContent = l.j1_p;
-      document.getElementById('j2-h').textContent = l.j2_h;
-      document.getElementById('j2-p').textContent = l.j2_p;
-      document.getElementById('j3-h').textContent = l.j3_h;
-      document.getElementById('j3-p').textContent = l.j3_p;
-      document.getElementById('journey-cta').textContent = l.journey_cta;
-      document.getElementById('chars-label').textContent = l.chars_label;
-      document.getElementById('chars-h2').textContent = l.chars_h2;
-      document.getElementById('chars-sub').textContent = l.chars_sub;
-      document.getElementById('chiu-desc').textContent = l.chiu_desc;
-      document.getElementById('osol-desc').textContent = l.osol_desc;
-      document.getElementById('epa-desc').textContent = l.epa_desc;
-      document.getElementById('aru-desc').textContent = l.aru_desc;
-      document.getElementById('nuri-desc').textContent = l.nuri_desc;
-      document.getElementById('sci-label').textContent = l.sci_label;
-      document.getElementById('sci-h2').textContent = l.sci_h2;
-      document.getElementById('sci-p1').textContent = l.sci_p1;
-      document.getElementById('sci-p2').textContent = l.sci_p2;
-      document.getElementById('stat1').textContent = l.stat1;
-      document.getElementById('stat2').textContent = l.stat2;
-      document.getElementById('stat3').textContent = l.stat3;
-      document.getElementById('wl-label').textContent = l.wl_label;
+      document.getElementById('report-h').textContent = l.report_h;
+      document.getElementById('tiers-h2').textContent = l.tiers_h2;
+      document.getElementById('tiers-sub').textContent = l.tiers_sub;
       document.getElementById('wl-h2').textContent = l.wl_h2;
       document.getElementById('wl-desc').textContent = l.wl_desc;
-      document.getElementById('wl-email').placeholder = l.wl_email;
-      document.getElementById('wl-btn').textContent = l.wl_btn;
+      document.getElementById('wl-note').textContent = l.wl_note;
+      document.getElementById('ig-h2').textContent = l.ig_h2;
+      document.getElementById('ig-sub').textContent = l.ig_sub;
+      document.getElementById('ig-btn').textContent = l.ig_btn;
       document.getElementById('footer-text').textContent = l.footer;
     }
 
-    // Apply saved language on load
     document.addEventListener('DOMContentLoaded', () => {
-      const saved = sessionStorage.getItem('ocean_lang');
-      if (saved && saved !== 'en') {
-        const btn = document.querySelector('#langToggle button[data-lang="' + saved + '"]');
-        if (btn) setLang(saved, btn);
-      } else {
-        setLang('kr', document.querySelector('#langToggle button[data-lang="kr"]'));
-      }
+      const saved = sessionStorage.getItem('ocean_lang') || 'kr';
+      const btn = document.querySelector(`#langToggle button[data-lang="${saved}"]`);
+      if (btn) setLang(saved, btn);
     });
   </script>
+
 </body>
 </html>
