@@ -819,6 +819,28 @@
     📄 리포트 저장하기
   </button>
 </div>
+
+<!-- EMAIL CAPTURE -->
+<div id="emailCaptureBox" style="background:var(--cream);border-radius:16px;padding:24px 28px;margin-bottom:24px;text-align:center;">
+  <p style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--ink);margin-bottom:6px;">이 리포트, 저장해두고 싶으신가요?</p>
+  <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">이메일로 보내드립니다. 광고 없이, 리포트만.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:360px;margin:0 auto;">
+    <input type="text" id="emailCaptureName" placeholder="이름 (선택사항)"
+      style="padding:12px 16px;border:1.5px solid var(--celadon-light);border-radius:12px;
+      font-family:'Noto Serif KR',serif;font-size:14px;color:var(--ink);background:var(--white);outline:none;" />
+    <input type="email" id="emailCaptureEmail" placeholder="이메일 주소 *"
+      style="padding:12px 16px;border:1.5px solid var(--celadon-light);border-radius:12px;
+      font-family:'Noto Serif KR',serif;font-size:14px;color:var(--ink);background:var(--white);outline:none;" />
+    <button onclick="submitEmailCapture()"
+      style="padding:13px;background:var(--celadon);color:var(--white);border:none;border-radius:40px;
+      font-family:'Noto Serif KR',serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s ease;">
+      리포트 받기 →
+    </button>
+  </div>
+  <div id="emailCaptureMsg" style="margin-top:12px;font-size:13px;color:var(--celadon);display:none;">
+    ✓ 감사합니다. 리포트를 보내드리겠습니다.
+  </div>
+</div>
       
       <!-- OCEAN EXPLAINER + FIVE CHARACTERS — rendered by JS -->
       <div id="oceanExplainerSection"></div>
@@ -2447,6 +2469,30 @@ function eduSwitchTab(subj) {
   document.querySelector(`#edu-panel-${subj}`).classList.add('active');
   event.target.classList.add('active');
 } 
+function submitEmailCapture() {
+  const name  = document.getElementById('emailCaptureName').value.trim();
+  const email = document.getElementById('emailCaptureEmail').value.trim();
+
+  if (!email || !email.includes('@')) {
+    alert('올바른 이메일 주소를 입력해주세요.');
+    return;
+  }
+
+  const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfOS3Oi4QIowjnDB0_DmktYPIQ26_1eKaHp4nRJovnL3DE_Lw/formResponse';
+  const body = new FormData();
+  body.append('entry.783975413', name);
+  body.append('entry.1129187739', email);
+
+  fetch(formUrl, { method: 'POST', mode: 'no-cors', body })
+    .then(() => {
+      document.getElementById('emailCaptureMsg').style.display = 'block';
+      document.getElementById('emailCaptureEmail').value = '';
+      document.getElementById('emailCaptureName').value = '';
+    })
+    .catch(() => {
+      document.getElementById('emailCaptureMsg').style.display = 'block';
+    });
+}
 </script>
 </body>
 </html>
