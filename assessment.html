@@ -1821,51 +1821,6 @@ function renderCompatibilityFlags(childScores) {
   if (!section || Object.keys(parentScores).length === 0) return;
   const isKr = currentLang === 'kr';
 
- const cNE = childScores.negative_emotionality ?? 50;
-const cEX = childScores.extraversion          ?? 50;
-const cOP = childScores.openness              ?? 50;
-const pNE = parentScores.negative_emotionality ?? 50;
-const pAG = parentScores.agreeableness         ?? 50;
-const pCO = parentScores.conscientiousness     ?? 50;
-const pEX = parentScores.extraversion          ?? 50;
-const pOP = parentScores.openness              ?? 50;
-
-  const flags = [];
-
-  if (cNE > 55 && pAG < 50) flags.push({
-    level:'hi', icon:'⚠️',
-    titleKr:'감정 지지 부족', titleEn:'Emotional scaffolding gap',
-    bodyKr:'지금 이 패턴이 반복되면, 아이는 감정이 격해질 때마다 혼자라는 느낌을 학습합니다. 아이의 감정 반응이 강한데, 부모님의 자연스러운 반응은 공감보다 해결입니다. 틀린 게 아닙니다 — 하지만 이 조합에서 아이는 "내가 너무 예민한 건가"를 반복적으로 내면화할 수 있습니다. 예민한 아이에게 반응적 양육이 특히 보호적으로 작용한다는 것이 빅5 연구에서 반복적으로 확인된 조합입니다 (Slagt et al., 2016; Thompson et al., 2025).',
-    bodyEn:'If this pattern repeats, your child learns that big feelings mean being alone. Your child feels intensely, but your natural response is to solve rather than reflect. That\'s not wrong — but this combination can quietly teach your child that they\'re "too much." Responsive parenting is especially protective for high-sensitivity children (Slagt et al., 2016; Thompson et al., 2025).',
-    tipKr:'아이가 무너질 때, 이유를 묻기 전에 "많이 힘들었겠다" 한 마디가 먼저입니다.',
-    tipEn:'Before asking why, lead with "that sounds really hard." One sentence before any solution.'
-  });
-
-  if (cNE > 55 && pCO < 50) flags.push({
-    level:'hi', icon:'⚠️',
-    titleKr:'환경 불안정 위험', titleEn:'Environmental instability risk',
-    bodyKr:'지금 이 패턴이 반복되면, 아이의 불안은 서서히 높아집니다. 예민한 아이에게 하루의 예측 가능성은 안전망입니다. 부모님의 유연하고 즉흥적인 스타일은 많은 상황에서 강점이지만, 이 아이에게는 불안의 원인이 될 수 있습니다. 안정적이고 구조화된 환경이 시간이 지나며 감수성 수준을 낮추는 데 도움이 된다는 것이 빅5 연구에서 반복적으로 확인된 조합입니다 (Shiner et al., 2017).',
-    bodyEn:'If this pattern repeats, your child\'s baseline anxiety will gradually rise. Predictable routines are the safety net for sensitive children. Your flexibility is a strength in many contexts — but for this child, inconsistency is a source of stress. Stable environments help lower neuroticism over time (Shiner et al., 2017).',
-    tipKr:'취침 시간 하나만 먼저 고정해보세요. 작은 닻 하나가 아이의 하루 전체를 안정시킵니다.',
-    tipEn:'Fix one anchor first — consistent bedtime alone is enough to start. Small predictability compounds.'
-  });
-
-  if (cNE > 55 && pNE > 55) flags.push({
-    level:'hi', icon:'⚠️',
-    titleKr:'감정 증폭 패턴', titleEn:'Emotional amplification loop',
-    bodyKr:'아이와 부모님 모두 감정 반응이 강한 편입니다. 한쪽이 흔들리면 다른 쪽도 함께 흔들리는 상호 증폭 패턴이 생길 수 있습니다.',
-    bodyEn:'Both you and your child have strong emotional reactivity. When one person escalates, the other tends to follow — creating cycles that are hard to exit.',
-    tipKr:'5분 후에 이야기하자는 규칙을 갈등 전에 미리 정해두세요.',
-    tipEn:'Agree on a 5-minute rule during calm moments: either person can call a pause before continuing.'
-  });
-
-  if (cEX < 45 && pEX >= 50) flags.push({
-    level:'med', icon:'💛',
-    titleKr:'에너지 수준 차이', titleEn:'Energy level mismatch'function renderCompatibilityFlags(childScores) {
-  const section = document.getElementById('compatibilitySection');
-  if (!section || Object.keys(parentScores).length === 0) return;
-  const isKr = currentLang === 'kr';
-
   const cNE = childScores.negative_emotionality ?? 50;
   const cEX = childScores.extraversion          ?? 50;
   const cOP = childScores.openness              ?? 50;
